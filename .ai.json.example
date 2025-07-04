@@ -1,0 +1,58 @@
+{
+    "meta": {
+        "project": "NAME DES PROJEKTS",
+        "version": "1.0.0",
+        "author": "Dein Name oder Organisation",
+        "description": "Kurzbeschreibung dieses Projekts oder Systems",
+        "created": "YYYY-MM-DD"
+    },
+
+    "architecture": [
+        {
+            "module": "Name oder Bereich (z.B. Authentifizierung)",
+            "description": "Was macht dieser Teil des Systems?",
+            "entrypoints": ["z.B. login.php", "authController.js"],
+            "routes": ["/login", "/register"],
+            "dependencies": ["z.B. SessionManager", "UserModel"]
+        }
+    ],
+
+    "errors": [
+        {
+            "code": "KURZER_FEHLERCODE",
+            "message": "Beschreibung des Fehlers in einem Satz",
+            "causes": ["Mögliche Ursache 1", "Mögliche Ursache 2"],
+            "solutions": ["Empfohlene Lösung 1", "Hinweis oder Maßnahme"]
+        }
+    ],
+
+    "tasks": [
+        {
+            "task": "Was muss erledigt werden?",
+            "priority": "hoch / mittel / niedrig",
+            "status": "offen / in Bearbeitung / erledigt",
+            "relatedModules": ["Name des Moduls (optional)"],
+            "due": "YYYY-MM-DD"
+        }
+    ],
+
+    "context": [
+        {
+            "key": "Schlüsselbegriff oder -funktion",
+            "value": "Erklärung, wie es im Projekt genutzt wird"
+        }
+    ],
+
+    "references": [
+        {
+            "type": "doc",
+            "label": "Name oder Zweck",
+            "url": "./AI-INTEGRATION.md"
+        },
+        {
+            "type": "tag",
+            "label": "@ai-docs",
+            "description": "Bedeutung oder Einsatzbereich dieses Tags"
+        }
+    ]
+}
