@@ -1,4 +1,4 @@
-# coreX AI MindLayer
+# coreX AI MindLayer by Sascha Buscher - aiqia.de
 
 **Universal `.ai.json`-based standard for assistant-readable architecture and AI-ready project knowledge.**
 
