@@ -56,3 +56,19 @@ See [LICENSE.md](LICENSE.md) for terms.
 
 > Questions, ideas, or collaborations?  
 > [info@aiqia.de](mailto:info@aiqia.de)
+
+---
+
+## 📘 Beispiel: `.ai.json.example`
+
+Im Repository befindet sich eine **Vorlagendatei namens `.ai.json.example`**.
+
+Diese dient als **strukturierte Orientierung** für eigene Projekte und soll als Ausgangspunkt für die Erstellung einer individuellen `.ai.json` genutzt werden.
+
+🛠️ Vorgehensweise:
+
+1. Kopiere `.ai.json.example` → `.ai.json`
+2. Fülle projektspezifische Informationen aus
+3. Die Datei wird automatisch vom `ai-init.php` erkannt und kann von KI-Systemen genutzt werden
+
+⚠️ Hinweis: Die Datei `.ai.json` ist standardmäßig in `.gitignore` enthalten und wird nicht versioniert.
