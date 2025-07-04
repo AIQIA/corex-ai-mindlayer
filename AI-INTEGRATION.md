@@ -30,7 +30,7 @@ To support automatic detection, a helper script (optional):
 <?php
 // AI INIT MARKER
 define("AIQIA_MINDLAYER_ACTIVE", true);
-define("AI_JSON_FILE", __DIR__ . "/ai.json");
+define("AI_JSON_FILE", __DIR__ . "/.ai.json");
 
 // Optional: validation and assistant-specific flags
 if (file_exists(AI_JSON_FILE)) {

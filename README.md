@@ -36,7 +36,7 @@ At its core is the `.ai.json` file – a living, structured map of your project'
 ## 📂 Status
 
 > This is the official first release of the coreX AI MindLayer  
-> Authored and published by **Sascha Nothelle (AIQIA)** on **2025-07-04**
+> Authored and published by **Sascha Buscher - aiqia.de** on **2025-07-04**
 
 ---
 

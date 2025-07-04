@@ -10,7 +10,7 @@
 
 - Erste Veröffentlichung des AI-Standards `.ai.json`  
 - Einführung der zentralen Komponenten:
-  - `ai.json` (Wissensstruktur)
+  - `.ai.json` (Wissensstruktur)
   - `ai-init.php` (Erkennung)
   - `AI-INTEGRATION.md` (Dokumentation für Assistenten)
 - Projektstruktur mit `README.md`, `LICENSE.md`, `.gitignore` und `.ai.json.example`

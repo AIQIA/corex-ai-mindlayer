@@ -4,7 +4,7 @@
  * Initialisiert und signalisiert die Anwesenheit einer .ai.json-Datei im Projekt.
  * Dient als Erkennungsmarker für KI-Assistenten wie ChatGPT, CoPilot, Cody etc.
  *
- * @author AIQIA / aiqia.de
+ * @author Sascha Buscher - aiqia.de
  * @since 2025-07-04
  */
 
@@ -23,14 +23,14 @@ if (file_exists(AI_JSON_PATH)) {
             "ai_json_found" => true,
             "version" => "1.0.0",
             "project" => "coreX AI MindLayer",
-            "powered_by" => "AIQIA / aiqia.de"
+            "powered_by" => "Sascha Buscher - aiqia.de"
         ], JSON_PRETTY_PRINT);
     } else {
         echo "<h2 style='font-family:sans-serif;color:green;'>🧠 coreX AI MindLayer aktiv</h2>";
-        echo "<p>Die <code>ai.json</code> wurde erfolgreich erkannt.</p>";
+        echo "<p>Die <code>.ai.json</code> wurde erfolgreich erkannt.</p>";
         echo "<p><strong>Projekt:</strong> coreX AI MindLayer</p>";
         echo "<p><strong>Status:</strong> <span style='color:green;'>Aktiv</span></p>";
-        echo "<p><strong>Quelle:</strong> <code>ai.json</code></p>";
+        echo "<p><strong>Quelle:</strong> <code>.ai.json</code></p>";
     }
 } else {
     http_response_code(404);
@@ -41,7 +41,7 @@ if (file_exists(AI_JSON_PATH)) {
         ], JSON_PRETTY_PRINT);
     } else {
         echo "<h2 style='font-family:sans-serif;color:red;'>⚠️ MindLayer nicht aktiv</h2>";
-        echo "<p>Keine <code>ai.json</code>-Datei im Projekt gefunden.</p>";
+        echo "<p>Keine <code>.ai.json</code>-Datei im Projekt gefunden.</p>";
         echo "<p>Status: <span style='color:red;'>Inaktiv</span></p>";
     }
 }
