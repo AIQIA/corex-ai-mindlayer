@@ -1,0 +1,70 @@
+{
+    "meta": {
+        "project": "coreX AI MindLayer",
+        "version": "1.0.0",
+        "author": "AIQIA",
+        "description": "Structured context layer for AI assistant integration in software development projects.",
+        "created": "2025-07-04"
+    },
+    "architecture": [
+        {
+            "module": "Authentication",
+            "description": "Handles user login, logout, session and registration logic.",
+            "entrypoints": ["authController.php", "login.php", "register.php"],
+            "routes": ["/login", "/logout", "/register"],
+            "dependencies": ["SessionManager", "UserModel", "Mailer"]
+        },
+        {
+            "module": "Dashboard",
+            "description": "Displays user-specific data and notifications after login.",
+            "entrypoints": ["dashboardController.php"],
+            "routes": ["/dashboard"],
+            "dependencies": ["UserModel", "NotificationService"]
+        }
+    ],
+    "errors": [
+        {
+            "code": "AUTH001",
+            "message": "Invalid login credentials",
+            "causes": ["Incorrect username/password", "Unverified user", "Session timeout"],
+            "solutions": ["Check input", "Validate user verification state", "Ensure session logic is active"]
+        },
+        {
+            "code": "SYS500",
+            "message": "Unhandled server exception",
+            "causes": ["Null response", "DB layer timeout"],
+            "solutions": ["Enable verbose logging", "Review error logs", "Check DB connection pool"]
+        }
+    ],
+    "tasks": [
+        {
+            "task": "Implement password reset flow",
+            "priority": "high",
+            "status": "open",
+            "relatedModules": ["Authentication"],
+            "due": "2025-07-15"
+        }
+    ],
+    "context": [
+        {
+            "key": "sessionHandler",
+            "value": "All sessions are initiated via SessionManager.php and wrapped with auth middleware."
+        },
+        {
+            "key": "codeAnnotation",
+            "value": "Use `@ai-docs` for sections you want AI assistants to prioritize."
+        }
+    ],
+    "references": [
+        {
+            "type": "doc",
+            "label": "AI Integration Guide",
+            "url": "./AI-INTEGRATION.md"
+        },
+        {
+            "type": "tag",
+            "label": "@ai-docs",
+            "description": "Marks code blocks as assistant-relevant for enhanced understanding."
+        }
+    ]
+}
