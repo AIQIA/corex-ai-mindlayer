@@ -9,7 +9,7 @@
  */
 
 define("AIQIA_MINDLAYER_ACTIVE", true);
-define("AI_JSON_PATH", __DIR__ . "/ai.json");
+define("AI_JSON_PATH", __DIR__ . "/.ai.json");
 
 $isJson = isset($_GET["json"]) || strpos($_SERVER["HTTP_ACCEPT"] ?? "", "application/json") !== false;
 
