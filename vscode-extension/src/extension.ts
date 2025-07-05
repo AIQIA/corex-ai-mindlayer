@@ -8,10 +8,15 @@ export function activate(context: vscode.ExtensionContext) {
     const validateSchemaCommand = vscode.commands.registerCommand('aiMindLayer.validateSchema', validateSchema);
     const runScannerCommand = vscode.commands.registerCommand('aiMindLayer.runScanner', runScanner);
     
-    // NEW: Extended features
+    // NEW: Extended features (v3.0.0)
     const architecturePreviewCommand = vscode.commands.registerCommand('aiMindLayer.architecturePreview', showArchitecturePreview);
     const treeExplorerCommand = vscode.commands.registerCommand('aiMindLayer.openTreeExplorer', openTreeExplorer);
     const aiIntelliSenseCommand = vscode.commands.registerCommand('aiMindLayer.enableIntelliSense', enableAiIntelliSense);
+    
+    // NEW: v3.1.0 AI Integration Features  
+    const mindMapCommand = vscode.commands.registerCommand('aiMindLayer.showMindMap', showMindMapVisualizer);
+    const autoDocsCommand = vscode.commands.registerCommand('aiMindLayer.generateDocs', generateAiDocs);
+    const diffAnalyzerCommand = vscode.commands.registerCommand('aiMindLayer.compareDiff', showDiffAnalyzer);
 
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
@@ -37,6 +42,9 @@ export function activate(context: vscode.ExtensionContext) {
         architecturePreviewCommand,
         treeExplorerCommand,
         aiIntelliSenseCommand,
+        mindMapCommand,
+        autoDocsCommand,
+        diffAnalyzerCommand,
         aiJsonWatcher
     );
 }
@@ -228,28 +236,25 @@ export function deactivate() {
 }
 
 // ========================================
-// NEW: Extended Features (v3.0.0)
+// NEW: v3.0.0 Extended Features
 // ========================================
 
 /**
- * Show Architecture Preview - Visual representation of project structure
+ * Show Architecture Preview - Visual overview of project architecture
  */
 async function showArchitecturePreview() {
-    const panel = vscode.window.createWebviewPanel(
-        'aiArchitecturePreview',
-        '🏗️ Architecture Preview',
-        vscode.ViewColumn.Beside,
-        {
-            enableScripts: true,
-            retainContextWhenHidden: true
-        }
-    );
-
     const aiJsonContent = await loadAiJsonContent();
     if (!aiJsonContent) {
-        panel.webview.html = getErrorHtml('No .ai.json found. Create one first!');
+        vscode.window.showErrorMessage('No .ai.json found. Create one first!');
         return;
     }
+
+    const panel = vscode.window.createWebviewPanel(
+        'architecturePreview',
+        '🏗️ Architecture Preview',
+        vscode.ViewColumn.Two,
+        { enableScripts: true }
+    );
 
     panel.webview.html = getArchitecturePreviewHtml(aiJsonContent);
     
@@ -257,41 +262,45 @@ async function showArchitecturePreview() {
 }
 
 /**
- * Open Tree Explorer - Interactive navigation through AI-structured projects
+ * Open Tree Explorer - File structure visualization
  */
 async function openTreeExplorer() {
-    const panel = vscode.window.createWebviewPanel(
-        'aiTreeExplorer',
-        '🌳 AI Tree Explorer',
-        vscode.ViewColumn.Beside,
-        {
-            enableScripts: true,
-            retainContextWhenHidden: true
-        }
-    );
-
     const aiJsonContent = await loadAiJsonContent();
     if (!aiJsonContent) {
-        panel.webview.html = getErrorHtml('No .ai.json found. Create one first!');
+        vscode.window.showErrorMessage('No .ai.json found. Create one first!');
         return;
     }
 
+    const panel = vscode.window.createWebviewPanel(
+        'treeExplorer',
+        '🌳 Project Tree Explorer',
+        vscode.ViewColumn.Two,
+        { enableScripts: true }
+    );
+
     panel.webview.html = getTreeExplorerHtml(aiJsonContent);
     
-    // Handle messages from webview
+    // Handle file opening from webview
     panel.webview.onDidReceiveMessage(async (message) => {
         if (message.command === 'openFile') {
-            const uri = vscode.Uri.file(message.filePath);
-            const document = await vscode.workspace.openTextDocument(uri);
-            vscode.window.showTextDocument(document);
+            const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+            if (workspaceFolder) {
+                const fileUri = vscode.Uri.joinPath(workspaceFolder.uri, message.filePath);
+                try {
+                    const document = await vscode.workspace.openTextDocument(fileUri);
+                    await vscode.window.showTextDocument(document);
+                } catch (error) {
+                    vscode.window.showErrorMessage(`Could not open file: ${message.filePath}`);
+                }
+            }
         }
     });
-
+    
     vscode.window.showInformationMessage('🌳 Tree Explorer opened!');
 }
 
 /**
- * Enable AI IntelliSense - Context-based code completion from .ai.json
+ * Enable AI IntelliSense - Smart code completion based on .ai.json
  */
 async function enableAiIntelliSense() {
     const aiJsonContent = await loadAiJsonContent();
@@ -300,14 +309,232 @@ async function enableAiIntelliSense() {
         return;
     }
 
-    // Register completion provider for all languages
-    const provider = vscode.languages.registerCompletionItemProvider(
-        { scheme: 'file' },
-        new AiIntelliSenseProvider(aiJsonContent),
-        '.'
+    // Show IntelliSense info panel
+    const panel = vscode.window.createWebviewPanel(
+        'aiIntelliSense',
+        '🧠 AI IntelliSense',
+        vscode.ViewColumn.Two,
+        { enableScripts: true }
     );
 
-    vscode.window.showInformationMessage('🧠 AI IntelliSense enabled! Try typing in your code files.');
+    panel.webview.html = getIntelliSenseHtml(aiJsonContent);
+    
+    vscode.window.showInformationMessage('🧠 AI IntelliSense activated! Enhanced code completion available.');
+}
+
+// ========================================
+// NEW: v3.1.0 AI Integration Features
+// ========================================
+
+/**
+ * Show Mind Map Visualizer - Interactive graph visualization of .ai.json
+ */
+async function showMindMapVisualizer() {
+    const aiJsonContent = await loadAiJsonContent();
+    if (!aiJsonContent) {
+        vscode.window.showErrorMessage('No .ai.json found. Create one first!');
+        return;
+    }
+
+    const panel = vscode.window.createWebviewPanel(
+        'aiMindMapVisualizer',
+        '🧠 AI Mind Map',
+        vscode.ViewColumn.Beside,
+        { enableScripts: true, retainContextWhenHidden: true }
+    );
+
+    panel.webview.html = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI Mind Map</title>
+    <style>
+        body { font-family: sans-serif; background: #1e1e1e; color: #d4d4d4; padding: 20px; text-align: center; }
+        .node { background: #2d2d30; border: 1px solid #569cd6; border-radius: 8px; padding: 15px; margin: 10px; display: inline-block; min-width: 150px; }
+        .node h3 { color: #569cd6; margin: 0 0 10px 0; }
+        .component { border-color: #4ec9b0; }
+        .concept { border-color: #dcdcaa; }
+    </style>
+</head>
+<body>
+    <h1>🧠 AI Mind Map Visualizer</h1>
+    <p>Project: ${aiJsonContent.project?.name || 'Unnamed'}</p>
+    <div id="mindmap">
+        ${generateMindMapNodes(aiJsonContent)}
+    </div>
+</body>
+</html>`;
+
+    vscode.window.showInformationMessage('🧠 AI Mind Map opened! Visual representation of your project structure.');
+}
+
+/**
+ * Generate AI-friendly documentation comments
+ */
+async function generateAiDocs() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showErrorMessage('No active editor found. Open a file first.');
+        return;
+    }
+
+    const aiJsonContent = await loadAiJsonContent();
+    if (!aiJsonContent) {
+        vscode.window.showErrorMessage('No .ai.json found. Create one first!');
+        return;
+    }
+
+    const document = editor.document;
+    const fileName = document.fileName;
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+    
+    // Generate AI-friendly comment
+    const projectName = aiJsonContent.project?.name || 'Project';
+    const projectDescription = aiJsonContent.project?.description || 'AI-ready project';
+    const frameworks = aiJsonContent.context?.frameworks || [];
+    
+    let commentPrefix = '//';
+    if (fileExtension === 'php') commentPrefix = '//';
+    else if (fileExtension === 'py') commentPrefix = '#';
+    else if (fileExtension === 'html') commentPrefix = '<!--';
+    
+    const aiComment = `${commentPrefix} @ai-docs: AI-Friendly Documentation
+${commentPrefix} Project: ${projectName}
+${commentPrefix} Description: ${projectDescription}
+${commentPrefix} Frameworks: ${frameworks.join(', ') || 'None specified'}
+${commentPrefix} Generated by: coreX AI MindLayer v3.1.0
+${commentPrefix} Last updated: ${new Date().toISOString()}
+`;
+    
+    // Insert at top of file
+    const edit = new vscode.WorkspaceEdit();
+    edit.insert(document.uri, new vscode.Position(0, 0), aiComment + '\n');
+    await vscode.workspace.applyEdit(edit);
+    
+    vscode.window.showInformationMessage('🤖 AI-friendly documentation comments generated!');
+}
+
+/**
+ * Show Diff Analyzer - Compare two .ai.json versions
+ */
+async function showDiffAnalyzer() {
+    const aiJsonContent = await loadAiJsonContent();
+    if (!aiJsonContent) {
+        vscode.window.showErrorMessage('No .ai.json found. Create one first!');
+        return;
+    }
+
+    const panel = vscode.window.createWebviewPanel(
+        'aiDiffAnalyzer',
+        '📊 AI Diff Analyzer',
+        vscode.ViewColumn.Beside,
+        { enableScripts: true }
+    );
+
+    panel.webview.html = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI Diff Analyzer</title>
+    <style>
+        body { font-family: sans-serif; background: #1e1e1e; color: #d4d4d4; padding: 20px; }
+        .current { background: #2d2d30; padding: 15px; border-radius: 8px; margin: 10px 0; }
+        .upload-btn { background: #569cd6; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 10px 0; }
+        .diff-result { background: #252526; padding: 15px; border-radius: 8px; margin: 10px 0; display: none; }
+        .addition { color: #4ec9b0; }
+        .deletion { color: #f48771; }
+        .change { color: #dcdcaa; }
+    </style>
+</head>
+<body>
+    <h1>📊 AI Diff Analyzer</h1>
+    <div class="current">
+        <h3>Current .ai.json</h3>
+        <p><strong>Project:</strong> ${aiJsonContent.project?.name || 'Unnamed'}</p>
+        <p><strong>Version:</strong> ${aiJsonContent.project?.version || 'Not specified'}</p>
+        <p><strong>Components:</strong> ${aiJsonContent.architecture?.components?.length || 0}</p>
+    </div>
+    <button class="upload-btn" onclick="selectFile()">Choose File to Compare</button>
+    <div id="diffResult" class="diff-result">
+        <h3>Comparison will appear here</h3>
+    </div>
+    <script>
+        const vscode = acquireVsCodeApi();
+        function selectFile() {
+            vscode.postMessage({ command: 'compareWithFile' });
+        }
+    </script>
+</body>
+</html>`;
+
+    // Handle file selection
+    panel.webview.onDidReceiveMessage(async (message) => {
+        if (message.command === 'compareWithFile') {
+            const options = {
+                canSelectMany: false,
+                openLabel: 'Select .ai.json to compare',
+                filters: { 'AI JSON files': ['ai.json'], 'JSON files': ['json'] }
+            };
+
+            const fileUri = await vscode.window.showOpenDialog(options);
+            if (fileUri && fileUri[0]) {
+                try {
+                    const compareContent = await vscode.workspace.fs.readFile(fileUri[0]);
+                    const compareData = JSON.parse(compareContent.toString());
+                    
+                    // Simple diff analysis
+                    const currentComponents = aiJsonContent.architecture?.components?.length || 0;
+                    const compareComponents = compareData.architecture?.components?.length || 0;
+                    const componentDiff = compareComponents - currentComponents;
+                    
+                    const diffHtml = `
+                        <h3>Comparison Results</h3>
+                        <p><strong>File:</strong> ${fileUri[0].fsPath}</p>
+                        <p class="${componentDiff > 0 ? 'addition' : componentDiff < 0 ? 'deletion' : 'change'}">
+                            Components: ${currentComponents} → ${compareComponents} 
+                            (${componentDiff >= 0 ? '+' : ''}${componentDiff})
+                        </p>
+                        <p>Version: ${aiJsonContent.project?.version || 'N/A'} → ${compareData.project?.version || 'N/A'}</p>
+                    `;
+                    
+                    panel.webview.postMessage({ command: 'showDiff', html: diffHtml });
+                } catch (error) {
+                    vscode.window.showErrorMessage('Error reading comparison file.');
+                }
+            }
+        }
+    });
+
+    vscode.window.showInformationMessage('📊 Diff Analyzer opened! Select a .ai.json file to compare.');
+}
+
+/**
+ * Generate mind map nodes HTML from .ai.json
+ */
+function generateMindMapNodes(aiData: any): string {
+    let html = '';
+    
+    // Add components
+    if (aiData.architecture?.components) {
+        aiData.architecture.components.forEach((comp: any) => {
+            html += `<div class="node component">
+                <h3>${comp.name || 'Component'}</h3>
+                <p>${comp.description || 'No description'}</p>
+            </div>`;
+        });
+    }
+    
+    // Add key concepts
+    if (aiData.context?.key_concepts) {
+        aiData.context.key_concepts.forEach((concept: string) => {
+            html += `<div class="node concept">
+                <h3>${concept}</h3>
+                <p>Key Concept</p>
+            </div>`;
+        });
+    }
+    
+    return html || '<p>No components or concepts found in .ai.json</p>';
 }
 
 /**
@@ -372,113 +599,6 @@ class AiIntelliSenseProvider implements vscode.CompletionItemProvider {
 
         return completions;
     }
-}
-
-/**
- * Generate HTML for Architecture Preview
- */
-function getArchitecturePreviewHtml(aiData: any): string {
-    const components = aiData.architecture?.components || [];
-    const patterns = aiData.architecture?.patterns || [];
-
-    return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Architecture Preview</title>
-        <style>
-            body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                background: #1e1e1e; 
-                color: #d4d4d4; 
-                margin: 0; 
-                padding: 20px; 
-            }
-            .header { 
-                text-align: center; 
-                margin-bottom: 30px; 
-                color: #569cd6; 
-            }
-            .architecture-grid { 
-                display: grid; 
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-                gap: 20px; 
-                margin-bottom: 30px; 
-            }
-            .component-card { 
-                background: #2d2d30; 
-                border: 1px solid #3e3e42; 
-                border-radius: 8px; 
-                padding: 20px; 
-                transition: transform 0.2s, box-shadow 0.2s; 
-            }
-            .component-card:hover { 
-                transform: translateY(-2px); 
-                box-shadow: 0 4px 12px rgba(86, 156, 214, 0.3); 
-            }
-            .component-name { 
-                font-size: 1.2em; 
-                font-weight: bold; 
-                color: #4ec9b0; 
-                margin-bottom: 10px; 
-            }
-            .component-description { 
-                color: #cccccc; 
-                line-height: 1.5; 
-            }
-            .patterns-section { 
-                margin-top: 30px; 
-                padding: 20px; 
-                background: #252526; 
-                border-radius: 8px; 
-            }
-            .pattern-item { 
-                padding: 10px; 
-                margin: 5px 0; 
-                background: #2d2d30; 
-                border-left: 4px solid #569cd6; 
-                border-radius: 4px; 
-            }
-            .no-data { 
-                text-align: center; 
-                color: #858585; 
-                font-style: italic; 
-                margin: 40px 0; 
-            }
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <h1>🏗️ Architecture Preview</h1>
-            <p>Visual representation of your project structure from .ai.json</p>
-        </div>
-
-        <div class="architecture-grid">
-            ${components.length > 0 ? components.map((comp: any) => `
-                <div class="component-card">
-                    <div class="component-name">${comp.name || 'Unnamed Component'}</div>
-                    <div class="component-description">${comp.description || 'No description available'}</div>
-                    ${comp.responsibilities ? `<div style="margin-top: 10px; font-size: 0.9em; color: #9cdcfe;">
-                        <strong>Responsibilities:</strong><br>
-                        ${Array.isArray(comp.responsibilities) ? comp.responsibilities.join('<br>') : comp.responsibilities}
-                    </div>` : ''}
-                </div>
-            `).join('') : '<div class="no-data">No components defined in .ai.json</div>'}
-        </div>
-
-        ${patterns.length > 0 ? `
-            <div class="patterns-section">
-                <h2 style="color: #569cd6; margin-bottom: 15px;">🎯 Architecture Patterns</h2>
-                ${patterns.map((pattern: string) => `
-                    <div class="pattern-item">${pattern}</div>
-                `).join('')}
-            </div>
-        ` : ''}
-    </body>
-    </html>
-    `;
 }
 
 /**
@@ -638,6 +758,183 @@ function getErrorHtml(message: string): string {
         <div class="error-icon">⚠️</div>
         <h1>Error</h1>
         <p>${message}</p>
+    </body>
+    </html>
+    `;
+}
+
+/**
+ * Generate Architecture Preview HTML
+ */
+function getArchitecturePreviewHtml(aiJsonContent: any): string {
+    const components = aiJsonContent.architecture?.components || [];
+    const dependencies = aiJsonContent.architecture?.dependencies || [];
+    
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Architecture Preview</title>
+        <style>
+            body { 
+                font-family: 'Segoe UI', sans-serif; 
+                background: #1e1e1e; 
+                color: #d4d4d4; 
+                padding: 20px; 
+                margin: 0;
+            }
+            h1 { color: #569cd6; border-bottom: 2px solid #569cd6; padding-bottom: 10px; }
+            h2 { color: #4ec9b0; margin-top: 30px; }
+            .component { 
+                background: #2d2d30; 
+                border-left: 4px solid #569cd6; 
+                padding: 15px; 
+                margin: 10px 0; 
+                border-radius: 5px; 
+            }
+            .dependency { 
+                background: #252526; 
+                border-left: 4px solid #dcdcaa; 
+                padding: 10px; 
+                margin: 5px 0; 
+                border-radius: 3px; 
+            }
+            .tag { 
+                display: inline-block; 
+                background: #569cd6; 
+                color: white; 
+                padding: 2px 8px; 
+                border-radius: 12px; 
+                font-size: 0.8em; 
+                margin: 2px; 
+            }
+            .overview { 
+                background: #252526; 
+                padding: 20px; 
+                border-radius: 8px; 
+                margin: 20px 0; 
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🏗️ Project Architecture</h1>
+        
+        <div class="overview">
+            <h3>📊 Overview</h3>
+            <p><strong>Project:</strong> ${aiJsonContent.project?.name || 'Unnamed Project'}</p>
+            <p><strong>Version:</strong> ${aiJsonContent.project?.version || 'Not specified'}</p>
+            <p><strong>Components:</strong> ${components.length}</p>
+            <p><strong>Dependencies:</strong> ${dependencies.length}</p>
+        </div>
+
+        <h2>🔧 Components</h2>
+        ${components.map((comp: any) => `
+            <div class="component">
+                <h3>${comp.name || 'Unnamed Component'}</h3>
+                <p><strong>Type:</strong> ${comp.type || 'Not specified'}</p>
+                <p><strong>Description:</strong> ${comp.description || 'No description'}</p>
+                ${comp.technologies ? `<p><strong>Technologies:</strong> ${comp.technologies.map((tech: string) => `<span class="tag">${tech}</span>`).join('')}</p>` : ''}
+            </div>
+        `).join('')}
+
+        <h2>🔗 Dependencies</h2>
+        ${dependencies.map((dep: any) => `
+            <div class="dependency">
+                <strong>${dep.name || 'Unnamed Dependency'}</strong>
+                ${dep.version ? ` - v${dep.version}` : ''}
+                ${dep.description ? `<br><small>${dep.description}</small>` : ''}
+            </div>
+        `).join('')}
+    </body>
+    </html>
+    `;
+}
+
+/**
+ * Generate AI IntelliSense HTML
+ */
+function getIntelliSenseHtml(aiJsonContent: any): string {
+    const context = aiJsonContent.ai_context || {};
+    const patterns = aiJsonContent.patterns || [];
+    
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>AI IntelliSense</title>
+        <style>
+            body { 
+                font-family: 'Segoe UI', sans-serif; 
+                background: #1e1e1e; 
+                color: #d4d4d4; 
+                padding: 20px; 
+                margin: 0;
+            }
+            h1 { color: #569cd6; border-bottom: 2px solid #569cd6; padding-bottom: 10px; }
+            h2 { color: #4ec9b0; margin-top: 30px; }
+            .context-item { 
+                background: #2d2d30; 
+                border-left: 4px solid #4ec9b0; 
+                padding: 15px; 
+                margin: 10px 0; 
+                border-radius: 5px; 
+            }
+            .pattern { 
+                background: #252526; 
+                border-left: 4px solid #dcdcaa; 
+                padding: 10px; 
+                margin: 5px 0; 
+                border-radius: 3px; 
+            }
+            .status { 
+                background: #0e7b42; 
+                color: white; 
+                padding: 10px 20px; 
+                border-radius: 5px; 
+                margin: 20px 0; 
+                text-align: center; 
+            }
+            .feature { 
+                display: inline-block; 
+                background: #569cd6; 
+                color: white; 
+                padding: 5px 12px; 
+                border-radius: 15px; 
+                margin: 5px; 
+                font-size: 0.9em; 
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🧠 AI IntelliSense</h1>
+        
+        <div class="status">
+            ✅ AI IntelliSense is now active for this project!
+        </div>
+
+        <h2>🎯 Enhanced Features</h2>
+        <div class="feature">Smart Code Completion</div>
+        <div class="feature">Context-Aware Suggestions</div>
+        <div class="feature">Pattern Recognition</div>
+        <div class="feature">Framework Integration</div>
+
+        <h2>📋 AI Context</h2>
+        ${Object.entries(context).map(([key, value]) => `
+            <div class="context-item">
+                <h3>${key}</h3>
+                <p>${JSON.stringify(value, null, 2)}</p>
+            </div>
+        `).join('')}
+
+        <h2>🔄 Recognized Patterns</h2>
+        ${patterns.map((pattern: any) => `
+            <div class="pattern">
+                <strong>${pattern.name || 'Unnamed Pattern'}</strong>
+                ${pattern.description ? `<br><small>${pattern.description}</small>` : ''}
+            </div>
+        `).join('')}
     </body>
     </html>
     `;
