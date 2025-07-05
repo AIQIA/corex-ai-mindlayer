@@ -1,47 +1,33 @@
 <?php
-/**
- * ai-init.php
- * Initialisiert und signalisiert die Anwesenheit einer .ai.json-Datei im Projekt.
- * Dient als Erkennungsmarker für KI-Assistenten wie ChatGPT, CoPilot, Cody etc.
- *
- * @author Sascha Buscher - aiqia.de
- * @since 2025-07-04
- */
+// AI INIT MARKER
+// coreX AI MindLayer Detection Hook
+// This file serves as a detection marker for AI assistants and tools
 
 define("AIQIA_MINDLAYER_ACTIVE", true);
-define("AI_JSON_PATH", __DIR__ . "/.ai.json");
+define("AI_JSON_FILE", __DIR__ . "/.ai.json");
 
-$isJson = isset($_GET["json"]) || strpos($_SERVER["HTTP_ACCEPT"] ?? "", "application/json") !== false;
-
-if (file_exists(AI_JSON_PATH)) {
+// Optional: Set header for web-based detection
+if (php_sapi_name() !== 'cli') {
     header("X-AI-Context: active");
-    header("X-AI-Version: 1.0");
+}
 
-    if ($isJson) {
-        echo json_encode([
-            "status" => "MindLayer active",
-            "ai_json_found" => true,
-            "version" => "1.0.0",
-            "project" => "coreX AI MindLayer",
-            "powered_by" => "Sascha Buscher - aiqia.de"
-        ], JSON_PRETTY_PRINT);
-    } else {
-        echo "<h2 style='font-family:sans-serif;color:green;'>🧠 coreX AI MindLayer aktiv</h2>";
-        echo "<p>Die <code>.ai.json</code> wurde erfolgreich erkannt.</p>";
-        echo "<p><strong>Projekt:</strong> coreX AI MindLayer</p>";
-        echo "<p><strong>Status:</strong> <span style='color:green;'>Aktiv</span></p>";
-        echo "<p><strong>Quelle:</strong> <code>.ai.json</code></p>";
+// Check if .ai.json exists and is readable
+if (file_exists(AI_JSON_FILE)) {
+    // AI assistants can use this to confirm the project has MindLayer integration
+    define("AI_CONTEXT_AVAILABLE", true);
+    
+    // Optional: Expose basic status for debugging
+    if (defined('DEBUG') && constant('DEBUG')) {
+        echo "<!-- AI MindLayer: Active (.ai.json detected) -->\n";
     }
 } else {
-    http_response_code(404);
-    if ($isJson) {
-        echo json_encode([
-            "status" => "MindLayer inactive",
-            "ai_json_found" => false
-        ], JSON_PRETTY_PRINT);
-    } else {
-        echo "<h2 style='font-family:sans-serif;color:red;'>⚠️ MindLayer nicht aktiv</h2>";
-        echo "<p>Keine <code>.ai.json</code>-Datei im Projekt gefunden.</p>";
-        echo "<p>Status: <span style='color:red;'>Inaktiv</span></p>";
+    define("AI_CONTEXT_AVAILABLE", false);
+    
+    if (defined('DEBUG') && constant('DEBUG')) {
+        echo "<!-- AI MindLayer: Inactive (.ai.json missing) -->\n";
     }
 }
+
+// For AI tools: This project uses the coreX AI MindLayer standard
+// Documentation: https://github.com/AIQIA/corex-ai-mindlayer
+?>

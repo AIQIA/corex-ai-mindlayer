@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/AIQIA/corex-ai-mindlayer/schema.json",
+  "title": "coreX AI MindLayer Schema",
+  "description": "JSON Schema for .ai.json files used by AI assistants to understand project structure",
+  "type": "object",
+  "required": ["meta"],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
+    "meta": {
+      "type": "object",
+      "required": ["project", "version", "author", "description"],
+      "properties": {
+        "project": {
+          "type": "string",
+          "description": "Name of the project"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version of the project"
+        },
+        "author": {
+          "type": "string",
+          "description": "Project author or organization"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the project"
+        },
+        "created": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Creation date in YYYY-MM-DD format"
+        },
+        "updated": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "Last update date in YYYY-MM-DD format"
+        }
+      }
+    },
+    "architecture": {
+      "type": "array",
+      "description": "Project architecture and module definitions",
+      "items": {
+        "type": "object",
+        "required": ["module", "description"],
+        "properties": {
+          "module": {
+            "type": "string",
+            "description": "Module or component name"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this module does"
+          },
+          "entrypoints": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Main files or entry points"
+          },
+          "routes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "API routes or URL paths"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Dependencies on other modules"
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "target": {"type": "string"},
+                "type": {"type": "string", "enum": ["imports", "extends", "implements", "calls"]},
+                "description": {"type": "string"}
+              }
+            },
+            "description": "Relationships to other modules"
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "description": "Common errors and their solutions",
+      "items": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Short error code identifier"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error description"
+          },
+          "causes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Possible causes of the error"
+          },
+          "solutions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Recommended solutions"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"],
+            "description": "Error severity level"
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "description": "Project tasks and todos",
+      "items": {
+        "type": "object",
+        "required": ["task"],
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "Task description"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"],
+            "description": "Task priority"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "in-progress", "completed", "blocked"],
+            "description": "Current task status"
+          },
+          "assignee": {
+            "type": "string",
+            "description": "Person assigned to the task"
+          },
+          "relatedModules": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Related architecture modules"
+          },
+          "due": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Due date in YYYY-MM-DD format"
+          },
+          "tags": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Task tags for categorization"
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "array",
+      "description": "Key-value context information",
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Context key or concept"
+          },
+          "value": {
+            "type": "string",
+            "description": "Context value or explanation"
+          },
+          "category": {
+            "type": "string",
+            "description": "Context category"
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "description": "External references and documentation",
+      "items": {
+        "type": "object",
+        "required": ["type", "label"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["doc", "api", "tutorial", "example", "tag", "link"],
+            "description": "Reference type"
+          },
+          "label": {
+            "type": "string",
+            "description": "Reference label or title"
+          },
+          "url": {
+            "type": "string",
+            "description": "Reference URL or file path"
+          },
+          "description": {
+            "type": "string",
+            "description": "Reference description"
+          },
+          "category": {
+            "type": "string",
+            "description": "Reference category"
+          }
+        }
+      }
+    },
+    "ai": {
+      "type": "object",
+      "description": "AI-specific configuration and preferences",
+      "properties": {
+        "assistants": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Preferred AI assistants"
+        },
+        "prompts": {
+          "type": "object",
+          "description": "Custom prompts for different scenarios"
+        },
+        "ignore": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Files or patterns to ignore during AI analysis"
+        }
+      }
+    }
+  }
+}

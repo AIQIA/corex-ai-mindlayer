@@ -1,58 +1,91 @@
 {
     "meta": {
-        "project": "NAME DES PROJEKTS",
+        "project": "Beispiel Projekt",
         "version": "1.0.0",
         "author": "Dein Name oder Organisation",
-        "description": "Kurzbeschreibung dieses Projekts oder Systems",
-        "created": "YYYY-MM-DD"
+        "description": "Kurzbeschreibung dieses Beispielprojekts",
+        "created": "2025-01-01",
+        "updated": "2025-07-05"
     },
-
     "architecture": [
         {
-            "module": "Name oder Bereich (z.B. Authentifizierung)",
-            "description": "Was macht dieser Teil des Systems?",
-            "entrypoints": ["z.B. login.php", "authController.js"],
-            "routes": ["/login", "/register"],
-            "dependencies": ["z.B. SessionManager", "UserModel"]
+            "module": "Authentifizierung",
+            "description": "Benutzer-Login und Session-Management",
+            "entrypoints": ["login.php", "auth.js"],
+            "routes": ["/login", "/register", "/logout"],
+            "dependencies": ["SessionManager", "UserModel"]
+        },
+        {
+            "module": "Dashboard",
+            "description": "Hauptbenutzeroberfläche nach dem Login",
+            "entrypoints": ["dashboard.php", "dashboard.vue"],
+            "routes": ["/dashboard", "/admin"],
+            "dependencies": ["Authentifizierung"]
         }
     ],
-
     "errors": [
         {
-            "code": "KURZER_FEHLERCODE",
-            "message": "Beschreibung des Fehlers in einem Satz",
-            "causes": ["Mögliche Ursache 1", "Mögliche Ursache 2"],
-            "solutions": ["Empfohlene Lösung 1", "Hinweis oder Maßnahme"]
+            "code": "AUTH_FAILED",
+            "message": "Authentifizierung fehlgeschlagen",
+            "causes": ["Falsche Anmeldedaten", "Session abgelaufen"],
+            "solutions": ["Anmeldedaten prüfen", "Neu anmelden"],
+            "severity": "medium"
+        },
+        {
+            "code": "DB_CONNECTION",
+            "message": "Datenbankverbindung fehlgeschlagen",
+            "causes": ["Server nicht erreichbar", "Falsche Credentials"],
+            "solutions": ["Verbindung prüfen", "Credentials validieren"],
+            "severity": "high"
         }
     ],
-
     "tasks": [
         {
-            "task": "Was muss erledigt werden?",
-            "priority": "hoch / mittel / niedrig",
-            "status": "offen / in Bearbeitung / erledigt",
-            "relatedModules": ["Name des Moduls (optional)"],
-            "due": "YYYY-MM-DD"
+            "task": "Passwort-Reset-Funktion implementieren",
+            "priority": "high",
+            "status": "open",
+            "relatedModules": ["Authentifizierung"],
+            "due": "2025-12-31",
+            "tags": ["security", "user-management"]
+        },
+        {
+            "task": "Dashboard Performance optimieren",
+            "priority": "medium",
+            "status": "in-progress",
+            "relatedModules": ["Dashboard"],
+            "due": "2025-08-15",
+            "tags": ["performance", "ui"]
         }
     ],
-
     "context": [
         {
-            "key": "Schlüsselbegriff oder -funktion",
-            "value": "Erklärung, wie es im Projekt genutzt wird"
+            "key": "Framework",
+            "value": "Das Projekt verwendet Laravel mit Vue.js Frontend",
+            "category": "technology"
+        },
+        {
+            "key": "Database",
+            "value": "MySQL 8.0 mit Redis für Caching",
+            "category": "infrastructure"
         }
     ],
-
     "references": [
         {
             "type": "doc",
-            "label": "Name oder Zweck",
-            "url": "./AI-INTEGRATION.md"
+            "label": "AI Integration Guide",
+            "url": "./AI-INTEGRATION.md",
+            "description": "Anleitung zur Integration von AI-Tools"
+        },
+        {
+            "type": "api",
+            "label": "REST API Documentation",
+            "url": "./api-docs.md",
+            "description": "Vollständige API-Referenz"
         },
         {
             "type": "tag",
             "label": "@ai-docs",
-            "description": "Bedeutung oder Einsatzbereich dieses Tags"
+            "description": "Markiert AI-lesbare Dokumentation im Code"
         }
     ]
 }

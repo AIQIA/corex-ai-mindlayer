@@ -7,9 +7,13 @@
 
 ## 📌 Geplante Features (Prio: Hoch)
 
+- [ ] **Intelligente ai-init.php** 🤖
+  - [ ] Automatische Projekt-Analyse durch KI
+  - [ ] Smart-Generierung der `.ai.json` basierend auf Codebase-Scan
+  - [ ] Interaktiver Onboarding-Dialog: "Alles eingerichtet! Fragen zur .ai.json?"
+  - [ ] Guided Setup mit Erklärungen für Einsteiger
 - [ ] JSON-Validator/Parser für `.ai.json`
 - [ ] Interaktive Landingpage mit Live-Demo (index.html)
-- [ ] Einführung `schemaVersion` in `.ai.json`
 - [ ] Erweiterung `architecture.modules.relations` zur Beschreibung von Modulverbindungen
 
 ---

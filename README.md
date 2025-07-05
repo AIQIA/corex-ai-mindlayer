@@ -1,6 +1,15 @@
-# coreX AI MindLayer by Sascha Buscher - aiqia.de
+# coreX AI MindLayer by Sascha Buscher - aiqia.de## �🔧 Core Components
 
-**Universal `.ai.json`-based standard for assistant-readable architecture and AI-ready project knowledge.**
+| File                | Purpose                                        |
+| ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `.ai.json`          | Main structured knowledge layer for assistants |
+| `schema.json`       | 📋 **JSON Schema validation for .ai.json**     |
+| `AI-INTEGRATION.md` | Integration guide for AI systems               |
+| `ai-init.php`       | Automatic detection hook ⚠️ **(experimental)** |
+| `INSTALL.md`        | 📦 **Installation guide for all scenarios**    |
+| `package.json`      | 📦 **NPM package configuration**               |
+| `README.md`         | Human-facing project intro                     |
+| `LICENSE`           | MIT license with attribution requirement       | ersal `.ai.json`-based standard for assistant-readable architecture and AI-ready project knowledge.\*\* |
 
 ---
 
@@ -21,15 +30,49 @@ At its core is the `.ai.json` file – a living, structured map of your project'
 
 ---
 
-## 🔧 Core Components
+## � Quick Start
 
-| File | Purpose |
-|------|---------|
-| `.ai.json` | Main structured knowledge layer for assistants |
-| `AI-INTEGRATION.md` | Integration guide for AI systems |
-| `ai-init.php` | Automatic detection hook (optional) |
-| `README.md` | Human-facing project intro |
-| `LICENSE.md` | Custom MIT license with attribution requirement |
+### 📦 Installation
+
+**Neues Projekt:**
+
+```bash
+git clone https://github.com/AIQIA/corex-ai-mindlayer.git mein-projekt
+```
+
+**Bestehendes Projekt:**
+
+```bash
+# Download & Copy
+curl -L https://github.com/AIQIA/corex-ai-mindlayer/archive/main.zip -o ai-layer.zip
+unzip ai-layer.zip && cp corex-ai-mindlayer-main/.ai.json.example ./
+```
+
+**📋 Komplette Anleitung:** [INSTALL.md](INSTALL.md)
+
+### ⚡ Setup
+
+```bash
+cp .ai.json.example .ai.json  # Template kopieren
+# → .ai.json an dein Projekt anpassen
+
+# Optional: JSON Schema Validation
+npm install -g ajv-cli
+ajv validate -s schema.json -d .ai.json
+```
+
+---
+
+## �🔧 Core Components
+
+| File                | Purpose                                        |
+| ------------------- | ---------------------------------------------- |
+| `.ai.json`          | Main structured knowledge layer for assistants |
+| `AI-INTEGRATION.md` | Integration guide for AI systems               |
+| `ai-init.php`       | Automatic detection hook ⚠️ **(experimental)** |
+| `INSTALL.md`        | 📦 **Installation guide for all scenarios**    |
+| `README.md`         | Human-facing project intro                     |
+| `LICENSE`           | MIT license with attribution requirement       |
 
 ---
 
@@ -43,16 +86,22 @@ At its core is the `.ai.json` file – a living, structured map of your project'
 ## 📝 License
 
 Licensed under the **MIT license** with attribution requirement.  
-See [LICENSE.md](LICENSE.md) for terms.
+See [LICENSE](LICENSE) for terms.
 
 ---
 
 ## 🌐 More Coming Soon
 
+- **Intelligente ai-init.php** 🤖  
+  _KI analysiert dein Projekt automatisch und erstellt eine optimale `.ai.json`. Mit interaktivem Onboarding!_
+- ✅ **JSON Schema Validation** (bereits verfügbar!)
+- ✅ **GitHub Actions Integration** (bereits verfügbar!)
+- ✅ **VS Code Workspace Support** (bereits verfügbar!)
 - AI playground
 - Docusaurus documentation site
-- `.ai.json` schema validator
 - Composer/NPM integrations
+
+**🎯 Open Source & Free** - Community-driven AI standard for better project understanding
 
 > Questions, ideas, or collaborations?  
 > [info@aiqia.de](mailto:info@aiqia.de)

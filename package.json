@@ -1,0 +1,66 @@
+{
+  "name": "@aiqia/corex-ai-mindlayer",
+  "version": "1.0.0",
+  "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge",
+  "type": "module",
+  "main": "ai-init.php",
+  "files": [
+    ".ai.json.example",
+    "ai-init.php",
+    "schema.json",
+    "README.md",
+    "LICENSE",
+    "AI-INTEGRATION.md",
+    "INSTALL.md"
+  ],
+  "scripts": {
+    "validate": "ajv validate -s schema.json -d .ai.json.example",
+    "lint": "jsonlint .ai.json.example && php -l ai-init.php",
+    "test": "npm run validate && npm run lint",
+    "install-example": "cp .ai.json.example .ai.json",
+    "check-syntax": "find . -name '*.php' -exec php -l {} \\;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AIQIA/corex-ai-mindlayer.git"
+  },
+  "keywords": [
+    "ai",
+    "artificial-intelligence",
+    "json-schema",
+    "project-metadata",
+    "developer-tools",
+    "documentation",
+    "ai-assistant",
+    "chatgpt",
+    "copilot",
+    "context-layer",
+    "mindlayer",
+    "aiqia"
+  ],
+  "author": {
+    "name": "Sascha Buscher",
+    "email": "info@aiqia.de",
+    "url": "https://aiqia.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AIQIA/corex-ai-mindlayer/issues"
+  },
+  "homepage": "https://github.com/AIQIA/corex-ai-mindlayer#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "php": ">=7.4"
+  },
+  "devDependencies": {
+    "ajv-cli": "^5.0.0",
+    "jsonlint": "^1.6.3"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/AIQIA"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

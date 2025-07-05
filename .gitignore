@@ -10,13 +10,16 @@
 # Abhängigkeiten
 node_modules/
 vendor/
+package-lock.json
+composer.lock
 
 # Lokale Konfigurationsdateien
 .env
 *.env.local
+.ai.json
 
 # VS Code & Editor
-.vscode/
+.vscode/settings.json
 *.code-workspace
 *.sublime-workspace
 *.sublime-project
@@ -32,6 +35,8 @@ Thumbs.db
 
 # coreX MindLayer spezifisch
 .ai.json
+.ai-license.json
+ai-config-local.php
 
 # Backup-Dateien
 *.bak
