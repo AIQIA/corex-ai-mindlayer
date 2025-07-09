@@ -78,7 +78,7 @@ ajv validate -s schema.json -d .ai.json
 
 ## 📂 Status
 
-> This is version 1.0.1 / 3.5.0 of the coreX AI MindLayer  
+> This is version 1.0.2 / 3.6.0 of the coreX AI MindLayer  
 > Authored and published by **Sascha Buscher - aiqia.de** on **2025-07-09**
 
 ---
@@ -92,8 +92,9 @@ See [LICENSE](LICENSE) for terms.
 
 ## 🌐 More Coming Soon
 
-- **Intelligente ai-init.php** 🤖  
-  _KI analysiert dein Projekt automatisch und erstellt eine optimale `.ai.json`. Mit interaktivem Onboarding!_
+- **Intelligente ai-init.php mit Multi-Language Support** 🤖  
+  _KI analysiert dein Projekt automatisch in 7 Programmiersprachen und erstellt eine optimale `.ai.json`. Mit interaktivem Onboarding!_
+- ✅ **Multi-Language Scanner Support** (PHP, JavaScript, Python, Java, C#, Go, Rust)
 - ✅ **JSON Schema Validation** (bereits verfügbar!)
 - ✅ **GitHub Actions Integration** (bereits verfügbar!)
 - ✅ **VS Code Workspace Support** (bereits verfügbar!)

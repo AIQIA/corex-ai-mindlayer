@@ -4,6 +4,28 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.6.0] – 2025-07-09
+
+### Multi-Language Scanner Integration
+
+**Umfassende Projekterkennung für mehrere Sprachen:**
+
+- Erweiterte Scanner-Infrastruktur mit standardisiertem Interface
+- Integration in ai-init.php und VS Code Extension
+- Scanner für PHP, JavaScript, Python, Java, C#, Go und Rust
+- Automatische Erkennung von über 100 Frameworks und Technologien
+- Priorisierte Ausführung für optimale Ergebnisse
+
+#### Technische Features
+
+- ScannerInterface und ScannerManager als zentrale Koordinatoren
+- Sprachspezifische Scanner mit einheitlicher API
+- Automatische Framework-Erkennung durch Datei- und Code-Analyse
+- Intelligenter Fallback auf eingebaute Scanner
+- Prioritätsbasierte Scanner-Ausführung
+
+---
+
 ## [3.5.0] – 2025-07-09
 
 ### Forschung & Prototypen Integration

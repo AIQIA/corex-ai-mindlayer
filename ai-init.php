@@ -41,6 +41,14 @@ class AIProjectScanner {
     private function scanFrameworks() {
         echo "🔍 Detecting frameworks and technologies...\n";
         
+        // Multi-Language Scanner verwenden
+        if (class_exists('CoreX\\AIMindLayer\\Scanners\\ScannerManager')) {
+            $this->useScannerManager();
+            return;
+        }
+        
+        echo "⚠️ Multi-Language Scanner nicht verfügbar - nutze eingebauten Scanner\n";
+        
         // Check for PHP frameworks
         if (file_exists($this->projectPath . '/composer.json')) {
             $composer = json_decode(file_get_contents($this->projectPath . '/composer.json'), true);
@@ -601,6 +609,45 @@ class AIProjectScanner {
         
         // Standard-Rückgabewert
         return 'english';
+    }
+    
+    /**
+     * Verwenden des Multi-Language Scanners
+     */
+    private function useScannerManager() {
+        echo "🌐 Verwende Multi-Language Scanner...\n";
+        
+        // Scanner Manager einbinden und initialisieren
+        require_once __DIR__ . '/scanners/ScannerInterface.php';
+        require_once __DIR__ . '/scanners/ScannerManager.php';
+        
+        // Scanner Manager erstellen
+        $scannerManager = new \CoreX\AIMindLayer\Scanners\ScannerManager($this->projectPath);
+        
+        // Verfügbare Scanner anzeigen
+        $loadedScanners = $scannerManager->getLoadedScanners();
+        if (count($loadedScanners) > 0) {
+            echo "  ℹ️ Geladene Scanner: " . implode(', ', $loadedScanners) . "\n";
+        } else {
+            echo "  ⚠️ Keine Scanner geladen! Falle zurück auf eingebaute Erkennung.\n";
+            return;
+        }
+        
+        // Scanner ausführen
+        $results = $scannerManager->runScanners();
+        
+        // Ergebnisse verarbeiten
+        if (!empty($results)) {
+            $this->detectedFrameworks = array_merge($this->detectedFrameworks, $results);
+            
+            // Frameworks deduplizieren
+            $this->detectedFrameworks = array_unique($this->detectedFrameworks);
+        }
+        
+        // Zeige erkannte Frameworks an
+        if (!empty($this->detectedFrameworks)) {
+            echo "  ✅ Erkannte Technologien: " . implode(', ', $this->detectedFrameworks) . "\n";
+        }
     }
 }
 
