@@ -20,7 +20,7 @@
   - [x] Diff Analyzer (.ai.json Datei-Vergleiche)
 
 - [x] **🔧 Technical Excellence**
-  - [x] Alle 6 Commands fehlerfrei implementiert
+  - [x] Alle 9 Commands fehlerfrei implementiert
   - [x] TypeScript Kompilierung erfolgreich
   - [x] VSIX Package v3.2.0 erstellt und installiert
   - [x] Extension vollständig funktional
@@ -61,6 +61,28 @@
   - [ ] GPT Integration für automatische .ai.json Optimierung
   - [ ] AI-basierte Code-Analysis und Suggestions
   - [ ] Smart Refactoring basierend auf .ai.json Patterns
+
+---
+
+## 🧩 Integration in bestehende Systeme
+
+> _(Neu hinzugefügt: Idee vom 2025-07-08)_  
+> ✨ Diese Sektion behandelt geplante Anbindungen an bestehende CMS- oder Backend-Systeme wie coreX.
+
+- [ ] **AI::M SiteCreator Integration für coreX CMS**  
+       _(📌 Geplant für v4.x oder separates Plugin-Modul)_
+  - [ ] Integration des AI MindLayer als Admin-Tool im coreX CMS
+  - [ ] Admin kann per UI-Eingabe (Prompt) neue Seiten generieren lassen
+  - [ ] Automatisierte Erstellung:
+    - [ ] HTML-Inhalt für neue interne Seiten
+    - [ ] Generierung passender `PageClass` inkl. Autorouting
+    - [ ] Automatisches Hinzufügen zur Sitemap und Navigation
+  - [ ] Nutzung der bestehenden Fallback-Logik von coreX (DB → Datei → Ordner)
+  - [ ] Validierung gegen `.ai.json`-Strukturen (optional)
+  - [ ] Seiten können nachträglich per Editor weiterbearbeitet werden
+  - [ ] Ziel: Barrierefreie, valide und strukturierte Inhalte durch KI-Unterstützung
+
+> 💬 _Hinweis: Dieses Feature ist als erweiterbares Modul geplant und könnte einen essenziellen Mehrwert für CMS-Admins bieten. Die eigentliche KI-Logik soll lokal oder via API eingebunden werden – optional und datenschutzkonform. Hierzu wird allerdings erst im "AIQIA coreX CMS" die Grundlage geschaffen, "Module/Plugings" müssen installierbar sein, dann muss aus dem AI::M->AdminTool ein installierbares plugin für den Adminbereich gebaut werden (oder ggf über das eigentliche Plugin automatisch erkennen und integrieren lassen - hierzu wird noch gebrainstormed!)._
 
 ---
 

@@ -39,6 +39,7 @@ Thumbs.db
 .ai-license.json
 ai-config-local.php
 git-hilfe.sascha.md
+STATUS.md
 
 # Backup-Dateien
 *.bak
