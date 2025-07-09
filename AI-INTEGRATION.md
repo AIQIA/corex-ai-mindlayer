@@ -83,3 +83,29 @@ Features:
 - Docker Configuration Scanner
 
 Verfügbar unter: [GitHub Repository](https://github.com/AIQIA/corex-ai-mindlayer)
+
+---
+
+## 👤 Benutzereinstellungen (user_preferences)
+
+Der neue `user_preferences` Abschnitt in der `.ai.json` ermöglicht es, persönliche Kommunikations- und Interaktionspräferenzen für KI-Assistenten zu definieren:
+
+```json
+"user_preferences": {
+    "language": "deutsch",
+    "communication_style": "informell",
+    "technical_depth": "mittel",
+    "response_format": "mit_codebeispielen",
+    "note": "Dieses Projekt wird von einem deutschsprachigen Team entwickelt"
+}
+```
+
+### Unterstützte Einstellungen:
+
+- **language**: Bevorzugte Sprache (z.B. "deutsch", "english", "français")
+- **communication_style**: Kommunikationsstil ("formal", "informell", "technisch", "freundschaftlich", "kompakt")
+- **technical_depth**: Gewünschter technischer Detailgrad ("niedrig", "mittel", "hoch")
+- **response_format**: Format der Antworten ("kurz", "ausführlich", "mit_codebeispielen", "mit_analogien")
+- **note**: Zusätzliche Hinweise zu Benutzerpräferenzen
+
+KI-Assistenten sollten diese Einstellungen berücksichtigen, um eine personalisierte und effektive Kommunikation zu ermöglichen.

@@ -44,6 +44,35 @@
         }
       }
     },
+    "user_preferences": {
+      "type": "object",
+      "description": "User preferences for AI assistant communication and behavior",
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "Preferred language for communication (e.g. english, deutsch, français)"
+        },
+        "communication_style": {
+          "type": "string",
+          "description": "Preferred style of communication (e.g. formal, informal, technical)",
+          "enum": ["formal", "informell", "technisch", "freundschaftlich", "kompakt"]
+        },
+        "technical_depth": {
+          "type": "string",
+          "description": "Preferred level of technical detail in responses",
+          "enum": ["niedrig", "mittel", "hoch"]
+        },
+        "response_format": {
+          "type": "string",
+          "description": "Preferred format for responses",
+          "enum": ["kurz", "ausführlich", "mit_codebeispielen", "mit_analogien"]
+        },
+        "note": {
+          "type": "string",
+          "description": "Additional notes about user preferences"
+        }
+      }
+    },
     "architecture": {
       "type": "array",
       "description": "Project architecture and module definitions",

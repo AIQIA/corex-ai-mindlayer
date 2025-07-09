@@ -447,6 +447,13 @@ class AIProjectScanner {
             'errors' => $this->generateCommonErrors(),
             'tasks' => $this->generateInitialTasks(),
             'context' => $this->generateProjectContext(),
+            'user_preferences' => [
+                'language' => $this->detectPreferredLanguage(),
+                'communication_style' => 'informell',
+                'technical_depth' => 'mittel',
+                'response_format' => 'mit_codebeispielen',
+                'note' => 'Automatisch generiert durch AI MindLayer'
+            ],
             'references' => [
                 [
                     'type' => 'doc',
@@ -560,6 +567,41 @@ class AIProjectScanner {
         
         return $context;
     }
+    
+    /**
+     * Detektiert die bevorzugte Sprache basierend auf Projektdateien und Systemeinstellungen
+     */
+    private function detectPreferredLanguage() {
+        // Prüfe auf deutsche Inhalte in README/Dokumentationsdateien
+        $docsFiles = glob($this->projectPath . '/{README,*.md,docs/*.md}', GLOB_BRACE);
+        $germanKeywords = ['Übersicht', 'Einleitung', 'Beschreibung', 'Funktionen', 'Installieren'];
+        
+        foreach ($docsFiles as $file) {
+            $content = file_exists($file) ? file_get_contents($file) : '';
+            if ($content) {
+                $germanMatches = 0;
+                foreach ($germanKeywords as $keyword) {
+                    if (stripos($content, $keyword) !== false) {
+                        $germanMatches++;
+                    }
+                }
+                
+                // Wenn mehr als 2 deutsche Keywords gefunden wurden, ist es wahrscheinlich ein deutsches Projekt
+                if ($germanMatches >= 2) {
+                    return 'deutsch';
+                }
+            }
+        }
+        
+        // Prüfen der System-Locale als Fallback
+        $locale = setlocale(LC_ALL, 0);
+        if (stripos($locale, 'de_') !== false) {
+            return 'deutsch';
+        }
+        
+        // Standard-Rückgabewert
+        return 'english';
+    }
 }
 
 // Main execution
@@ -575,5 +617,4 @@ if (php_sapi_name() === 'cli') {
     echo "<p>For web usage, please use the CLI version for security reasons.</p>";
     echo "</body></html>";
 }
-
 ?>

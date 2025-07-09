@@ -4,6 +4,27 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.4.2] – 2025-07-09
+
+### Neue Benutzereinstellungen (user_preferences)
+
+**Personalisierte KI-Kommunikation:**
+
+- Neuer `user_preferences` Abschnitt in `.ai.json`
+- Sprachauswahl für KI-Kommunikation (deutsch, english, etc.)
+- Anpassbarer Kommunikationsstil (formal, informell, technisch)
+- Konfigurierbarer technischer Detailgrad
+- Einstellbares Antwortformat
+
+#### Technische Erweiterungen
+
+- JSON Schema um user_preferences erweitert
+- Neuer VS Code Command "Edit User Preferences"
+- Interaktive Einstellungsdialoge
+- Vollständige Dokumentation in AI-INTEGRATION.md
+
+---
+
 ## [3.4.1] – 2025-07-09
 
 ### Verbesserte Composer-Integration

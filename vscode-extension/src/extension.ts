@@ -23,6 +23,9 @@ export function activate(context: vscode.ExtensionContext) {
     const autoSyncCommand = vscode.commands.registerCommand('aiMindLayer.runAutoSync', runAutoSync);
     const updateFromPackageCommand = vscode.commands.registerCommand('aiMindLayer.updateFromPackage', updateFromPackageManager);
     const scanDockerConfigCommand = vscode.commands.registerCommand('aiMindLayer.scanDockerConfig', scanDockerConfiguration);
+    
+    // NEW: v3.4.1 User Preferences Feature
+    const userPreferencesCommand = vscode.commands.registerCommand('aiMindLayer.editUserPreferences', editUserPreferences);
 
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
@@ -54,6 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
         autoSyncCommand,
         updateFromPackageCommand,
         scanDockerConfigCommand,
+        userPreferencesCommand,
         aiJsonWatcher
     );
 }
@@ -1015,4 +1019,118 @@ console.log('🔄 coreX AI MindLayer - Auto-Sync Tool startet...');
     terminal.sendText('node scripts/ecosystem/auto-sync.js');
     
     vscode.window.showInformationMessage('🔄 Auto-Sync wird ausgeführt...');
+}
+
+/**
+ * Bearbeiten von Benutzereinstellungen (user_preferences) in .ai.json - Feature (v3.4.1)
+ * Bietet einen interaktiven Dialog zum Anpassen der Kommunikationspräferenzen für KI-Assistenten
+ */
+async function editUserPreferences() {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('Kein Workspace-Ordner geöffnet');
+        return;
+    }
+    
+    // Pfad zur .ai.json Datei
+    const aiJsonPath = vscode.Uri.joinPath(workspaceFolder.uri, '.ai.json');
+    
+    // Prüfen ob .ai.json existiert
+    try {
+        await vscode.workspace.fs.stat(aiJsonPath);
+    } catch {
+        const createOption = await vscode.window.showInformationMessage(
+            '.ai.json nicht gefunden. Möchten Sie zuerst eine .ai.json Datei erstellen?',
+            'Datei erstellen',
+            'Abbrechen'
+        );
+        
+        if (createOption === 'Datei erstellen') {
+            await createAiJson();
+        }
+        return;
+    }
+    
+    try {
+        // .ai.json Datei lesen
+        const aiJsonData = await vscode.workspace.fs.readFile(aiJsonPath);
+        let aiJson = JSON.parse(aiJsonData.toString());
+        
+        // Sicherstellen dass user_preferences existiert
+        if (!aiJson.user_preferences) {
+            aiJson.user_preferences = {
+                language: "deutsch",
+                communication_style: "informell",
+                technical_depth: "mittel",
+                response_format: "mit_codebeispielen"
+            };
+        }
+        
+        // Benutzeroptionen für Dropdown-Menüs definieren
+        const languageOptions = ["deutsch", "english", "français", "español", "italiano"];
+        const styleOptions = ["formal", "informell", "technisch", "freundschaftlich", "kompakt"];
+        const depthOptions = ["niedrig", "mittel", "hoch"];
+        const formatOptions = ["kurz", "ausführlich", "mit_codebeispielen", "mit_analogien"];
+        
+        // Benutzereinstellungen über QuickPick abfragen
+        const language = await vscode.window.showQuickPick(languageOptions, {
+            placeHolder: 'Bevorzugte Sprache',
+            title: 'KI-Kommunikationssprache wählen',
+            canPickMany: false
+        });
+        
+        if (!language) return; // Abbruch bei Abbrechen
+        
+        const style = await vscode.window.showQuickPick(styleOptions, {
+            placeHolder: 'Kommunikationsstil',
+            title: 'Bevorzugten Kommunikationsstil wählen',
+            canPickMany: false
+        });
+        
+        if (!style) return;
+        
+        const depth = await vscode.window.showQuickPick(depthOptions, {
+            placeHolder: 'Technischer Detailgrad',
+            title: 'Bevorzugten technischen Detailgrad wählen',
+            canPickMany: false
+        });
+        
+        if (!depth) return;
+        
+        const format = await vscode.window.showQuickPick(formatOptions, {
+            placeHolder: 'Antwortformat',
+            title: 'Bevorzugtes Format für Antworten wählen',
+            canPickMany: false
+        });
+        
+        if (!format) return;
+        
+        const note = await vscode.window.showInputBox({
+            placeHolder: 'Optional: Zusätzliche Hinweise zu Benutzerpräferenzen',
+            title: 'Hinweise für KI-Assistenten (optional)'
+        });
+        
+        // user_preferences aktualisieren
+        aiJson.user_preferences = {
+            language,
+            communication_style: style,
+            technical_depth: depth,
+            response_format: format
+        };
+        
+        if (note) {
+            aiJson.user_preferences.note = note;
+        }
+        
+        // .ai.json mit aktualisierten user_preferences speichern
+        await vscode.workspace.fs.writeFile(
+            aiJsonPath,
+            Buffer.from(JSON.stringify(aiJson, null, 4), 'utf8')
+        );
+        
+        vscode.window.showInformationMessage('🤖 Benutzereinstellungen erfolgreich aktualisiert!');
+        
+    } catch (error) {
+        vscode.window.showErrorMessage(`Fehler beim Bearbeiten der Benutzereinstellungen: ${error}`);
+    }
 }

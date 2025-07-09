@@ -78,7 +78,7 @@ ajv validate -s schema.json -d .ai.json
 
 ## 📂 Status
 
-> This is version 1.0.1 / 3.4.1 of the coreX AI MindLayer  
+> This is version 1.0.1 / 3.4.2 of the coreX AI MindLayer  
 > Authored and published by **Sascha Buscher - aiqia.de** on **2025-07-09**
 
 ---

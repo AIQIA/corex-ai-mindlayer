@@ -87,5 +87,12 @@
             "label": "@ai-docs",
             "description": "Markiert AI-lesbare Dokumentation im Code"
         }
-    ]
+    ],
+    "user_preferences": {
+        "language": "deutsch",
+        "communication_style": "informell",
+        "technical_depth": "mittel",
+        "response_format": "mit_codebeispielen",
+        "note": "Dieses Projekt wird von einem deutschsprachigen Team entwickelt"
+    }
 }
