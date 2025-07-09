@@ -26,6 +26,9 @@ export function activate(context: vscode.ExtensionContext) {
     
     // NEW: v3.4.1 User Preferences Feature
     const userPreferencesCommand = vscode.commands.registerCommand('aiMindLayer.editUserPreferences', editUserPreferences);
+    
+    // NEW: v3.5.0 Research & Prototypes Feature
+    const manageResearchCommand = vscode.commands.registerCommand('aiMindLayer.manageResearch', manageResearch);
 
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
@@ -58,6 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateFromPackageCommand,
         scanDockerConfigCommand,
         userPreferencesCommand,
+        manageResearchCommand,
         aiJsonWatcher
     );
 }
@@ -1133,4 +1137,645 @@ async function editUserPreferences() {
     } catch (error) {
         vscode.window.showErrorMessage(`Fehler beim Bearbeiten der Benutzereinstellungen: ${error}`);
     }
+}
+
+/**
+ * Verwaltet und visualisiert die Forschungs- und Prototypen-Features - Feature (v3.5.0)
+ * Zeigt eine interaktive Übersicht der aktuellen Forschungsprojekte und ihren Status
+ */
+async function manageResearch() {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('Kein Workspace-Ordner geöffnet');
+        return;
+    }
+    
+    // Pfad zur .ai.json Datei
+    const aiJsonPath = vscode.Uri.joinPath(workspaceFolder.uri, '.ai.json');
+    
+    // Prüfen ob .ai.json existiert
+    try {
+        await vscode.workspace.fs.stat(aiJsonPath);
+    } catch {
+        const createOption = await vscode.window.showInformationMessage(
+            '.ai.json nicht gefunden. Möchten Sie zuerst eine .ai.json Datei erstellen?',
+            'Datei erstellen',
+            'Abbrechen'
+        );
+        
+        if (createOption === 'Datei erstellen') {
+            await createAiJson();
+        }
+        return;
+    }
+    
+    try {
+        // .ai.json Datei lesen
+        const aiJsonData = await vscode.workspace.fs.readFile(aiJsonPath);
+        let aiJson = JSON.parse(aiJsonData.toString());
+        
+        // Prüfen ob research Bereich existiert und ggf. erstellen
+        if (!aiJson.research) {
+            aiJson.research = [];
+        }
+        
+        // WebView Panel erstellen
+        const panel = vscode.window.createWebviewPanel(
+            'researchProjects',
+            '🧪 Research & Prototypes',
+            vscode.ViewColumn.One,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            }
+        );
+        
+        // Aktionen bei Nachrichten vom WebView
+        panel.webview.onDidReceiveMessage(async (message) => {
+            switch (message.command) {
+                case 'addResearch':
+                    await addNewResearchItem(aiJsonPath, aiJson);
+                    break;
+                case 'editResearch':
+                    await editResearchItem(aiJsonPath, aiJson, message.index);
+                    break;
+                case 'removeResearch':
+                    await removeResearchItem(aiJsonPath, aiJson, message.index);
+                    break;
+                case 'updateProgress':
+                    await updateResearchProgress(aiJsonPath, aiJson, message.index, message.progress);
+                    break;
+            }
+            
+            // Nach jeder Änderung .ai.json neu einlesen und Panel aktualisieren
+            const updatedData = await vscode.workspace.fs.readFile(aiJsonPath);
+            aiJson = JSON.parse(updatedData.toString());
+            panel.webview.html = getResearchWebviewContent(panel.webview, aiJson);
+        });
+        
+        // Initiales Laden des Inhalts
+        panel.webview.html = getResearchWebviewContent(panel.webview, aiJson);
+        
+    } catch (error) {
+        vscode.window.showErrorMessage(`Fehler beim Verwalten der Forschungsprojekte: ${error}`);
+    }
+}
+
+/**
+ * Erzeugt den HTML-Inhalt für das Research & Prototypes WebView
+ */
+function getResearchWebviewContent(webview: vscode.Webview, aiJson: any): string {
+    const researchItems = aiJson.research || [];
+    
+    // Statusfarben für die verschiedenen Status
+    const statusColors: {[key: string]: string} = {
+        'concept': '#9E9E9E',
+        'early_prototype': '#FF9800',
+        'active_development': '#2196F3',
+        'testing': '#8BC34A',
+        'evaluation': '#673AB7'
+    };
+    
+    // Generiere HTML für jedes Forschungsprojekt
+    const researchItemsHtml = researchItems.map((item: any, index: number) => {
+        const resources = item.resources || [];
+        const resourcesHtml = resources.map((res: any) => {
+            const iconMap: {[key: string]: string} = {
+                'paper': '📄',
+                'repository': '📦',
+                'blog': '📝',
+                'video': '🎥',
+                'notebook': '📓',
+                'other': '🔗'
+            };
+            
+            return `
+                <div class="resource">
+                    <span class="resource-icon">${iconMap[res.type] || '🔗'}</span>
+                    <a href="${res.link}" class="resource-link">${res.description}</a>
+                </div>
+            `;
+        }).join('');
+        
+        return `
+            <div class="research-item">
+                <div class="research-header">
+                    <h3>${item.name}</h3>
+                    <span class="status" style="background-color: ${statusColors[item.status] || '#9E9E9E'}">
+                        ${item.status.replace('_', ' ')}
+                    </span>
+                </div>
+                
+                <p class="description">${item.description}</p>
+                
+                <div class="progress-container">
+                    <div class="progress-label">Progress: ${item.progress || 0}%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${item.progress || 0}%"></div>
+                    </div>
+                    <div class="progress-controls">
+                        <button class="small-button decrease" data-index="${index}">-</button>
+                        <button class="small-button increase" data-index="${index}">+</button>
+                    </div>
+                </div>
+                
+                <div class="tech-tags">
+                    ${(item.technologies || []).map((tech: string) => 
+                        `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+                
+                ${resourcesHtml ? `<div class="resources-section"><h4>Resources</h4>${resourcesHtml}</div>` : ''}
+                
+                ${item.potential_impact ? 
+                    `<div class="impact-section">
+                        <h4>Potential Impact</h4>
+                        <p>${item.potential_impact}</p>
+                    </div>` : ''}
+                
+                <div class="actions">
+                    <button class="action-button edit" data-index="${index}">Edit</button>
+                    <button class="action-button remove" data-index="${index}">Remove</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Research & Prototypes</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                line-height: 1.6;
+                color: var(--vscode-editor-foreground);
+                padding: 20px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+            
+            h1 {
+                border-bottom: 1px solid var(--vscode-panel-border);
+                padding-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .research-item {
+                background-color: var(--vscode-editor-inactiveSelectionBackground);
+                border-radius: 6px;
+                padding: 15px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            
+            .research-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            
+            .research-header h3 {
+                margin: 0;
+                font-size: 18px;
+            }
+            
+            .status {
+                padding: 5px 10px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+                text-transform: capitalize;
+                color: white;
+            }
+            
+            .description {
+                margin-bottom: 15px;
+                font-size: 14px;
+            }
+            
+            .progress-container {
+                margin: 12px 0;
+            }
+            
+            .progress-label {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 5px;
+                font-size: 12px;
+            }
+            
+            .progress-bar {
+                height: 8px;
+                background-color: var(--vscode-input-background);
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 5px;
+            }
+            
+            .progress-fill {
+                height: 100%;
+                background-color: #2196F3;
+            }
+            
+            .progress-controls {
+                display: flex;
+                justify-content: flex-end;
+                gap: 5px;
+            }
+            
+            .tech-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                margin-bottom: 12px;
+            }
+            
+            .tech-tag {
+                background-color: var(--vscode-badge-background);
+                color: var(--vscode-badge-foreground);
+                padding: 3px 8px;
+                border-radius: 10px;
+                font-size: 11px;
+            }
+            
+            .resources-section, .impact-section {
+                margin-top: 15px;
+                font-size: 13px;
+            }
+            
+            .resources-section h4, .impact-section h4 {
+                margin-bottom: 5px;
+                font-size: 14px;
+                color: var(--vscode-editorInfo-foreground);
+            }
+            
+            .resource {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 5px;
+            }
+            
+            .resource-icon {
+                font-size: 16px;
+            }
+            
+            .resource-link {
+                text-decoration: none;
+                color: var(--vscode-textLink-foreground);
+            }
+            
+            .resource-link:hover {
+                text-decoration: underline;
+            }
+            
+            .actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            
+            .action-button {
+                padding: 6px 12px;
+                background-color: var(--vscode-button-secondaryBackground);
+                color: var(--vscode-button-secondaryForeground);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            
+            .action-button:hover {
+                background-color: var(--vscode-button-secondaryHoverBackground);
+            }
+            
+            .action-button.add {
+                background-color: var(--vscode-button-background);
+                color: var(--vscode-button-foreground);
+                font-weight: bold;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 8px 15px;
+            }
+            
+            .action-button.add:hover {
+                background-color: var(--vscode-button-hoverBackground);
+            }
+            
+            .small-button {
+                width: 25px;
+                height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--vscode-button-secondaryBackground);
+                color: var(--vscode-button-secondaryForeground);
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            
+            .empty-state {
+                text-align: center;
+                padding: 40px 0;
+                color: var(--vscode-descriptionForeground);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            <span>🧪</span> Research & Prototypes
+        </h1>
+        
+        <button class="action-button add">
+            <span>+</span> Add Research Project
+        </button>
+        
+        ${researchItemsHtml.length > 0 ? 
+            `<div class="research-items">${researchItemsHtml}</div>` : 
+            `<div class="empty-state">
+                <p>No research projects defined yet. Click "Add Research Project" to start.</p>
+            </div>`
+        }
+        
+        <script>
+            (function() {
+                // Add new research project
+                const addButton = document.querySelector('.action-button.add');
+                if (addButton) {
+                    addButton.addEventListener('click', () => {
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage({
+                            command: 'addResearch'
+                        });
+                    });
+                }
+                
+                // Edit research project
+                document.querySelectorAll('.action-button.edit').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage({
+                            command: 'editResearch',
+                            index: parseInt(index)
+                        });
+                    });
+                });
+                
+                // Remove research project
+                document.querySelectorAll('.action-button.remove').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage({
+                            command: 'removeResearch',
+                            index: parseInt(index)
+                        });
+                    });
+                });
+                
+                // Progress controls
+                document.querySelectorAll('.small-button.increase').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage({
+                            command: 'updateProgress',
+                            index: parseInt(index),
+                            progress: 'increase'
+                        });
+                    });
+                });
+                
+                document.querySelectorAll('.small-button.decrease').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        const vscode = acquireVsCodeApi();
+                        vscode.postMessage({
+                            command: 'updateProgress',
+                            index: parseInt(index),
+                            progress: 'decrease'
+                        });
+                    });
+                });
+            })();
+        </script>
+    </body>
+    </html>
+    `;
+}
+
+/**
+ * Neues Forschungsprojekt hinzufügen
+ */
+async function addNewResearchItem(aiJsonPath: vscode.Uri, aiJson: any) {
+    // Optionen für Status
+    const statusOptions = ['concept', 'early_prototype', 'active_development', 'testing', 'evaluation'];
+    
+    // Name des Projekts abfragen
+    const name = await vscode.window.showInputBox({
+        prompt: 'Name des Forschungsprojekts',
+        placeHolder: 'z.B. "ML-basierte Code-Qualitätsanalyse"'
+    });
+    
+    if (!name) return;
+    
+    // Beschreibung abfragen
+    const description = await vscode.window.showInputBox({
+        prompt: 'Beschreibung des Projekts',
+        placeHolder: 'Was ist das Ziel dieses Forschungsprojekts?'
+    });
+    
+    if (!description) return;
+    
+    // Status abfragen
+    const statusItems = statusOptions.map(s => ({ label: s }));
+    const statusPick = await vscode.window.showQuickPick(statusItems, {
+        placeHolder: 'Aktueller Status des Projekts'
+    });
+    
+    const status = statusPick?.label;
+    
+    if (!status) return;
+    
+    // Technologien abfragen
+    const technologiesInput = await vscode.window.showInputBox({
+        prompt: 'Verwendete Technologien (durch Komma getrennt)',
+        placeHolder: 'z.B. "TensorFlow.js, CodeBERT, TypeScript"'
+    });
+    
+    // Neues Forschungsprojekt erstellen
+    const newResearch: any = {
+        name,
+        description,
+        status,
+        progress: 0,
+        technologies: technologiesInput ? technologiesInput.split(',').map(t => t.trim()) : []
+    };
+    
+    // Optional: Potenzielle Auswirkungen
+    const impact = await vscode.window.showInputBox({
+        prompt: 'Potenzielle Auswirkungen (optional)',
+        placeHolder: 'Welchen Einfluss könnte dieses Projekt haben?'
+    });
+    
+    if (impact) {
+        newResearch.potential_impact = impact;
+    }
+    
+    // Zur research-Liste hinzufügen
+    if (!aiJson.research) {
+        aiJson.research = [];
+    }
+    
+    aiJson.research.push(newResearch);
+    
+    // .ai.json speichern
+    await vscode.workspace.fs.writeFile(
+        aiJsonPath,
+        Buffer.from(JSON.stringify(aiJson, null, 4), 'utf8')
+    );
+    
+    vscode.window.showInformationMessage(`Forschungsprojekt "${name}" erfolgreich hinzugefügt!`);
+}
+
+/**
+ * Bestehendes Forschungsprojekt bearbeiten
+ */
+async function editResearchItem(aiJsonPath: vscode.Uri, aiJson: any, index: number) {
+    if (!aiJson.research || index < 0 || index >= aiJson.research.length) {
+        return;
+    }
+    
+    const research = aiJson.research[index];
+    
+    // Optionen für Status
+    const statusOptions = ['concept', 'early_prototype', 'active_development', 'testing', 'evaluation'];
+    
+    // Bestehende Werte als Standard-Werte verwenden
+    const name = await vscode.window.showInputBox({
+        prompt: 'Name des Forschungsprojekts',
+        value: research.name
+    });
+    
+    if (!name) return;
+    
+    const description = await vscode.window.showInputBox({
+        prompt: 'Beschreibung des Projekts',
+        value: research.description
+    });
+    
+    if (!description) return;
+    
+    const statusItems = statusOptions.map(s => ({ label: s }));
+    const statusPick = await vscode.window.showQuickPick(statusItems, {
+        placeHolder: 'Aktueller Status des Projekts'
+    });
+    
+    const status = statusPick?.label;
+    
+    if (!status) return;
+    
+    const technologiesInput = await vscode.window.showInputBox({
+        prompt: 'Verwendete Technologien (durch Komma getrennt)',
+        value: (research.technologies || []).join(', ')
+    });
+    
+    const impact = await vscode.window.showInputBox({
+        prompt: 'Potenzielle Auswirkungen (optional)',
+        value: research.potential_impact || ''
+    });
+    
+    // Forschungsprojekt aktualisieren
+    research.name = name;
+    research.description = description;
+    research.status = status;
+    research.technologies = technologiesInput ? technologiesInput.split(',').map((t: string) => t.trim()) : [];
+    
+    if (impact) {
+        research.potential_impact = impact;
+    } else {
+        delete research.potential_impact;
+    }
+    
+    // .ai.json speichern
+    await vscode.workspace.fs.writeFile(
+        aiJsonPath,
+        Buffer.from(JSON.stringify(aiJson, null, 4), 'utf8')
+    );
+    
+    vscode.window.showInformationMessage(`Forschungsprojekt "${name}" erfolgreich aktualisiert!`);
+}
+
+/**
+ * Forschungsprojekt entfernen
+ */
+async function removeResearchItem(aiJsonPath: vscode.Uri, aiJson: any, index: number) {
+    if (!aiJson.research || index < 0 || index >= aiJson.research.length) {
+        return;
+    }
+    
+    const research = aiJson.research[index];
+    
+    // Bestätigung vor dem Löschen
+    const confirmation = await vscode.window.showWarningMessage(
+        `Möchten Sie das Forschungsprojekt "${research.name}" wirklich löschen?`,
+        'Löschen',
+        'Abbrechen'
+    );
+    
+    if (confirmation !== 'Löschen') return;
+    
+    // Aus der Liste entfernen
+    aiJson.research.splice(index, 1);
+    
+    // .ai.json speichern
+    await vscode.workspace.fs.writeFile(
+        aiJsonPath,
+        Buffer.from(JSON.stringify(aiJson, null, 4), 'utf8')
+    );
+    
+    vscode.window.showInformationMessage(`Forschungsprojekt "${research.name}" erfolgreich gelöscht!`);
+}
+
+/**
+ * Fortschritt eines Forschungsprojekts aktualisieren
+ */
+async function updateResearchProgress(aiJsonPath: vscode.Uri, aiJson: any, index: number, progressAction: string) {
+    if (!aiJson.research || index < 0 || index >= aiJson.research.length) {
+        return;
+    }
+    
+    const research = aiJson.research[index];
+    
+    // Aktuellen Fortschritt ermitteln
+    let currentProgress = research.progress || 0;
+    
+    // Fortschritt aktualisieren
+    if (progressAction === 'increase') {
+        currentProgress = Math.min(100, currentProgress + 5);
+    } else if (progressAction === 'decrease') {
+        currentProgress = Math.max(0, currentProgress - 5);
+    }
+    
+    // Neuen Wert speichern
+    research.progress = currentProgress;
+    
+    // .ai.json speichern
+    await vscode.workspace.fs.writeFile(
+        aiJsonPath,
+        Buffer.from(JSON.stringify(aiJson, null, 4), 'utf8')
+    );
 }

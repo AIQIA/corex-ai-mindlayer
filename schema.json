@@ -73,6 +73,69 @@
         }
       }
     },
+    "research": {
+      "type": "array",
+      "description": "Research & prototype features currently being explored",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "status"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the research or prototype feature"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of what the feature does or aims to achieve"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the research or prototype",
+            "enum": ["concept", "early_prototype", "active_development", "testing", "evaluation"]
+          },
+          "progress": {
+            "type": "number",
+            "description": "Progress percentage of the research (0-100)",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "technologies": {
+            "type": "array",
+            "description": "Technologies being used in this research",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resources": {
+            "type": "array",
+            "description": "Links to papers, code examples or other resources",
+            "items": {
+              "type": "object",
+              "required": ["type", "link", "description"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Type of resource",
+                  "enum": ["paper", "repository", "blog", "video", "notebook", "other"]
+                },
+                "link": {
+                  "type": "string",
+                  "description": "URL or path to the resource"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Brief description of the resource"
+                }
+              }
+            }
+          },
+          "potential_impact": {
+            "type": "string",
+            "description": "Potential impact if research is successful"
+          }
+        }
+      }
+    },
     "architecture": {
       "type": "array",
       "description": "Project architecture and module definitions",

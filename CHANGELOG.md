@@ -4,6 +4,26 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.5.0] – 2025-07-09
+
+### Forschung & Prototypen Integration
+
+**Strukturierte Forschungserfassung:**
+
+- Neuer `research` Abschnitt in `.ai.json`-Struktur
+- JSON Schema Erweiterung für Forschungsprojekte
+- VS Code WebView zur interaktiven Verwaltung
+- Fortschrittsverfolgung mit visuellen Indikatoren
+
+#### Technische Features
+
+- Interaktives UI für Forschungsprojekte
+- Statusverwaltung (concept, early_prototype, active_development, testing, evaluation)
+- Ressourcenverknüpfung (Papers, Repositories, Blogs, Videos, Notebooks)
+- Technologie-Tracking und Impact-Bewertung
+
+---
+
 ## [3.4.2] – 2025-07-09
 
 ### Neue Benutzereinstellungen (user_preferences)

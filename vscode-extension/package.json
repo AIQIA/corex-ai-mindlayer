@@ -2,7 +2,7 @@
   "name": "corex-ai-mindlayer",
   "displayName": "coreX AI MindLayer",
   "description": "VS Code extension for .ai.json editing and AI-ready project management",
-  "version": "3.4.2",
+  "version": "3.5.0",
   "publisher": "aiqia",
   "engines": {
     "vscode": "^1.74.0"
@@ -91,6 +91,11 @@
       {
         "command": "aiMindLayer.editUserPreferences",
         "title": "👤 Edit User Preferences",
+        "category": "AI MindLayer"
+      },
+      {
+        "command": "aiMindLayer.manageResearch",
+        "title": "🧪 Research & Prototypes",
         "category": "AI MindLayer"
       }
     ],

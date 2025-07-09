@@ -116,6 +116,13 @@
 
 ## 🧪 Forschung & Prototypen
 
+- [x] **Research Tracking & Management**
+
+  - [x] Strukturierte Erfassung von Forschungsprojekten in `.ai.json`
+  - [x] Status- und Fortschrittsverfolgung
+  - [x] Ressourcenmanagement und Technologie-Tracking
+  - [x] VS Code Integration mit interaktiver Verwaltung
+
 - [ ] **Machine Learning Features**
   - [ ] Automatische Architektur-Empfehlungen basierend auf Code-Analyse
   - [ ] Intelligente Tag-Vorschläge durch NLP
