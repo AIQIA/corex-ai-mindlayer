@@ -1,4 +1,6 @@
-# coreX AI MindLayer by Sascha Buscher - aiqia.de## �🔧 Core Components
+# coreX AI MindLayer v3.6.1 by Sascha Buscher - aiqia.de
+
+## 🔧 Core Components
 
 | File                | Purpose                                        |
 | ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -122,3 +124,32 @@ Diese dient als **strukturierte Orientierung** für eigene Projekte und soll als
 3. Die Datei wird automatisch vom `ai-init.php` erkannt und kann von KI-Systemen genutzt werden
 
 ⚠️ Hinweis: Die Datei `.ai.json` ist standardmäßig in `.gitignore` enthalten und wird nicht versioniert.
+
+---
+
+## 🚀 Roadmap & Zukünftige Entwicklung
+
+Das coreX AI MindLayer Projekt entwickelt sich kontinuierlich weiter. Hier sind unsere wichtigsten geplanten Features:
+
+### 📋 Skalierbarkeits-Features (v4.0.0)
+
+- Modularisierung großer `.ai.json`-Dateien mit Referenzsystem
+- Komprimierungsstrategien für effiziente Datenspeicherung
+- Selektive Generierung und Filterung für große Projekte
+- Alternative Datenhaltungskonzepte für Enterprise-Anwendungen
+
+### 🤖 Machine Learning Features (v4.0.0)
+
+- Intelligente Architekturanalyse und Pattern-Erkennung
+- KI-gestützte Metadaten-Generierung mit NLP
+- Code-Qualitäts-Scoring und Anti-Pattern-Erkennung
+- Predictive Maintenance für Codebasis-Management
+
+### 🌐 Erweiterte Ecosystem-Integrationen
+
+- Web-Interface und API für browserbasierte Visualisierung
+- CI/CD-Pipeline Integration (GitHub Actions, Jenkins, GitLab)
+- Multi-IDE-Support (JetBrains, Eclipse, Atom, Sublime)
+- Erweiterte KI-Integration mit externen Diensten
+
+Wir freuen uns über Community-Beiträge! Alle Details zur Roadmap finden Sie in der `TODO.md`.

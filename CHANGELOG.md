@@ -4,6 +4,37 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.6.1] – 2025-07-10
+
+### Erweiterte Roadmap und Optimierungen
+
+**Umfassende Planungen für Skalierbarkeit und KI-Features:**
+
+- Detaillierte Lösungsansätze für große .ai.json-Dateien
+  - Modularisierung mit Referenzsystem
+  - Komprimierungsstrategien für bessere Performance
+  - Filter-System für selektive Generierung
+  - Alternative Datenhaltungskonzepte für Enterprise-Einsatz
+- Ausführlicher Machine Learning Roadmap
+  - Intelligente Architekturanalyse und Pattern-Erkennung
+  - KI-gestützte Metadaten-Generierung mit NLP
+  - Code-Qualitäts-Scoring und Anti-Pattern-Erkennung
+  - Predictive Maintenance für Codebasis
+- Erweiterte Ecosystem-Integrationspläne
+  - Web-Interface und API-Konzept
+  - CI/CD-Pipeline Integrationspläne
+  - IDE-Integrationen für JetBrains, Eclipse etc.
+  - Fortgeschrittene KI-Integration (OpenAI, Hugging Face)
+
+#### Bugfixes und Optimierungen
+
+- Korrektur von Formatierungsproblemen in TODO.md
+- Aktualisierung von Versionsnummern in allen relevanten Dateien
+- Verbesserung der Dokumentation mit detaillierten Planungsschritten
+- Optimierung der Scan-Performance für große Projekte
+
+---
+
 ## [3.6.0] – 2025-07-09
 
 ### Multi-Language Scanner Integration
