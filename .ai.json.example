@@ -1,11 +1,11 @@
 {
     "meta": {
         "project": "Beispiel Projekt",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "author": "Dein Name oder Organisation",
         "description": "Kurzbeschreibung dieses Beispielprojekts",
         "created": "2025-01-01",
-        "updated": "2025-07-05"
+        "updated": "2025-07-09"
     },
     "architecture": [
         {

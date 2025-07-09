@@ -7,7 +7,8 @@
 ## 🎯 Installationsoptionen
 
 ### **Option 1: Neues Projekt** ✨
-*Für komplett neue Projekte*
+
+_Für komplett neue Projekte_
 
 ```bash
 # Repository klonen
@@ -24,9 +25,11 @@ git commit -m "Initial commit mit AI MindLayer"
 ---
 
 ### **Option 2: Bestehendes Projekt** 🔄
-*Das klassische "Ordner ist nicht leer"-Problem*
+
+_Das klassische "Ordner ist nicht leer"-Problem_
 
 #### **2a) Manuelle Integration** (Empfohlen)
+
 ```bash
 # 1. AI MindLayer temporär downloaden
 git clone https://github.com/AIQIA/corex-ai-mindlayer.git temp-ai-layer
@@ -48,6 +51,7 @@ echo ".ai.json" >> .gitignore
 ```
 
 #### **2b) Git Subtree** (Für Profis)
+
 ```bash
 # AI MindLayer als Subtree hinzufügen
 git subtree add --prefix=ai-layer \
@@ -63,6 +67,7 @@ rm -rf ai-layer
 ```
 
 #### **2c) Download & Extract** (Einfachste Methode)
+
 ```bash
 # ZIP downloaden und entpacken
 curl -L https://github.com/AIQIA/corex-ai-mindlayer/archive/main.zip -o ai-layer.zip
@@ -82,6 +87,7 @@ rm -rf corex-ai-mindlayer-main ai-layer.zip
 ## 🛠️ Nach der Installation
 
 ### **Schritt 1: .ai.json konfigurieren**
+
 ```bash
 # Beispiel-Datei kopieren
 cp .ai.json.example .ai.json
@@ -91,6 +97,7 @@ nano .ai.json  # oder VS Code, PHPStorm, etc.
 ```
 
 ### **Schritt 2: ai-init.php testen**
+
 ```bash
 # Falls PHP-Server läuft:
 # http://localhost/dein-projekt/ai-init.php
@@ -100,6 +107,7 @@ php ai-init.php
 ```
 
 ### **Schritt 3: Gitignore anpassen** (Optional)
+
 ```bash
 # .ai.json von Versionierung ausschließen
 echo ".ai.json" >> .gitignore
@@ -125,6 +133,7 @@ echo ".ai.json" >> .gitignore
 ## 💡 Pro-Tipps
 
 ### **Für Laravel/Symfony Projekte:**
+
 ```bash
 # ai-init.php ins public/ Verzeichnis
 cp ai-init.php public/
@@ -133,12 +142,14 @@ cp ai-init.php public/
 ```
 
 ### **Für Node.js Projekte:**
+
 ```bash
 # .ai.json ins Root, ai-init.php optional weglassen
 cp .ai.json.example ./.ai.json
 ```
 
 ### **Für WordPress:**
+
 ```bash
 # In Theme/Plugin-Ordner oder Root
 cp .ai.json.example ./wp-content/themes/dein-theme/
@@ -149,12 +160,14 @@ cp .ai.json.example ./wp-content/themes/dein-theme/
 ## 🚨 Troubleshooting
 
 ### **"Directory not empty" Fehler:**
+
 ```bash
 # Lösung: Manuelle Integration (Option 2a) verwenden
 # NICHT: git clone in bestehenden Ordner
 ```
 
 ### **Permission Errors:**
+
 ```bash
 # Linux/Mac: Rechte anpassen
 chmod 644 .ai.json.example
@@ -162,6 +175,7 @@ chmod 755 ai-init.php
 ```
 
 ### **PHP Errors in ai-init.php:**
+
 ```bash
 # Prüfe PHP-Version
 php --version
@@ -175,6 +189,7 @@ php -l ai-init.php
 ## 🔄 Updates
 
 ### **AI MindLayer aktualisieren:**
+
 ```bash
 # Neue Version manuell downloaden
 curl -L https://github.com/AIQIA/corex-ai-mindlayer/archive/main.zip -o update.zip
@@ -189,6 +204,41 @@ rm -rf corex-ai-mindlayer-main update.zip
 
 ---
 
+## 🔧 Ecosystem Integration
+
+### **PHP/Composer Projekte**
+
+Die coreX AI MindLayer Composer-Integration bietet zwei Optionen:
+
+#### **Option 1: Mit Composer (empfohlen wenn verfügbar)**
+
+```bash
+# Composer installieren (falls noch nicht vorhanden)
+# Linux/Mac:
+./scripts/install-composer.sh
+# Windows:
+.\scripts\install-composer.bat
+
+# Composer Plugin installieren
+cd scripts/ecosystem/composer-plugin
+composer install   # oder: php ../../composer.phar install
+cd ../../..
+
+# Plugin ausführen
+php scripts/ecosystem/composer-plugin/vendor/bin/composer aimindlayer:update
+```
+
+#### **Option 2: Standalone PHP Scanner (keine Composer-Installation nötig)**
+
+```bash
+# PHP muss installiert sein
+php scripts/ecosystem/php-scanner/PhpProjectScanner.php
+```
+
+**Hinweis:** Die VS Code Extension erkennt automatisch, ob Composer verfügbar ist und wählt die passende Option.
+
+---
+
 ## 📞 Hilfe benötigt?
 
 - 📖 Siehe auch: `AI-INTEGRATION.md`
@@ -197,4 +247,4 @@ rm -rf corex-ai-mindlayer-main update.zip
 
 ---
 
-*Happy Coding mit AI MindLayer! 🤖✨*
+_Happy Coding mit AI MindLayer! 🤖✨_

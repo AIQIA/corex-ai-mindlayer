@@ -1,0 +1,27 @@
+{
+    "name": "aiqia/corex-ai-mindlayer-plugin",
+    "description": "coreX AI MindLayer Plugin für Composer zur automatischen .ai.json Verwaltung",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AIQIA Team",
+            "email": "info@aiqia.de"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "composer-plugin-api": "^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CoreX\\AIMindLayer\\": "src/"
+        }
+    },
+    "extra": {
+        "class": "CoreX\\AIMindLayer\\ComposerPlugin"
+    }
+}

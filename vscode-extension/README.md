@@ -23,7 +23,7 @@ npm run package
 ### Installation der .vsix Datei:
 
 ```bash
-code --install-extension corex-ai-mindlayer-1.0.0.vsix
+code --install-extension corex-ai-mindlayer-3.4.1.vsix
 ```
 
 ## 🎯 Verwendung

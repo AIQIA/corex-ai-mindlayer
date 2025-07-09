@@ -38,3 +38,48 @@ if (file_exists(AI_JSON_FILE)) {
     // You may echo metadata for debug
 }
 ?>
+```
+
+---
+
+## 🔌 Integration mit Package Managern
+
+### Composer Integration
+
+Die `.ai.json` Datei kann automatisch aus der `composer.json` erstellt und aktualisiert werden:
+
+```php
+// Direkte Ausführung des PHP Scanners
+php scripts/ecosystem/php-scanner/PhpProjectScanner.php
+
+// Oder via Composer Plugin (falls Composer installiert ist)
+cd scripts/ecosystem/composer-plugin
+composer install
+cd ../../..
+php scripts/ecosystem/composer-plugin/vendor/bin/composer aimindlayer:update
+```
+
+### NPM Integration
+
+Für JavaScript/Node.js Projekte:
+
+```bash
+node scripts/ecosystem/npm-plugin/index.js
+```
+
+---
+
+## 🔄 VS Code Extension
+
+Die coreX AI MindLayer VS Code Extension bietet eine grafische Oberfläche und automatisierte Werkzeuge für die Verwaltung der `.ai.json` und die Integration mit KI-Assistenten.
+
+Features:
+
+- Architecture Preview
+- Tree Explorer
+- Mind Map Visualizer
+- Auto-Sync mit Dokumentation
+- Package Manager Integration
+- Docker Configuration Scanner
+
+Verfügbar unter: [GitHub Repository](https://github.com/AIQIA/corex-ai-mindlayer)

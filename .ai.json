@@ -10,30 +10,64 @@
         {
             "module": "Authentication",
             "description": "Handles user login, logout, session and registration logic.",
-            "entrypoints": ["authController.php", "login.php", "register.php"],
-            "routes": ["/login", "/logout", "/register"],
-            "dependencies": ["SessionManager", "UserModel", "Mailer"]
+            "entrypoints": [
+                "authController.php",
+                "login.php",
+                "register.php"
+            ],
+            "routes": [
+                "/login",
+                "/logout",
+                "/register"
+            ],
+            "dependencies": [
+                "SessionManager",
+                "UserModel",
+                "Mailer"
+            ]
         },
         {
             "module": "Dashboard",
             "description": "Displays user-specific data and notifications after login.",
-            "entrypoints": ["dashboardController.php"],
-            "routes": ["/dashboard"],
-            "dependencies": ["UserModel", "NotificationService"]
+            "entrypoints": [
+                "dashboardController.php"
+            ],
+            "routes": [
+                "/dashboard"
+            ],
+            "dependencies": [
+                "UserModel",
+                "NotificationService"
+            ]
         }
     ],
     "errors": [
         {
             "code": "AUTH001",
             "message": "Invalid login credentials",
-            "causes": ["Incorrect username/password", "Unverified user", "Session timeout"],
-            "solutions": ["Check input", "Validate user verification state", "Ensure session logic is active"]
+            "causes": [
+                "Incorrect username/password",
+                "Unverified user",
+                "Session timeout"
+            ],
+            "solutions": [
+                "Check input",
+                "Validate user verification state",
+                "Ensure session logic is active"
+            ]
         },
         {
             "code": "SYS500",
             "message": "Unhandled server exception",
-            "causes": ["Null response", "DB layer timeout"],
-            "solutions": ["Enable verbose logging", "Review error logs", "Check DB connection pool"]
+            "causes": [
+                "Null response",
+                "DB layer timeout"
+            ],
+            "solutions": [
+                "Enable verbose logging",
+                "Review error logs",
+                "Check DB connection pool"
+            ]
         }
     ],
     "tasks": [
@@ -41,7 +75,9 @@
             "task": "Implement password reset flow",
             "priority": "high",
             "status": "open",
-            "relatedModules": ["Authentication"],
+            "relatedModules": [
+                "Authentication"
+            ],
             "due": "2025-07-15"
         }
     ],
@@ -66,5 +102,9 @@
             "label": "@ai-docs",
             "description": "Marks code blocks as assistant-relevant for enhanced understanding."
         }
-    ]
+    ],
+    "project": {
+        "name": "aiqia/corex-ai-mindlayer",
+        "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge"
+    }
 }

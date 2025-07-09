@@ -4,6 +4,69 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.4.1] – 2025-07-09
+
+### Verbesserte Composer-Integration
+
+**Robuste Composer-Plugin-Architektur:**
+
+- Fix: Fehlererkennung bei nicht installiertem Composer verbessert
+- Mehrschichtiges Fallback-System bei Composer-Problemen
+- PhpProjectScanner als zuverlässige Alternative implementiert
+- Automatische Migration zur geeignetsten Lösung
+
+#### Technische Verbesserungen
+
+- Verbesserte Fehlererkennung in VS Code Extension
+- Detaillierte Benutzerführung mit konkreten Lösungsvorschlägen
+- Erweiterte Prüfungen für Composer-Verfügbarkeit
+- Optimierte Standalone-PHP-Scanner-Implementation
+
+---
+
+## [3.4.0] – 2025-07-09
+
+### Ecosystem Integration Verbesserungen
+
+**Composer Plugin Verbesserungen:**
+
+- Standalone Composer Plugin für Projekte ohne Composer-Installation
+- Verbesserte Erkennung fehlender Composer-Abhängigkeiten
+- Intelligente Fallback-Mechanismen bei fehlendem Composer
+
+#### Technische Verbesserungen
+
+- VS Code Extension prüft jetzt auf tatsächliche Verfügbarkeit von Composer
+- Automatischer Fallback zum Standalone-Plugin oder PHP-Scanner
+- Bessere Benutzerführung bei fehlender Composer-Installation
+- Detaillierte Fehlermeldungen mit Installationshinweisen
+
+---
+
+## [3.3.0] – 2025-07-09
+
+### Ecosystem Integration
+
+**Neue Ecosystem Features:**
+
+- Auto-Sync Tool – Synchronisierung von `.ai.json` mit Projekt-Dokumentation
+- Package Manager Plugins – NPM und Composer Integration
+- Docker Integration – Container-Konfiguration und Dokumentation
+
+#### Neue Befehle (3)
+
+- `Run Auto-Sync` – Dokumentation automatisch synchronisieren
+- `Update from Package Manager` – `.ai.json` aus package.json/composer.json aktualisieren
+- `Scan Docker Configuration` – Docker-Konfiguration analysieren und dokumentieren
+
+#### Technische Verbesserungen
+
+- Optimierte VSIX-Paketgröße mit .vscodeignore
+- Vollständige TypeScript-Kompilierung aller neuen Features
+- Erweiterte Dokumentation in STATUS.md
+
+---
+
 ## [3.2.0] – 2025-07-05
 
 ### Feature Integration (v3.0.0 + v3.1.0)

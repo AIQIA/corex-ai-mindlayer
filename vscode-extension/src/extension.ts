@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { updateFromPackageManager, scanDockerConfiguration } from './ecosystem';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('🤖 coreX AI MindLayer extension is now active!');
@@ -17,6 +18,11 @@ export function activate(context: vscode.ExtensionContext) {
     const mindMapCommand = vscode.commands.registerCommand('aiMindLayer.showMindMap', showMindMapVisualizer);
     const autoDocsCommand = vscode.commands.registerCommand('aiMindLayer.generateDocs', generateAiDocs);
     const diffAnalyzerCommand = vscode.commands.registerCommand('aiMindLayer.compareDiff', showDiffAnalyzer);
+    
+    // NEW: v3.3.0 Ecosystem Integration Features
+    const autoSyncCommand = vscode.commands.registerCommand('aiMindLayer.runAutoSync', runAutoSync);
+    const updateFromPackageCommand = vscode.commands.registerCommand('aiMindLayer.updateFromPackage', updateFromPackageManager);
+    const scanDockerConfigCommand = vscode.commands.registerCommand('aiMindLayer.scanDockerConfig', scanDockerConfiguration);
 
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
@@ -45,6 +51,9 @@ export function activate(context: vscode.ExtensionContext) {
         mindMapCommand,
         autoDocsCommand,
         diffAnalyzerCommand,
+        autoSyncCommand,
+        updateFromPackageCommand,
+        scanDockerConfigCommand,
         aiJsonWatcher
     );
 }
@@ -938,4 +947,72 @@ function getIntelliSenseHtml(aiJsonContent: any): string {
     </body>
     </html>
     `;
+}
+
+/**
+ * Execute Auto-Sync Tool - Teil des Ecosystem Integration Features (v3.3.0)
+ * Synchronisiert .ai.json mit Dokumentationsfiles (README, CHANGELOG, TODO, etc.)
+ */
+async function runAutoSync() {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('No workspace folder open');
+        return;
+    }
+    
+    // Prüfen, ob auto-sync.js existiert
+    const scriptPath = vscode.Uri.joinPath(workspaceFolder.uri, 'scripts', 'ecosystem', 'auto-sync.js');
+    
+    try {
+        await vscode.workspace.fs.stat(scriptPath);
+    } catch {
+        // Script existiert nicht, Benutzer fragen, ob es erstellt werden soll
+        const createOption = await vscode.window.showInformationMessage(
+            'Auto-Sync Script nicht gefunden. Möchten Sie das Script erstellen?',
+            'Script erstellen',
+            'Abbrechen'
+        );
+        
+        if (createOption === 'Script erstellen') {
+            try {
+                // Stellen Sie sicher, dass das Verzeichnis existiert
+                const scriptDir = vscode.Uri.joinPath(workspaceFolder.uri, 'scripts', 'ecosystem');
+                await vscode.workspace.fs.createDirectory(scriptDir);
+                
+                // Einen Template-Inhalt für das Script generieren
+                const scriptContent = `#!/usr/bin/env node
+/**
+ * coreX AI MindLayer - Auto-Sync Tool
+ * Synchronisiert .ai.json mit Dokumentationsfiles
+ */
+console.log('🔄 coreX AI MindLayer - Auto-Sync Tool startet...');
+// TODO: Implementiere die Auto-Sync-Logik
+`;
+                // Schreibe das Script
+                await vscode.workspace.fs.writeFile(
+                    scriptPath, 
+                    Buffer.from(scriptContent, 'utf8')
+                );
+                
+                vscode.window.showInformationMessage('Auto-Sync Script erstellt!');
+            } catch (error) {
+                vscode.window.showErrorMessage(`Fehler beim Erstellen des Scripts: ${error}`);
+                return;
+            }
+        } else {
+            return;
+        }
+    }
+
+    // Script im Terminal ausführen
+    const terminal = vscode.window.createTerminal('AI MindLayer Auto-Sync');
+    terminal.show();
+    
+    // Zu Workspace-Ordner navigieren
+    terminal.sendText(`cd "${workspaceFolder.uri.fsPath}"`);
+    
+    // Das Script mit Node.js ausführen
+    terminal.sendText('node scripts/ecosystem/auto-sync.js');
+    
+    vscode.window.showInformationMessage('🔄 Auto-Sync wird ausgeführt...');
 }

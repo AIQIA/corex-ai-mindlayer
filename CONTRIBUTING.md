@@ -28,6 +28,42 @@ Geplante Beteiligungsformen:
 
 ---
 
+## 📋 Entwicklung & Testing
+
+### 📦 Voraussetzungen
+
+- PHP 7.4 oder höher
+- Node.js (für VS Code Extension)
+- VS Code (für Extension Development)
+
+### 🧪 Testing
+
+Für Composer Plugin:
+
+```bash
+# Wenn Composer installiert ist
+cd scripts/ecosystem/composer-plugin
+composer install
+cd ../../..
+
+# Oder als Standalone (ohne Composer)
+php scripts/ecosystem/composer-plugin/src/ComposerPlugin.php
+
+# Alternativ: PHP Scanner
+php scripts/ecosystem/php-scanner/PhpProjectScanner.php
+```
+
+Für VS Code Extension:
+
+```bash
+cd vscode-extension
+npm install
+npm run compile
+npx vsce package
+```
+
+---
+
 ## 🧾 Rechtliches
 
 Durch Beiträge erklärst du dich damit einverstanden, dass deine Änderungen unter der MIT-Lizenz (modifiziert) dieses Projekts veröffentlicht werden.

@@ -1,6 +1,6 @@
 {
   "name": "@aiqia/corex-ai-mindlayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge",
   "type": "module",
   "main": "ai-init.php",

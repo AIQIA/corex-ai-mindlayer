@@ -2,7 +2,7 @@
   "name": "corex-ai-mindlayer",
   "displayName": "coreX AI MindLayer",
   "description": "VS Code extension for .ai.json editing and AI-ready project management",
-  "version": "3.2.0",
+  "version": "3.4.1",
   "publisher": "aiqia",
   "engines": {
     "vscode": "^1.74.0"
@@ -71,6 +71,21 @@
       {
         "command": "aiMindLayer.compareDiff",
         "title": "📊 Compare Diff",
+        "category": "AI MindLayer"
+      },
+      {
+        "command": "aiMindLayer.runAutoSync",
+        "title": "🔄 Run Auto-Sync",
+        "category": "AI MindLayer"
+      },
+      {
+        "command": "aiMindLayer.updateFromPackage",
+        "title": "📦 Update from Package Manager",
+        "category": "AI MindLayer"
+      },
+      {
+        "command": "aiMindLayer.scanDockerConfig",
+        "title": "🐳 Scan Docker Configuration",
         "category": "AI MindLayer"
       }
     ],

@@ -1,0 +1,23 @@
+{
+  "name": "ai-mindlayer-npm",
+  "version": "1.0.0",
+  "description": "NPM Plugin for coreX AI MindLayer - automatic .ai.json management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node scripts/setup.js"
+  },
+  "keywords": [
+    "ai",
+    "documentation",
+    "mindlayer",
+    "corex"
+  ],
+  "author": "AIQIA",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.5",
+    "json-schema": "^0.4.0"
+  }
+}

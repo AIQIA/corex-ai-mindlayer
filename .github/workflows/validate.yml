@@ -85,6 +85,29 @@ jobs:
           php -f ai-init.php
           echo "✅ AI init script works"
 
+      - name: Test standalone PHP scanner
+        run: |
+          echo "🧪 Testing standalone PHP scanner..."
+          # Test the scanner from a different directory to simulate real usage
+          mkdir -p test-project && cd test-project
+          cp ../scripts/ecosystem/php-scanner/PhpProjectScanner.php .
+          echo '{"name": "test/project", "description": "Test project"}' > composer.json
+          php PhpProjectScanner.php
+          test -f .ai.json && echo "✅ Standalone PHP scanner works"
+          cd .. && rm -rf test-project
+
+      - name: Test direct Composer plugin execution
+        run: |
+          echo "🧪 Testing direct Composer plugin execution..."
+          # Test direct execution of ComposerPlugin without Composer
+          mkdir -p test-plugin && cd test-plugin
+          cp -r ../scripts/ecosystem/composer-plugin .
+          cp -r ../scripts/ecosystem/php-scanner .
+          echo '{"name": "test/project", "description": "Test plugin execution"}' > composer.json
+          php composer-plugin/src/ComposerPlugin.php
+          test -f .ai.json && echo "✅ Direct composer plugin execution works"
+          cd .. && rm -rf test-plugin
+
       - name: Verify project structure
         run: |
           echo "📁 Verifying project structure..."
@@ -99,3 +122,47 @@ jobs:
           npm install -g ajv-cli
           ajv validate -s schema.json -d .ai.json.example
           echo "✅ Example file validates successfully"
+
+  test-composer-integration:
+    runs-on: ubuntu-latest
+    name: Test With Composer Installation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP with Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+
+      - name: Verify Composer installation
+        run: |
+          echo "🔍 Verifying Composer installation..."
+          composer --version
+          echo "✅ Composer is installed"
+
+      - name: Install Composer dependencies for plugin
+        run: |
+          echo "📦 Installing Composer plugin dependencies..."
+          cd scripts/ecosystem/composer-plugin
+          composer install
+          echo "✅ Dependencies installed"
+
+      - name: Test Composer command execution
+        run: |
+          echo "🧪 Testing Composer plugin command..."
+          mkdir -p test-with-composer && cd test-with-composer
+          echo '{"name": "test/composer-project", "description": "Test with real Composer"}' > composer.json
+          cp -r ../scripts/ecosystem/composer-plugin .
+          cd composer-plugin
+          composer install
+          cd ..
+
+          # Test with direct PHP execution of the plugin via Composer autoloader
+          php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
+
+          # Verify the .ai.json was created
+          test -f .ai.json && echo "✅ Composer plugin works with real Composer installation"
+          cat .ai.json
+          cd .. && rm -rf test-with-composer
