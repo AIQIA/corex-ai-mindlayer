@@ -20,6 +20,7 @@ composer.lock
 *.env.local
 .ai.json
 .ai.dev.json
+FAQ.md
 
 # VS Code & Editor
 .vscode/settings.json
