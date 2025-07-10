@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { updateFromPackageManager, scanDockerConfiguration } from './ecosystem';
+import { registerVersionCheckerCommand } from './version-checker';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('🤖 coreX AI MindLayer extension is now active!');
@@ -29,6 +30,9 @@ export function activate(context: vscode.ExtensionContext) {
     
     // NEW: v3.5.0 Research & Prototypes Feature
     const manageResearchCommand = vscode.commands.registerCommand('aiMindLayer.manageResearch', manageResearch);
+    
+    // NEW: v3.7.0 Version Checker Feature
+    const checkForUpdatesCommand = registerVersionCheckerCommand(context);
 
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
@@ -64,6 +68,9 @@ export function activate(context: vscode.ExtensionContext) {
         manageResearchCommand,
         aiJsonWatcher
     );
+
+    // Register version checker command
+    registerVersionCheckerCommand(context);
 }
 
 async function createAiJson() {
