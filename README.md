@@ -29,6 +29,7 @@ At its core is the `.ai.json` file – a living, structured map of your project'
 - Speeds up **onboarding**, **troubleshooting**, and **assistant interaction**
 - Introduces a **standardized language** between devs and AI
 - Powers features like code explanations, error diagnostics, and auto-generated documentation
+- **Automatic updates** keep your tools always on the cutting edge
 
 ---
 
@@ -130,6 +131,13 @@ Diese dient als **strukturierte Orientierung** für eigene Projekte und soll als
 ## 🚀 Roadmap & Zukünftige Entwicklung
 
 Das coreX AI MindLayer Projekt entwickelt sich kontinuierlich weiter. Hier sind unsere wichtigsten geplanten Features:
+
+### 🔄 Automatischer Versionschecker (v3.7.0)
+
+- One-Click Updates direkt aus VS Code
+- Update-Benachrichtigungen mit Changelog-Vorschau
+- Rollback-Mechanismus für fehlerfreies Upgraden
+- Regelmäßige Update-Checks mit konfigurierbaren Intervallen
 
 ### 📋 Skalierbarkeits-Features (v4.0.0)
 

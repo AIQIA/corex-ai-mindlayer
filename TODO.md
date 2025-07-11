@@ -156,6 +156,28 @@
 
 ## 🧩 Compatibility & Usage
 
+- [x] **Sicherer Versionschecker mit datenerhaltenden Updates**
+
+  - [x] Prüfung auf neue Versionen beim Start
+  - [x] Benachrichtigung über verfügbare Updates mit Versionsnummer und Änderungsübersicht
+  - [x] **Sicherheits-orientierter Update-Prozess:**
+    - [x] Automatisches Backup der aktuellen .ai.json und Konfigurationen vor jedem Update
+    - [x] Detaillierte Differenzanalyse mit visueller Darstellung aller Änderungen
+    - [x] Explizite Bestätigung jeder strukturellen Änderung durch den Nutzer
+    - [x] Schutz projektspezifischer Daten und benutzerdefinierter Einträge
+    - [x] Option zum selektiven Update (nur Core-Funktionen oder auch Schema-Änderungen)
+  - [x] **Transparente Update-Planung:**
+    - [x] Mehrstufige Vorschau der Änderungen mit farblicher Markierung
+    - [x] Warnungen bei potentiell problematischen Änderungen (z.B. entfernte Felder)
+    - [x] Erklärung der Auswirkungen jeder Änderung
+    - [x] Schritt-für-Schritt geführter Update-Prozess
+  - [x] **Robuste Sicherheitsmaßnahmen:**
+    - [x] Mehrfache Backup-Strategie (lokal und im Extension-Verzeichnis)
+    - [x] Automatischer Rollback bei Problemen
+    - [x] Protokollierung aller Update-Aktionen
+    - [x] Recovery-Tool zur Wiederherstellung bei Fehlern
+  - [x] Separate Updates für Core und Extension
+
 - [ ] **Erweiterte Ecosystem-Integrationen**
 
   - [ ] **Web-Interface und API**
@@ -271,7 +293,7 @@
 
   - [ ] CLI-Optionen für partielle Scanning/Generierung
   - [ ] Filter-System für Import/Export bestimmter Bereiche
-  - [ ] Verschiedene Detail-Level (z.B. "core", "extended", "full")
+  - [ ] Verschiedene Detail-Level (z. B. "core", "extended", "full")
   - [ ] Temporäres Auslagern selten genutzter Metadaten
 
 - [ ] **Alternative Datenhaltung für Enterprise-Projekte**

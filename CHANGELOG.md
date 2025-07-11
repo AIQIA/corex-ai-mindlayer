@@ -4,6 +4,29 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.7.0] – 2025-07-15
+
+### Hochsicherer Update-Mechanismus
+
+**100% sichere Updates mit umfassendem Datenschutz:**
+
+- Vollständig implementierter sicherer Update-Mechanismus
+  - Intelligente Schema-Vergleichsanalyse zur Identifikation kritischer Änderungen
+  - Mehrstufiges Backup-System (lokales und globales Extension-Storage)
+  - Visuelle Differenzdarstellung mit Hervorhebung kritischer Änderungen
+  - Explizite Benutzerbestätigung für alle strukturellen Änderungen
+  - Präziser Schutz projektspezifischer Daten in .ai.json
+- Erweiterte Sicherheitsfeatures
+  - Vorbeugender Datenschutz mit intelligenter Zusammenführung
+  - Automatische Erkennung von Projektdaten und Konflikten
+  - Verbessertes Recovery-System mit Rollback-Unterstützung
+  - Detaillierte Update-Protokollierung und Transparenz
+- Technische Verbesserungen
+  - Umstellung auf native HTTPS-Anfragen (Entfernung der Axios-Abhängigkeit)
+  - Performanceoptimierungen bei der Schema-Analyse
+  - Verbesserte Fehlerbehandlung und Benutzerfeedback
+  - Umfassende Integration in die bestehende VS Code-Extension
+
 ## [3.6.1] – 2025-07-10
 
 ### Erweiterte Roadmap und Optimierungen
@@ -20,6 +43,14 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
   - KI-gestützte Metadaten-Generierung mit NLP
   - Code-Qualitäts-Scoring und Anti-Pattern-Erkennung
   - Predictive Maintenance für Codebasis
+- Hochsicherer Versionschecker mit datenerhaltenden Updates
+  - Update-Erkennung mit nativer GitHub API-Integration (ohne externe Abhängigkeiten)
+  - Benutzerfreundliches Benachrichtigungssystem mit Details-Vorschau
+  - Mehrstufiger sicherer Update-Mechanismus mit 100% Datenschutz
+  - Detaillierte Schema-Differenzanalyse mit visueller Darstellung
+  - Intelligentes Backup-System mit mehrfacher Absicherung
+  - Automatischer Rollback-Mechanismus bei Update-Problemen
+  - Vollständiger Schutz projektspezifischer Daten in .ai.json-Dateien
 - Erweiterte Ecosystem-Integrationspläne
   - Web-Interface und API-Konzept
   - CI/CD-Pipeline Integrationspläne
