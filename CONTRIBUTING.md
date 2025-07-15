@@ -1,9 +1,35 @@
-# 🤝 Beitrag leisten – coreX AI MindLayer
+# 🤝 Beitrag leisten – coreX AI MindLayer v3.7.0
 
 Danke, dass du Interesse hast, dieses Projekt zu unterstützen!  
 coreX AI MindLayer steht für einen offenen, zukunftsorientierten AI-Standard zur strukturierten Projektverständlichkeit für KI-Systeme.
 
----
+## 📚 Wichtige Ressourcen
+
+Bevor du anfängst:
+
+- 📖 [README.md](README.md) - Projektübersicht
+- 🤖 [INITIALIZE.md](INITIALIZE.md) - KI-Kontext & Grundprinzipien
+- 📋 [CHANGELOG.md](CHANGELOG.md) - Aktuelle Änderungen
+- 🎯 [TODO.md](TODO.md) - Aktuelle Entwicklungsziele
+
+## 🎯 Aktuelle Schwerpunkte (v3.7.0)
+
+1. **Sicherer Update-Mechanismus**
+
+   - Schema-Vergleichsanalyse
+   - Backup-System
+   - Datenschutz-Features
+
+2. **ML-Features (in Entwicklung)**
+
+   - Architekturanalyse
+   - Code-Qualitäts-Scoring
+   - Predictive Maintenance
+
+3. **Skalierbarkeits-Features**
+   - JSON Modularisierung
+   - Komprimierungsstrategien
+   - Alternative Datenhaltung
 
 ## 🧱 Mitmachen
 

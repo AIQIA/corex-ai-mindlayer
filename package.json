@@ -67,8 +67,8 @@
     "chalk": "^0.4.0",
     "has-color": "^0.1.7",
     "JSV": "^4.0.2",
-    "nomnom": "^1.8.1",
+    "lodash": "^4.17.21",
     "strip-ansi": "^0.1.1",
-    "underscore": "^1.6.0"
+    "yargs": "^18.0.0"
   }
 }

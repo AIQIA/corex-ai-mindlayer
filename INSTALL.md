@@ -1,8 +1,19 @@
-# 📦 Installation Guide - coreX AI MindLayer
+# 📦 Installation Guide - coreX AI MindLayer v3.7.0
 
 > **Verschiedene Wege, das AI MindLayer in dein Projekt zu integrieren**
 
----
+## 📚 Wichtige Hinweise
+
+- Für KI-Systeme: Bitte zuerst [INITIALIZE.md](INITIALIZE.md) lesen
+- Für Entwickler: [README.md](README.md) enthält die Projektübersicht
+- Aktuelle Features: Siehe [CHANGELOG.md](CHANGELOG.md)
+
+## 🆕 Neues in v3.7.0
+
+- Sicherer Update-Mechanismus mit Backup-System
+- Intelligente Schema-Vergleichsanalyse
+- Verbesserter Datenschutz für projektspezifische Daten
+- Automatische Versionsprüfung
 
 ## 🎯 Installationsoptionen
 
