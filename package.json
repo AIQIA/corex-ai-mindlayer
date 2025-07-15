@@ -2,7 +2,7 @@
   "name": "@aiqia/corex-ai-mindlayer",
   "version": "3.7.0",
   "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge",
-  "type": "module",
+  "type": "commonjs",
   "main": "ai-init.php",
   "files": [
     ".ai.json.example",
@@ -15,7 +15,7 @@
     "scanners"
   ],
   "scripts": {
-    "validate": "node validate.js",
+    "validate": "cross-env NODE_ENV=development node validate.js",
     "validate:example": "node validate.js .ai.json.example",
     "validate:all": "node validate.js '.ai.json*'",
     "lint": "node node_modules/jsonlint-mod/lib/cli.js .ai.json.example && php -l ai-init.php",
@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "ajv": "^8.17.1",
+    "cross-env": "^7.0.3",
     "jsonlint-mod": "^1.7.6"
   },
   "funding": {
