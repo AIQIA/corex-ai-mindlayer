@@ -173,10 +173,8 @@ jobs:
           cp -r ../scripts/ecosystem/composer-plugin .
           cd composer-plugin
           composer install
-          cd ..
-
-          # Create initial .ai.json from example
-          cp ../../.ai.json.example .ai.json
+          cd ..          # Create initial .ai.json from example
+          cp $GITHUB_WORKSPACE/.ai.json.example .ai.json || (echo "Could not find .ai.json.example in workspace root" && exit 1)
 
           # Now run the plugin
           php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
