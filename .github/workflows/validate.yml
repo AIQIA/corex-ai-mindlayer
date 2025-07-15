@@ -112,7 +112,15 @@ jobs:
           cp -r ../scripts/ecosystem/composer-plugin .
           cp -r ../scripts/ecosystem/php-scanner .
           echo '{"name": "test/project", "description": "Test plugin execution"}' > composer.json
-          php composer-plugin/src/ComposerPlugin.php
+
+          # Install composer dependencies first
+          cd composer-plugin
+          composer install
+          cd ..
+
+          # Now run the plugin with proper autoloader
+          php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
+
           test -f .ai.json && echo "Direct composer plugin execution works"
           cd .. && rm -rf test-plugin
 
