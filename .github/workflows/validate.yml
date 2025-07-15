@@ -175,8 +175,19 @@ jobs:
           composer install
           cd ..
 
+          # Create initial .ai.json from example
+          cp ../../.ai.json.example .ai.json
+
+          # Now run the plugin
           php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
 
+          # Verify results
           test -f .ai.json && echo "Composer plugin works with real Composer installation"
-          cat .ai.json
+          if [ -f .ai.json ]; then
+            echo "Content of .ai.json:"
+            cat .ai.json
+          else
+            echo "Error: .ai.json was not created"
+            exit 1
+          fi
           cd .. && rm -rf test-with-composer
