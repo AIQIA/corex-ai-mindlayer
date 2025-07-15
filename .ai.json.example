@@ -17,7 +17,7 @@
         },
         {
             "module": "Dashboard",
-            "description": "Hauptbenutzeroberfläche nach dem Login",
+            "description": "Hauptbenutzeroberflaeche nach dem Login",
             "entrypoints": ["dashboard.php", "dashboard.vue"],
             "routes": ["/dashboard", "/admin"],
             "dependencies": ["Authentifizierung"]
@@ -28,14 +28,14 @@
             "code": "AUTH_FAILED",
             "message": "Authentifizierung fehlgeschlagen",
             "causes": ["Falsche Anmeldedaten", "Session abgelaufen"],
-            "solutions": ["Anmeldedaten prüfen", "Neu anmelden"],
+            "solutions": ["Anmeldedaten pruefen", "Neu anmelden"],
             "severity": "medium"
         },
         {
             "code": "DB_CONNECTION",
             "message": "Datenbankverbindung fehlgeschlagen",
             "causes": ["Server nicht erreichbar", "Falsche Credentials"],
-            "solutions": ["Verbindung prüfen", "Credentials validieren"],
+            "solutions": ["Verbindung pruefen", "Credentials validieren"],
             "severity": "high"
         }
     ],
@@ -65,7 +65,7 @@
         },
         {
             "key": "Database",
-            "value": "MySQL 8.0 mit Redis für Caching",
+            "value": "MySQL 8.0 mit Redis fuer Caching",
             "category": "infrastructure"
         }
     ],
@@ -80,7 +80,7 @@
             "type": "api",
             "label": "REST API Documentation",
             "url": "./api-docs.md",
-            "description": "Vollständige API-Referenz"
+            "description": "Vollstaendige API-Referenz"
         },
         {
             "type": "tag",
@@ -97,8 +97,8 @@
     },
     "research": [
         {
-            "name": "ML-basierte Code-Qualitätsanalyse",
-            "description": "Automatische Erkennung von Code-Qualitätsmerkmalen mittels Machine Learning",
+            "name": "ML-basierte Code-Qualitaetsanalyse",
+            "description": "Automatische Erkennung von Code-Qualitaetsmerkmalen mittels Machine Learning",
             "status": "early_prototype",
             "progress": 35,
             "technologies": ["TensorFlow.js", "CodeBERT", "TypeScript"],
@@ -114,11 +114,11 @@
                     "description": "Proof-of-concept Implementation"
                 }
             ],
-            "potential_impact": "Automatische Qualitätsbewertung und Verbesserungsvorschläge direkt in der IDE"
+            "potential_impact": "Automatische Qualitaetsbewertung und Verbesserungsvorschlaege direkt in der IDE"
         },
         {
-            "name": "Intelligente Architektur-Vorschläge",
-            "description": "KI-generierte Vorschläge zur Optimierung der Projektarchitektur",
+            "name": "Intelligente Architektur-Vorschlaege",
+            "description": "KI-generierte Vorschlaege zur Optimierung der Projektarchitektur",
             "status": "concept",
             "progress": 15,
             "technologies": ["GPT-4", "Architectural Pattern Recognition"],

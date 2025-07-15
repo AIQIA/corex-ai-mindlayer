@@ -24,30 +24,37 @@ jobs:
         with:
           php-version: "8.2"
 
-      - name: Install dependencies
+      - name: Prepare package.json with ajv-cli
         run: |
-          npm install -g ajv-cli
-          npm install -g jsonlint
+          echo '{ "devDependencies": { "ajv-cli": "^5.0.0", "jsonlint": "^1.6.3" } }' > package.json
+          npm install
 
       - name: Validate JSON syntax
         run: |
-          echo "-> Validating JSON syntax..."
-          jsonlint .ai.json.example
-          if [ -f .ai.json ]; then
-            jsonlint .ai.json
+          echo "Validating JSON syntax..."
+          npx jsonlint .ai.json.example
+          if [ -f ".ai.json" ]; then
+            npx jsonlint .ai.json
           fi
 
       - name: Validate against schema
         run: |
-          echo "-> Validating against schema..."
-          ajv validate -s schema.json -d .ai.json.example
-          if [ -f .ai.json ]; then
-            ajv validate -s schema.json -d .ai.json
+          echo "Validating against schema..."
+          if ! npx ajv-cli validate -s schema.json -d .ai.json.example; then
+            echo ".ai.json.example failed schema validation"
+            exit 1
+          fi
+
+          if [ -f ".ai.json" ]; then
+            if ! npx ajv-cli validate -s schema.json -d .ai.json; then
+              echo ".ai.json failed schema validation"
+              exit 1
+            fi
           fi
 
       - name: Check documentation links
         run: |
-          echo "-> Checking documentation..."
+          echo "Checking documentation..."
           test -f README.md
           test -f INSTALL.md
           test -f AI-INTEGRATION.md
@@ -55,7 +62,7 @@ jobs:
           test -f CONTRIBUTING.md
           test -f CHANGELOG.md
           test -f TODO.md
-          echo "-> All documentation files exist"
+          echo "All documentation files exist"
 
   lint-php:
     runs-on: ubuntu-latest
@@ -71,9 +78,9 @@ jobs:
 
       - name: Validate PHP syntax
         run: |
-          echo "-> Validating PHP syntax..."
+          echo "Validating PHP syntax..."
           find . -name "*.php" -exec php -l {} \;
-          echo "-> PHP syntax validation complete"
+          echo "PHP syntax validation complete"
 
   test-integration:
     runs-on: ubuntu-latest
@@ -89,45 +96,44 @@ jobs:
 
       - name: Test ai-init.php
         run: |
-          echo "-> Testing ai-init.php..."
+          echo "Testing ai-init.php..."
           php -f ai-init.php
-          echo "-> AI init script works"
+          echo "AI init script works"
 
       - name: Test standalone PHP scanner
         run: |
-          echo "-> Testing standalone PHP scanner..."
+          echo "Testing standalone PHP scanner..."
           mkdir -p test-project && cd test-project
           cp ../scripts/ecosystem/php-scanner/PhpProjectScanner.php .
           echo '{"name": "test/project", "description": "Test project"}' > composer.json
           php PhpProjectScanner.php
-          test -f .ai.json && echo "-> Standalone PHP scanner works"
+          test -f .ai.json && echo "Standalone PHP scanner works"
           cd .. && rm -rf test-project
 
       - name: Test direct Composer plugin execution
         run: |
-          echo "-> Testing direct Composer plugin execution..."
+          echo "Testing direct Composer plugin execution..."
           mkdir -p test-plugin && cd test-plugin
           cp -r ../scripts/ecosystem/composer-plugin .
           cp -r ../scripts/ecosystem/php-scanner .
           echo '{"name": "test/project", "description": "Test plugin execution"}' > composer.json
           php composer-plugin/src/ComposerPlugin.php
-          test -f .ai.json && echo "-> Direct composer plugin execution works"
+          test -f .ai.json && echo "Direct composer plugin execution works"
           cd .. && rm -rf test-plugin
 
       - name: Verify project structure
         run: |
-          echo "-> Verifying project structure..."
+          echo "Verifying project structure..."
           test -f .ai.json.example
           test -f ai-init.php
           test -f schema.json
-          echo "-> Required files present"
+          echo "Required files present"
 
       - name: Test example validation
         run: |
-          echo "-> Testing if example validates..."
-          npm install -g ajv-cli
-          ajv validate -s schema.json -d .ai.json.example
-          echo "-> Example file validates successfully"
+          echo "Testing if example validates..."
+          npx ajv-cli validate -s schema.json -d .ai.json.example
+          echo "Example file validates successfully"
 
   test-composer-integration:
     runs-on: ubuntu-latest
@@ -144,20 +150,20 @@ jobs:
 
       - name: Verify Composer installation
         run: |
-          echo "-> Verifying Composer installation..."
+          echo "Verifying Composer installation..."
           composer --version
-          echo "-> Composer is installed"
+          echo "Composer is installed"
 
       - name: Install Composer dependencies for plugin
         run: |
-          echo "-> Installing Composer plugin dependencies..."
+          echo "Installing Composer plugin dependencies..."
           cd scripts/ecosystem/composer-plugin
           composer install
-          echo "-> Dependencies installed"
+          echo "Dependencies installed"
 
       - name: Test Composer command execution
         run: |
-          echo "-> Testing Composer plugin command..."
+          echo "Testing Composer plugin command..."
           mkdir -p test-with-composer && cd test-with-composer
           echo '{"name": "test/composer-project", "description": "Test with real Composer"}' > composer.json
           cp -r ../scripts/ecosystem/composer-plugin .
@@ -167,6 +173,6 @@ jobs:
 
           php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
 
-          test -f .ai.json && echo "-> Composer plugin works with real Composer installation"
+          test -f .ai.json && echo "Composer plugin works with real Composer installation"
           cat .ai.json
           cd .. && rm -rf test-with-composer

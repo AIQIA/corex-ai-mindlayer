@@ -7,10 +7,6 @@
   "required": ["meta"],
   "additionalProperties": true,
   "properties": {
-    "$schema": {
-      "type": "string",
-      "description": "JSON Schema reference"
-    },
     "meta": {
       "type": "object",
       "required": ["project", "version", "author", "description"],
