@@ -18,11 +18,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
+
+      - name: Generate package-lock.json
+        run: npm install --package-lock-only
 
       - name: Install dependencies
         run: npm ci
@@ -30,9 +34,9 @@ jobs:
       - name: Validate JSON syntax
         run: |
           echo "Validating JSON syntax..."
-          npx jsonlint .ai.json.example
+          node node_modules/jsonlint-mod/lib/cli.js .ai.json.example
           if [ -f ".ai.json" ]; then
-            npx jsonlint .ai.json
+            node node_modules/jsonlint-mod/lib/cli.js .ai.json
           fi
 
       - name: Validate against schema
