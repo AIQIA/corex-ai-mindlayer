@@ -15,7 +15,9 @@
     "scanners"
   ],
   "scripts": {
-    "validate": "ajv validate -s schema.json -d .ai.json.example",
+    "validate": "node validate.js",
+    "validate:example": "node validate.js .ai.json.example",
+    "validate:all": "node validate.js '.ai.json*'",
     "lint": "jsonlint .ai.json.example && php -l ai-init.php",
     "test": "npm run validate && npm run lint",
     "install-example": "cp .ai.json.example .ai.json",
@@ -39,11 +41,7 @@
     "mindlayer",
     "aiqia"
   ],
-  "author": {
-    "name": "Sascha Buscher",
-    "email": "info@aiqia.de",
-    "url": "https://aiqia.de"
-  },
+  "author": "Sascha Buscher <info@aiqia.de> (https://aiqia.de)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AIQIA/corex-ai-mindlayer/issues"
@@ -54,7 +52,7 @@
     "php": ">=7.4"
   },
   "devDependencies": {
-    "ajv-cli": "^5.0.0",
+    "ajv": "^8.17.1",
     "jsonlint": "^1.6.3"
   },
   "funding": {
@@ -63,5 +61,14 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "ansi-styles": "^1.0.0",
+    "chalk": "^0.4.0",
+    "has-color": "^0.1.7",
+    "JSV": "^4.0.2",
+    "nomnom": "^1.8.1",
+    "strip-ansi": "^0.1.1",
+    "underscore": "^1.6.0"
   }
 }

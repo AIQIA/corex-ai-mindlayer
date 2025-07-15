@@ -87,7 +87,18 @@
           "status": {
             "type": "string",
             "description": "Current status of the research or prototype",
-            "enum": ["concept", "early_prototype", "active_development", "testing", "evaluation"]
+            "enum": [
+              "concept",
+              "early_prototype",
+              "active_development",
+              "testing",
+              "evaluation",
+              "analysis",
+              "implementation",
+              "validation",
+              "documentation",
+              "deployment"
+            ]
           },
           "progress": {
             "type": "number",
@@ -323,6 +334,149 @@
           "type": "array",
           "items": {"type": "string"},
           "description": "Files or patterns to ignore during AI analysis"
+        }
+      }
+    },
+    "update_config": {
+      "type": "object",
+      "description": "Configuration for the secure update mechanism",
+      "properties": {
+        "backup": {
+          "type": "object",
+          "properties": {
+            "local_storage": {
+              "type": "string",
+              "description": "Path to local backup storage"
+            },
+            "global_storage": {
+              "type": "string",
+              "description": "Path to global extension storage backup"
+            },
+            "retention_days": {
+              "type": "number",
+              "description": "Number of days to retain backups",
+              "minimum": 1
+            }
+          }
+        },
+        "schema_tracking": {
+          "type": "object",
+          "properties": {
+            "track_changes": {
+              "type": "boolean",
+              "description": "Enable detailed schema change tracking"
+            },
+            "visual_diff": {
+              "type": "boolean",
+              "description": "Enable visual difference highlighting"
+            },
+            "critical_changes": {
+              "type": "array",
+              "description": "List of changes marked as critical",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "JSON path to changed element"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["added", "modified", "removed"]
+                  },
+                  "severity": {
+                    "type": "string",
+                    "enum": ["low", "medium", "high"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "machine_learning": {
+      "type": "object",
+      "description": "Machine learning and AI feature configuration",
+      "additionalProperties": false,
+      "properties": {
+        "architecture_analysis": {
+          "type": "object",
+          "required": ["pattern_recognition", "quality_metrics"],
+      "properties": {
+            "pattern_recognition": {
+              "type": "boolean",
+              "description": "Enable AI pattern recognition in architecture"
+            },
+            "quality_metrics": {
+              "type": "object",
+              "required": ["code_quality_score", "anti_patterns"],
+              "additionalProperties": false,
+              "properties": {
+                "code_quality_score": {
+                  "type": "number",
+                  "description": "Overall code quality score (0-100)",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "anti_patterns": {              "type": "array",
+              "description": "Detected anti-patterns",
+              "items": {
+                "type": "object",
+                "required": ["pattern", "severity", "locations"],
+                "additionalProperties": false,
+                "properties": {
+                      "pattern": {
+                        "type": "string",
+                        "description": "Name of the anti-pattern"
+                      },
+                      "severity": {
+                        "type": "string",
+                        "enum": ["low", "medium", "high"]
+                      },
+                      "locations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "File paths where pattern was detected"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "metadata_generation": {
+          "type": "object",
+          "required": ["nlp_enabled", "analysis_depth"],
+          "additionalProperties": false,
+          "properties": {
+            "nlp_enabled": {
+              "type": "boolean",
+              "description": "Enable NLP-based metadata generation"
+            },
+            "analysis_depth": {
+              "type": "string",
+              "enum": ["basic", "detailed", "comprehensive"]
+            }
+          }
+        },
+        "predictive_maintenance": {
+          "type": "object",
+          "required": ["enabled", "scan_interval"],
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Enable predictive maintenance features"
+            },
+            "scan_interval": {
+              "type": "string",
+              "description": "Interval for predictive scans (e.g. '1d', '1w')"
+            }
+          }
         }
       }
     }

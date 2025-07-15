@@ -1,128 +1,251 @@
 {
-    "meta": {
-        "project": "Beispiel Projekt",
-        "version": "1.0.1",
-        "author": "Dein Name oder Organisation",
-        "description": "Kurzbeschreibung dieses Beispielprojekts",
-        "created": "2025-01-01",
-        "updated": "2025-07-09"
+  "meta": {
+    "project": "Beispiel Projekt",
+    "version": "1.0.1",
+    "author": "Dein Name oder Organisation",
+    "description": "Kurzbeschreibung dieses Beispielprojekts",
+    "created": "2025-01-01",
+    "updated": "2025-07-09"
+  },
+  "architecture": [
+    {
+      "module": "Authentifizierung",
+      "description": "Benutzer-Login und Session-Management",
+      "entrypoints": [
+        "login.php",
+        "auth.js"
+      ],
+      "routes": [
+        "/login",
+        "/register",
+        "/logout"
+      ],
+      "dependencies": [
+        "SessionManager",
+        "UserModel"
+      ],
+      "relations": [
+        {
+          "target": "UserModel",
+          "type": "implements",
+          "description": "Implementiert das User Interface für Auth"
+        },
+        {
+          "target": "SessionManager",
+          "type": "calls",
+          "description": "Verwendet Session Management Funktionen"
+        }
+      ]
     },
-    "architecture": [
+    {
+      "module": "Dashboard",
+      "description": "Hauptbenutzeroberflaeche nach dem Login",
+      "entrypoints": [
+        "dashboard.php",
+        "dashboard.vue"
+      ],
+      "routes": [
+        "/dashboard",
+        "/admin"
+      ],
+      "dependencies": [
+        "Authentifizierung"
+      ],
+      "relations": [
         {
-            "module": "Authentifizierung",
-            "description": "Benutzer-Login und Session-Management",
-            "entrypoints": ["login.php", "auth.js"],
-            "routes": ["/login", "/register", "/logout"],
-            "dependencies": ["SessionManager", "UserModel"]
-        },
-        {
-            "module": "Dashboard",
-            "description": "Hauptbenutzeroberflaeche nach dem Login",
-            "entrypoints": ["dashboard.php", "dashboard.vue"],
-            "routes": ["/dashboard", "/admin"],
-            "dependencies": ["Authentifizierung"]
+          "target": "Authentifizierung",
+          "type": "imports",
+          "description": "Importiert Auth-Komponenten für Zugriffsschutz"
         }
-    ],
-    "errors": [
-        {
-            "code": "AUTH_FAILED",
-            "message": "Authentifizierung fehlgeschlagen",
-            "causes": ["Falsche Anmeldedaten", "Session abgelaufen"],
-            "solutions": ["Anmeldedaten pruefen", "Neu anmelden"],
-            "severity": "medium"
-        },
-        {
-            "code": "DB_CONNECTION",
-            "message": "Datenbankverbindung fehlgeschlagen",
-            "causes": ["Server nicht erreichbar", "Falsche Credentials"],
-            "solutions": ["Verbindung pruefen", "Credentials validieren"],
-            "severity": "high"
-        }
-    ],
-    "tasks": [
-        {
-            "task": "Passwort-Reset-Funktion implementieren",
-            "priority": "high",
-            "status": "open",
-            "relatedModules": ["Authentifizierung"],
-            "due": "2025-12-31",
-            "tags": ["security", "user-management"]
-        },
-        {
-            "task": "Dashboard Performance optimieren",
-            "priority": "medium",
-            "status": "in-progress",
-            "relatedModules": ["Dashboard"],
-            "due": "2025-08-15",
-            "tags": ["performance", "ui"]
-        }
-    ],
-    "context": [
-        {
-            "key": "Framework",
-            "value": "Das Projekt verwendet Laravel mit Vue.js Frontend",
-            "category": "technology"
-        },
-        {
-            "key": "Database",
-            "value": "MySQL 8.0 mit Redis fuer Caching",
-            "category": "infrastructure"
-        }
-    ],
-    "references": [
-        {
-            "type": "doc",
-            "label": "AI Integration Guide",
-            "url": "./AI-INTEGRATION.md",
-            "description": "Anleitung zur Integration von AI-Tools"
-        },
-        {
-            "type": "api",
-            "label": "REST API Documentation",
-            "url": "./api-docs.md",
-            "description": "Vollstaendige API-Referenz"
-        },
-        {
-            "type": "tag",
-            "label": "@ai-docs",
-            "description": "Markiert AI-lesbare Dokumentation im Code"
-        }
-    ],
-    "user_preferences": {
-        "language": "deutsch",
-        "communication_style": "informell",
-        "technical_depth": "mittel",
-        "response_format": "mit_codebeispielen",
-        "note": "Dieses Projekt wird von einem deutschsprachigen Team entwickelt"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": "AUTH_FAILED",
+      "message": "Authentifizierung fehlgeschlagen",
+      "causes": [
+        "Falsche Anmeldedaten",
+        "Session abgelaufen"
+      ],
+      "solutions": [
+        "Anmeldedaten pruefen",
+        "Neu anmelden"
+      ],
+      "severity": "medium"
     },
-    "research": [
+    {
+      "code": "DB_CONNECTION",
+      "message": "Datenbankverbindung fehlgeschlagen",
+      "causes": [
+        "Server nicht erreichbar",
+        "Falsche Credentials"
+      ],
+      "solutions": [
+        "Verbindung pruefen",
+        "Credentials validieren"
+      ],
+      "severity": "high"
+    }
+  ],
+  "tasks": [
+    {
+      "task": "Passwort-Reset-Funktion implementieren",
+      "priority": "high",
+      "status": "open",
+      "relatedModules": [
+        "Authentifizierung"
+      ],
+      "due": "2025-12-31",
+      "tags": [
+        "security",
+        "user-management"
+      ]
+    },
+    {
+      "task": "Dashboard Performance optimieren",
+      "priority": "medium",
+      "status": "in-progress",
+      "relatedModules": [
+        "Dashboard"
+      ],
+      "due": "2025-08-15",
+      "tags": [
+        "performance",
+        "ui"
+      ]
+    }
+  ],
+  "context": [
+    {
+      "key": "Framework",
+      "value": "Das Projekt verwendet Laravel mit Vue.js Frontend",
+      "category": "technology"
+    },
+    {
+      "key": "Database",
+      "value": "MySQL 8.0 mit Redis fuer Caching",
+      "category": "infrastructure"
+    }
+  ],
+  "references": [
+    {
+      "type": "doc",
+      "label": "AI Integration Guide",
+      "url": "./AI-INTEGRATION.md",
+      "description": "Anleitung zur Integration von AI-Tools"
+    },
+    {
+      "type": "api",
+      "label": "REST API Documentation",
+      "url": "./api-docs.md",
+      "description": "Vollstaendige API-Referenz"
+    },
+    {
+      "type": "tag",
+      "label": "@ai-docs",
+      "url": "#",
+      "description": "Markiert AI-lesbare Dokumentation im Code"
+    }
+  ],
+  "user_preferences": {
+    "language": "deutsch",
+    "communication_style": "informell",
+    "technical_depth": "mittel",
+    "response_format": "mit_codebeispielen",
+    "note": "Dieses Projekt wird von einem deutschsprachigen Team entwickelt"
+  },
+  "research": [
+    {
+      "name": "ML-basierte Code-Qualitaetsanalyse",
+      "description": "Automatische Erkennung von Code-Qualitaetsmerkmalen mittels Machine Learning",
+      "status": "implementation",
+      "progress": 35,
+      "technologies": [
+        "TensorFlow.js",
+        "CodeBERT",
+        "TypeScript"
+      ],
+      "resources": [
         {
-            "name": "ML-basierte Code-Qualitaetsanalyse",
-            "description": "Automatische Erkennung von Code-Qualitaetsmerkmalen mittels Machine Learning",
-            "status": "early_prototype",
-            "progress": 35,
-            "technologies": ["TensorFlow.js", "CodeBERT", "TypeScript"],
-            "resources": [
-                {
-                    "type": "paper",
-                    "link": "https://arxiv.org/abs/2102.04664",
-                    "description": "CodeBERT: A Pre-Trained Model for Programming and Natural Languages"
-                },
-                {
-                    "type": "repository",
-                    "link": "https://github.com/example/code-quality-ml",
-                    "description": "Proof-of-concept Implementation"
-                }
-            ],
-            "potential_impact": "Automatische Qualitaetsbewertung und Verbesserungsvorschlaege direkt in der IDE"
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2102.04664",
+          "description": "CodeBERT: A Pre-Trained Model for Programming and Natural Languages"
         },
         {
-            "name": "Intelligente Architektur-Vorschlaege",
-            "description": "KI-generierte Vorschlaege zur Optimierung der Projektarchitektur",
-            "status": "concept",
-            "progress": 15,
-            "technologies": ["GPT-4", "Architectural Pattern Recognition"],
-            "potential_impact": "Adaptive Architekturverbesserungen basierend auf Best Practices und Projektkontext"
+          "type": "repository",
+          "link": "https://github.com/example/code-quality-ml",
+          "description": "Proof-of-concept Implementation"
         }
-    ]
+      ],
+      "potential_impact": "Automatische Qualitaetsbewertung und Verbesserungsvorschlaege direkt in der IDE"
+    },
+    {
+      "name": "Intelligente Architektur-Vorschlaege",
+      "description": "KI-generierte Vorschlaege zur Optimierung der Projektarchitektur",
+      "status": "analysis",
+      "progress": 15,
+      "technologies": [
+        "GPT-4",
+        "Architectural Pattern Recognition"
+      ],
+      "potential_impact": "Adaptive Architekturverbesserungen basierend auf Best Practices und Projektkontext"
+    }
+  ],
+  "update_config": {
+    "backup": {
+      "local_storage": "./backups/local",
+      "global_storage": "%APPDATA%/AIMLExtension/backups",
+      "retention_days": 30
+    },
+    "schema_tracking": {
+      "track_changes": true,
+      "visual_diff": true,
+      "critical_changes": [
+        {
+          "path": "$.architecture[0].security",
+          "type": "added",
+          "severity": "high"
+        },
+        {
+          "path": "$.meta.version",
+          "type": "modified",
+          "severity": "medium"
+        }
+      ]
+    }
+  },
+  "machine_learning": {
+    "architecture_analysis": {
+      "pattern_recognition": true,
+      "quality_metrics": {
+        "code_quality_score": 87,
+        "anti_patterns": [
+          {
+            "pattern": "God Object",
+            "severity": "high",
+            "locations": [
+              "src/controllers/DashboardController.php",
+              "src/services/AuthService.php"
+            ]
+          },
+          {
+            "pattern": "Magic Numbers",
+            "severity": "medium",
+            "locations": [
+              "src/utils/ValidationHelper.js"
+            ]
+          }
+        ]
+      }
+    },
+    "metadata_generation": {
+      "nlp_enabled": true,
+      "analysis_depth": "detailed"
+    },
+    "predictive_maintenance": {
+      "enabled": true,
+      "scan_interval": "1w"
+    }
+  }
 }
