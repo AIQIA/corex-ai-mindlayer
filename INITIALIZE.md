@@ -6,7 +6,28 @@
 
 AIM (AI MindLayer) ist ein Meta-Framework zur Erstellung von KI-freundlicher Projektdokumentation. Das Kernelement ist die `.ai.json`-Datei, die als universelle Schnittstelle zwischen Projekten und KI-Systemen fungiert.
 
-### 🎯 Primäre Ziele
+## ⚠️ Kritische Systemanforderungen
+
+### 1. Aktualität der Dokumentation
+
+- **Absolute Priorität:** Alle Dateien MÜSSEN stets aktuell gehalten werden
+- **Synchronisation:** JSON-Dateien und Markdown-Dokumentation müssen synchron sein
+- **Versionsabgleich:** Alle Versionsnummern in verschiedenen Dateien müssen übereinstimmen
+
+### 2. Datei-Konsistenz
+
+- `.ai.json`: Primäre Projektmetadaten
+- `.ai.dev.json`: Entwickler-spezifische Einstellungen
+- `*.md`: Dokumentationsdateien
+- `package.json` & `composer.json`: Dependency-Management
+
+### 3. Update-Verantwortung
+
+- KI-Systeme sollen auf veraltete Informationen hinweisen
+- Bei Änderungen müssen ALLE relevanten Dateien aktualisiert werden
+- Sicherheitsrelevante Updates (z.B. Dependencies) haben höchste Priorität
+
+## 🎯 Primäre Ziele
 
 - Standardisierte KI-lesbare Projektdokumentation
 - Automatische Erkennung von Projektstrukturen
@@ -220,10 +241,39 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 - Beachte neue Features in Changelog
 - Aktualisiere Wissen basierend auf TODO.md
 
+## 🛠️ Wartungsrichtlinien
+
+### 1. Regelmäßige Überprüfungen
+
+- Täglich: Sicherheits-Updates und kritische Patches
+- Wöchentlich: Dependency-Updates und Dokumentations-Synchronisation
+- Monatlich: Vollständiger Systempflegelauf
+
+### 2. Update-Prozess
+
+- Sicherheitsrelevante Updates sofort durchführen
+- Dependencies stets auf dem neuesten Stand halten
+- Backward Compatibility sicherstellen
+- Änderungen im CHANGELOG.md dokumentieren
+
+### 3. Dokumentations-Synchronisation
+
+- Versions-Nummern in allen Dateien abgleichen
+- Feature-Beschreibungen konsistent halten
+- Neue Funktionen in allen relevanten Dateien dokumentieren
+- Cross-Referenzen zwischen Dokumenten pflegen
+
+### 4. Qualitätssicherung
+
+- JSON-Schema-Validierung durchführen
+- Markdown-Formatierung prüfen
+- Links und Referenzen verifizieren
+- Code-Beispiele testen
+
 ## 📝 Abschließende Bemerkungen
 
-AIM ist ein lebendes System, das sich ständig weiterentwickelt. KI-Systeme sollten regelmäßig die Dokumentation neu evaluieren und ihr Verständnis des Projekts aktualisieren.
+AIM ist ein lebendes System, das sich ständig weiterentwickelt. KI-Systeme sollten regelmäßig die Dokumentation neu evaluieren und ihr Verständnis des Projekts aktualisieren. Die Aktualität und Konsistenz aller Projektdateien ist dabei von höchster Bedeutung.
 
 ---
 
-_Diese Initialisierungsanleitung wurde erstellt, um KI-Systemen die bestmögliche Integration und Unterstützung im Projekt zu ermöglichen._
+_Diese Initialisierungsanleitung wurde erstellt, um KI-Systemen die bestmögliche Integration und Unterstützung im Projekt zu ermöglichen. Stand: v3.7.0 (2025-07-15)_

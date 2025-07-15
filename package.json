@@ -18,7 +18,7 @@
     "validate": "node validate.js",
     "validate:example": "node validate.js .ai.json.example",
     "validate:all": "node validate.js '.ai.json*'",
-    "lint": "jsonlint .ai.json.example && php -l ai-init.php",
+    "lint": "node node_modules/jsonlint-mod/lib/cli.js .ai.json.example && php -l ai-init.php",
     "test": "npm run validate && npm run lint",
     "install-example": "cp .ai.json.example .ai.json",
     "check-syntax": "find . -name '*.php' -exec php -l {} \\;"
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "ajv": "^8.17.1",
-    "jsonlint": "^1.6.3"
+    "jsonlint-mod": "^1.7.6"
   },
   "funding": {
     "type": "github",
