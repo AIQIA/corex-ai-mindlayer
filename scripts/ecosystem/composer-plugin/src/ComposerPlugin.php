@@ -2,6 +2,8 @@
 
 namespace CoreX\AIMindLayer;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;

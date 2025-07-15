@@ -20,6 +20,11 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
       - name: Install dependencies
         run: |
           npm install -g ajv-cli
@@ -44,7 +49,6 @@ jobs:
       - name: Check documentation links
         run: |
           echo "🔗 Checking documentation..."
-          # Check if all referenced files exist
           test -f README.md
           test -f INSTALL.md
           test -f AI-INTEGRATION.md
@@ -79,6 +83,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
       - name: Test ai-init.php
         run: |
           echo "🧪 Testing ai-init.php..."
@@ -88,7 +97,6 @@ jobs:
       - name: Test standalone PHP scanner
         run: |
           echo "🧪 Testing standalone PHP scanner..."
-          # Test the scanner from a different directory to simulate real usage
           mkdir -p test-project && cd test-project
           cp ../scripts/ecosystem/php-scanner/PhpProjectScanner.php .
           echo '{"name": "test/project", "description": "Test project"}' > composer.json
@@ -99,7 +107,6 @@ jobs:
       - name: Test direct Composer plugin execution
         run: |
           echo "🧪 Testing direct Composer plugin execution..."
-          # Test direct execution of ComposerPlugin without Composer
           mkdir -p test-plugin && cd test-plugin
           cp -r ../scripts/ecosystem/composer-plugin .
           cp -r ../scripts/ecosystem/php-scanner .
@@ -159,10 +166,8 @@ jobs:
           composer install
           cd ..
 
-          # Test with direct PHP execution of the plugin via Composer autoloader
           php -r "require 'composer-plugin/vendor/autoload.php'; \$plugin = new CoreX\\AIMindLayer\\ComposerPlugin(); \$io = new Composer\\IO\\NullIO(); \$plugin->updateAiJson(\$io);"
 
-          # Verify the .ai.json was created
           test -f .ai.json && echo "✅ Composer plugin works with real Composer installation"
           cat .ai.json
           cd .. && rm -rf test-with-composer
