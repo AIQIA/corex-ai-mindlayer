@@ -46,9 +46,6 @@ jobs:
           if [ -f ".ai.json" ]; then
             npm run validate -- .ai.json
           fi
-              exit 1
-            fi
-          fi
 
       - name: Check documentation links
         run: |
