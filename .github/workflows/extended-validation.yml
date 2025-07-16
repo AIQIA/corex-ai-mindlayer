@@ -1,0 +1,76 @@
+name: Extended AI MindLayer Validation
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Check for Latest Versions
+        run: |
+          npm install -g npm-check-updates
+          ncu --errorLevel 2
+          composer outdated --direct --strict
+
+      - name: Security Audit
+        run: |
+          npm audit
+          composer audit
+
+  validate-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate External Files
+        run: |
+          node scripts/validate-external-files.js
+
+      - name: Check File Structure
+        run: |
+          node scripts/validate-project-structure.js
+
+      - name: Validate Ignore Rules
+        run: |
+          node scripts/validate-ignore-hierarchy.js
+
+  quality-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Type Checking
+        run: |
+          npm run type-check
+          composer exec phpstan analyse
+
+      - name: Linting
+        run: |
+          npm run lint
+          composer exec phpcs
+
+      - name: Test Coverage
+        run: |
+          npm run test -- --coverage
+          composer test -- --coverage-html=coverage
+
+      - name: Documentation Coverage
+        run: |
+          npm run doc-coverage
+          composer exec phpdoc

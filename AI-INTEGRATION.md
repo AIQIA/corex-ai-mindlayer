@@ -109,3 +109,61 @@ Der neue `user_preferences` Abschnitt in der `.ai.json` ermöglicht es, persönl
 - **note**: Zusätzliche Hinweise zu Benutzerpräferenzen
 
 KI-Assistenten sollten diese Einstellungen berücksichtigen, um eine personalisierte und effektive Kommunikation zu ermöglichen.
+
+---
+
+# AI Integration Guide
+
+## ⚠️ WICHTIG: Dokumentations-Redundanz
+
+ABSOLUTE REDUNDANZ zwischen allen .md Dateien ist PFLICHT! (Ausgenommen sind Dateien in .ai.json.ignore)
+
+- Änderungen in einer .md Datei erfordern identische Updates in allen anderen
+- Ausnahmen sind nur durch Eintrag in .ai.json.ignore möglich
+- Auto-Tasks überwachen die Dokumentations-Konsistenz
+- Pull Requests werden auf Dokumentations-Redundanz geprüft
+
+## Ignore-System
+
+Die `.ai.json.ignore` Datei definiert, welche Dokumentationen von der Redundanz-Anforderung ausgenommen sind:
+
+- Persönliche Notizen (z.B. git-hilfe.sascha.md)
+- Private Dokumentationen (\*.private.md)
+- Temporäre Notizen (\*.notes.md)
+
+## File Structure
+
+The coreX AI MindLayer uses a modular file structure for better maintainability. Some sections of the `.ai.json` are externalized into separate files:
+
+### External Files
+
+- `.ai.errors.json`: Contains detailed error scenarios and solutions
+
+  - Used for growing error documentation
+  - Referenced in `.ai.json` under the `errors` section
+  - Should be committed to version control
+
+- `.ai.auto-tasks.json`: Contains automated task definitions
+  - Handles pre-commit, post-install, and other automated processes
+  - Referenced in `.ai.json` under the `auto_tasks` section
+  - Should be committed to version control
+
+### Upcoming in v4.0
+
+- `.aim-context.json`: Will handle persistent AI context (planned for v4.0)
+  - Will store chat history and relevant context
+  - Will be generated automatically
+  - Should be added to `.gitignore`
+
+## Best Practices
+
+1. **Error Management**
+
+   - Add new error scenarios to `.ai.errors.json`
+   - Keep error messages consistent and informative
+   - Include both causes and solutions
+
+2. **Automated Tasks**
+   - Define new automation tasks in `.ai.auto-tasks.json`
+   - Each task should have clear triggers and error handling
+   - Test automated tasks thoroughly before deployment

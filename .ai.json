@@ -1,75 +1,200 @@
 {
     "meta": {
         "project": "coreX AI MindLayer",
-        "version": "1.0.0",
-        "author": "Sascha Buscher - AIQIA.de",
-        "description": "Structured context layer for AI assistant integration in software development projects.",
-        "created": "2025-07-04"
+        "version": "3.7.0",
+        "author": "Sascha Buscher",
+        "company": "AIQIA",
+        "publisher": "aiqia",
+        "companyUrl": "https://aiqia.de",
+        "repository": "https://github.com/AIQIA/corex-ai-mindlayer",
+        "repositoryUrl": "git+https://github.com/AIQIA/corex-ai-mindlayer.git",
+        "created": "2025-07-04",
+        "updated": "2025-07-15",
+        "repositoryType": "git",
+        "email": "info@aiqia.de",
+        "description": "Universal .ai.json-based standard for AI-friendly project documentation - the meta-tool that creates .ai.json for all other projects",
+        "ecosystem": {
+            "vscode": "vscode-extension/",
+            "composer": "scripts/ecosystem/composer-plugin/",
+            "php": "scripts/ecosystem/php-scanner/",
+            "workflows": ".github/workflows/"
+        }
     },
     "architecture": [
         {
-            "module": "Authentication",
-            "description": "Handles user login, logout, session and registration logic.",
+            "module": "Core Scanner",
+            "description": "Intelligent project analyzer that detects frameworks, patterns and generates .ai.json",
             "entrypoints": [
-                "authController.php",
-                "login.php",
-                "register.php"
+                "ai-init.php",
+                "scripts/ecosystem/php-scanner/PhpProjectScanner.php"
             ],
-            "routes": [
-                "/login",
-                "/logout",
-                "/register"
-            ],
-            "dependencies": [
-                "SessionManager",
-                "UserModel",
-                "Mailer"
+            "dependencies": ["PHP >= 8.2"],
+            "features": [
+                "Framework detection",
+                "Project structure analysis",
+                "Smart metadata generation",
+                "Interactive CLI setup"
             ]
         },
         {
-            "module": "Dashboard",
-            "description": "Displays user-specific data and notifications after login.",
+            "module": "VS Code Extension",
+            "description": "IDE integration with rich features for .ai.json management",
             "entrypoints": [
-                "dashboardController.php"
+                "vscode-extension/src/extension.ts"
             ],
-            "routes": [
-                "/dashboard"
+            "commands": [
+                "aiMindLayer.createAiJson",
+                "aiMindLayer.validateSchema",
+                "aiMindLayer.runScanner",
+                "aiMindLayer.architecturePreview",
+                "aiMindLayer.openTreeExplorer",
+                "aiMindLayer.enableIntelliSense",
+                "aiMindLayer.showMindMap"
             ],
             "dependencies": [
-                "UserModel",
-                "NotificationService"
+                "TypeScript",
+                "Node.js",
+                "VS Code API"
+            ]
+        },
+        {
+            "module": "Composer Plugin",
+            "description": "Composer integration for automatic .ai.json updates",
+            "entrypoints": [
+                "scripts/ecosystem/composer-plugin/src/ComposerPlugin.php"
+            ],
+            "dependencies": [
+                "Composer",
+                "PHP >= 8.2"
+            ],
+            "features": [
+                "Auto-sync with Composer events",
+                "Framework detection",
+                "Standalone execution mode"
+            ]
+        },
+        {
+            "module": "CI/CD Integration",
+            "description": "GitHub Actions workflow for validation and testing",
+            "entrypoints": [
+                ".github/workflows/validate.yml"
+            ],
+            "jobs": [
+                "validate-schema",
+                "lint-php",
+                "test-integration",
+                "test-composer-integration"
+            ],
+            "dependencies": [
+                "Node.js",
+                "PHP",
+                "Composer"
             ]
         }
     ],
     "errors": [
         {
-            "code": "AUTH001",
-            "message": "Invalid login credentials",
+            "code": "ERROR_FILE",
+            "message": "Common error scenarios are stored in external file",
             "causes": [
-                "Incorrect username/password",
-                "Unverified user",
-                "Session timeout"
+                "Modular error handling",
+                "External file management"
             ],
             "solutions": [
-                "Check input",
-                "Validate user verification state",
-                "Ensure session logic is active"
-            ]
-        },
-        {
-            "code": "SYS500",
-            "message": "Unhandled server exception",
-            "causes": [
-                "Null response",
-                "DB layer timeout"
+                "Check .ai.errors.json for detailed error information"
             ],
-            "solutions": [
-                "Enable verbose logging",
-                "Review error logs",
-                "Check DB connection pool"
-            ]
+            "severity": "low",
+            "path": ".ai.errors.json"
         }
     ],
+    "auto_tasks": {
+        "path": ".ai.auto-tasks.json",
+        "triggers": [
+            "pre-commit",
+            "post-install",
+            "post-update",
+            "post-ai-update",
+            "post-copilot-chat"
+        ],
+        "documentation_sync": {
+            "enabled": true,
+            "priority": "critical",
+            "description": "Automatische Synchronisation aller Dokumentationsdateien",
+            "watch_patterns": ["**/*.md", "!.ai.json.ignore"],
+            "rules": {
+                "changelog": {
+                    "file": "CHANGELOG.md",
+                    "auto_update": true,
+                    "entry_format": {
+                        "date_format": "YYYY-MM-DD",
+                        "sections": ["Added", "Changed", "Fixed", "Removed"],
+                        "require_version": true,
+                        "require_description": true
+                    }
+                },
+                "status": {
+                    "file": "STATUS.md",
+                    "auto_update": true,
+                    "sections": {
+                        "features": "Aktuelle Funktionalitäten",
+                        "capabilities": "Zusätzliche Fähigkeiten",
+                        "improvements": "Kürzliche Verbesserungen"
+                    },
+                    "require_examples": true
+                },
+                "todos": {
+                    "file": "TODO.md",
+                    "auto_update": true,
+                    "prefix": "EMPFEHLUNG: ",
+                    "categories": [
+                        "Feature Requests",
+                        "Verbesserungen",
+                        "Optimierungen",
+                        "Dokumentation"
+                    ],
+                    "format": {
+                        "priority_marking": true,
+                        "include_context": true,
+                        "include_reasoning": true
+                    }
+                },
+                "core_docs": {
+                    "files": [
+                        "README.md",
+                        "AI-INTEGRATION.md",
+                        "INITIALIZE.md",
+                        "CONTRIBUTING.md"
+                    ],
+                    "auto_sync": true,
+                    "require_consistency": true,
+                    "cross_reference_check": true,
+                    "validate_links": true
+                }
+            },
+            "sync_behavior": {
+                "on_change": true,
+                "on_feature_add": true,
+                "on_bug_fix": true,
+                "on_improvement": true
+            },
+            "validation": {
+                "check_consistency": true,
+                "verify_cross_references": true,
+                "check_completeness": true,
+                "enforce_style": true
+            },
+            "conflict_resolution": {
+                "strategy": "preserve_user_content",
+                "require_review": true,
+                "mark_conflicts": true
+            },
+            "notifications": {
+                "on_update": true,
+                "on_conflict": true,
+                "on_validation_error": true
+            }
+        }
+    },
     "tasks": [
         {
             "task": "Implement password reset flow",
@@ -103,8 +228,181 @@
             "description": "Marks code blocks as assistant-relevant for enhanced understanding."
         }
     ],
-    "project": {
-        "name": "aiqia/corex-ai-mindlayer",
-        "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge"
+    "project": "aiqia/corex-ai-mindlayer",
+    "user_preferences": {
+        "language": "deutsch",
+        "communication_style": "technisch",
+        "technical_depth": "hoch",
+        "response_format": "ausführlich",
+        "interaction_rules": {
+            "code_modifications": {
+                "spontaneous_changes": false,
+                "require_approval": true,
+                "preferred_approach": "suggest_and_discuss"
+            },
+            "memory_requirements": {
+                "context_awareness": true,
+                "maintain_history": true,
+                "consider_ai_json": true
+            },
+            "feedback_style": {
+                "be_critical": true,
+                "provide_suggestions": true,
+                "explain_reasoning": true
+            },
+            "file_reading_requirements": {
+                "read_complete_files": true,
+                "description": "Dateien MÜSSEN immer vollständig gelesen werden, auch wenn Teile bereits bekannt sind",
+                "reasons": [
+                    "Absolute Redundanz erfordert vollständigen Kontext",
+                    "Vermeidung von Inkonsistenzen",
+                    "Qualitätssicherung durch Gesamtüberblick",
+                    "Erkennung von versteckten Abhängigkeiten",
+                    "Verhinderung von Duplikaten und Redundanzen"
+                ],
+                "rules": {
+                    "partial_reading_forbidden": true,
+                    "verify_file_completeness": true,
+                    "context_validation": true,
+                    "require_full_analysis": true,
+                    "clarify_uncertainties": true
+                },
+                "pre_work_checklist": {
+                    "complete_file_reading": true,
+                    "dependency_check": true,
+                    "uncertainty_documentation": true,
+                    "question_resolution": true
+                },
+                "exceptions": {
+                    "allowed": false,
+                    "require_justification": true
+                }
+            }
+        },
+        "code_quality_requirements": {
+            "dependencies": {
+                "use_latest_versions": true,
+                "avoid_deprecated": true,
+                "version_strategy": "@latest",
+                "security_check": true
+            },
+            "standards": {
+                "follow_best_practices": true,
+                "require_types": true,
+                "require_documentation": true,
+                "require_tests": true
+            },
+            "performance": {
+                "optimize_imports": true,
+                "minimize_dependencies": true,
+                "prefer_native_solutions": true
+            },
+            "maintenance": {
+                "keep_dependencies_updated": true,
+                "regular_security_audits": true,
+                "automated_updates": true
+            },
+            "redundancy": {
+                "priority": "critical",
+                "requirements": {
+                    "documentation_sync": {
+                        "enabled": true,
+                        "description": "Alle Features müssen in Code UND Dokumentation beschrieben sein",
+                        "min_sources": 2
+                    },
+                    "module_consistency": {
+                        "enabled": true,
+                        "description": "Module-Beziehungen müssen bidirektional und konsistent sein",
+                        "check_dependencies": true,
+                        "check_references": true
+                    },
+                    "schema_consistency": {
+                        "enabled": true,
+                        "description": "Alle JSON-Schemas müssen über alle Dateien hinweg konsistent sein",
+                        "validate_external_files": true
+                    },
+                    "code_documentation": {
+                        "enabled": true,
+                        "description": "Code muss sowohl inline als auch in separater Dokumentation beschrieben sein",
+                        "require_markdown": true,
+                        "require_comments": true
+                    },
+                    "cross_validation": {
+                        "enabled": true,
+                        "description": "Jede Information braucht mindestens zwei verlässliche Quellen",
+                        "min_sources": 2,
+                        "validate_sources": true
+                    }
+                },
+                "validation_frequency": "on_change",
+                "auto_sync": true,
+                "strict_mode": true
+            }
+        },
+        "note": "Der Assistent soll keine spontanen Änderungen vornehmen, sondern Vorschläge machen und kritisch bleiben. Alle Kontext-Informationen aus der .ai.json sollen berücksichtigt werden. Höchste Code-Qualität und ABSOLUTE REDUNDANZ sind erforderlich - jede Information muss mindestens zweifach abgesichert sein. Bei Dependencies immer @latest Version nutzen wenn möglich."
+    },
+    "learning_experiences": {
+        "workflow_optimizations": [
+            {
+                "id": "DOC_ANALYSIS_WORKFLOW_001",
+                "date": "2025-07-16",
+                "type": "workflow_improvement",
+                "title": "Dokumentations-Analyse-Workflow Optimierung",
+                "description": "Verbesserung des KI-Analyseprozesses durch strikte Einhaltung des dokumentierten Workflows",
+                "context": {
+                    "original_issue": "Direktes Dateisuchen statt Nutzung der dokumentierten Analyse-Reihenfolge",
+                    "resolution": "Implementierung des korrekten Workflows: .ai.json → README.md → CHANGELOG.md",
+                    "impact": "Verbesserte Effizienz und Genauigkeit bei der Projektanalyse"
+                },
+                "references": {
+                    "workflow_doc": "INITIALIZE.md#empfohlener-analyse-workflow",
+                    "changelog": "CHANGELOG.md#3.7.1",
+                    "tools": {
+                        "validate_docs": "tools/validate-docs.js",
+                        "sync_docs": "tools/sync-docs.js"
+                    }
+                },
+                "best_practices": [
+                    "Immer zuerst .ai.json konsultieren",
+                    "Dokumentierten Workflow strikt befolgen",
+                    "Änderungen in allen relevanten Dateien reflektieren"
+                ]
+            },
+            {
+                "id": "FILE_READING_WORKFLOW_001",
+                "date": "2025-07-17",
+                "type": "workflow_improvement",
+                "title": "Vollständige Dateianalyse & Kontextverständnis",
+                "description": "Verbesserung der Arbeitsqualität durch vollständiges Lesen aller relevanten Dateien vor Beginn der Implementierung",
+                "context": {
+                    "original_issue": "Partielles Lesen von Dateien führte zu übersehenen Abhängigkeiten und Redundanzen",
+                    "resolution": "Implementierung einer strikten 'Complete Read First'-Politik",
+                    "impact": "Signifikante Verbesserung der Arbeitsqualität und Vermeidung von Fehlern"
+                },
+                "references": {
+                    "user_preferences": ".ai.json#file_reading_requirements",
+                    "workflow_doc": "INITIALIZE.md#beste-praktiken",
+                    "example": "Beim Bearbeiten der .ai.json wurde durch vollständiges Lesen erkannt, dass bereits eine learning_experiences Sektion existiert"
+                },
+                "best_practices": [
+                    "Vollständiges Lesen ALLER relevanten Dateien vor Arbeitsbeginn",
+                    "Dokumentation von Unklarheiten und offenen Fragen",
+                    "Klärung aller Fragen VOR Beginn der Implementierung",
+                    "Berücksichtigung aller Abhängigkeiten und Redundanzen"
+                ]
+            }
+        ],
+        "metrics": {
+            "workflow_adherence": {
+                "before": "partial",
+                "after": "strict",
+                "improvement": "significant"
+            },
+            "file_reading_compliance": {
+                "before": "partial",
+                "after": "complete",
+                "improvement": "critical"
+            }
+        }
     }
 }

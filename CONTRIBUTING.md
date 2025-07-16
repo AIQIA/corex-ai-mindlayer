@@ -1,5 +1,14 @@
 # 🤝 Beitrag leisten – coreX AI MindLayer v3.7.0
 
+## ⚠️ WICHTIG: Dokumentations-Redundanz
+
+ABSOLUTE REDUNDANZ zwischen allen .md Dateien ist PFLICHT! (Ausgenommen sind Dateien in .ai.json.ignore)
+
+- Alle Änderungen MÜSSEN in ALLEN .md Dateien gespiegelt werden
+- Ausnahmen sind nur die in .ai.json.ignore gelisteten Dateien
+- Bei Änderungen immer ALLE .md Dateien prüfen und aktualisieren
+- Unterschiedliche Perspektiven sind erlaubt, aber Fakten müssen identisch sein
+
 Danke, dass du Interesse hast, dieses Projekt zu unterstützen!  
 coreX AI MindLayer steht für einen offenen, zukunftsorientierten AI-Standard zur strukturierten Projektverständlichkeit für KI-Systeme.
 
@@ -87,6 +96,37 @@ npm install
 npm run compile
 npx vsce package
 ```
+
+---
+
+## Arbeiten mit externen Konfigurationsdateien
+
+### Fehlerszenarien (.ai.errors.json)
+
+- Neue Fehlerszenarien sollten in `.ai.errors.json` hinzugefügt werden
+- Jeder Fehler braucht:
+  - Eindeutigen Code (z.B. "SCAN_001")
+  - Aussagekräftige Beschreibung
+  - Liste möglicher Ursachen
+  - Konkrete Lösungsvorschläge
+  - Severity-Level (low, medium, high, critical)
+
+### Automatisierte Tasks (.ai.auto-tasks.json)
+
+- Neue automatische Tasks in `.ai.auto-tasks.json` definieren
+- Erforderliche Felder:
+  - Task-Name
+  - Trigger (wann wird der Task ausgeführt)
+  - Command (was wird ausgeführt)
+  - Error Handling (was passiert bei Fehlern)
+  - Priority (Ausführungspriorität)
+
+### Best Practices
+
+- Externe Dateien gehören ins Git Repository
+- Änderungen müssen mit dem Schema kompatibel sein
+- Ausführliche Tests vor Pull Requests durchführen
+- Dokumentation bei Änderungen aktualisieren
 
 ---
 

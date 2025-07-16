@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/AIQIA/corex-ai-mindlayer/auto-tasks-schema.json",
+  "title": "AI MindLayer Automated Tasks Schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["task", "trigger", "command", "priority", "automated"],
+    "properties": {
+      "task": {
+        "type": "string",
+        "description": "Task name/description"
+      },
+      "trigger": {
+        "type": "string",
+        "enum": [
+          "pre-commit",
+          "post-commit",
+          "pre-push",
+          "post-install",
+          "post-update",
+          "post-ai-update",
+          "post-copilot-chat"
+        ],
+        "description": "Event that triggers this task"
+      },
+      "command": {
+        "type": "string",
+        "description": "Command to execute"
+      },
+      "priority": {
+        "type": "string",
+        "enum": ["low", "medium", "high", "critical"],
+        "description": "Task priority"
+      },
+      "automated": {
+        "type": "boolean",
+        "description": "Whether this task runs automatically"
+      },
+      "onError": {
+        "type": "string",
+        "enum": ["ignore", "warn", "block", "retry", "notify", "log", "block-commit"],
+        "description": "Action to take when task fails"
+      },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Files or resources this task depends on"
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed task description"
+      }
+    }
+  }
+}

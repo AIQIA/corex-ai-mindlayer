@@ -1,6 +1,6 @@
 {
   "name": "@aiqia/corex-ai-mindlayer",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Universal .ai.json-based standard for assistant-readable architecture and AI-ready project knowledge",
   "type": "commonjs",
   "main": "ai-init.php",
@@ -25,9 +25,12 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "node node_modules/jsonlint-mod/lib/cli.js .ai.json.example && php -l ai-init.php",
-    "test": "npm run validate && npm run lint",
+    "test": "npm run validate && npm run lint && npm run docs:validate",
     "install-example": "cp .ai.json.example .ai.json",
-    "check-syntax": "find . -name '*.php' -exec php -l {} \\;"
+    "check-syntax": "find . -name '*.php' -exec php -l {} \\;",
+    "docs:sync": "node tools/sync-docs.js",
+    "docs:validate": "node tools/validate-docs.js",
+    "version:check": "node tools/check-version.js"
   },
   "repository": {
     "type": "git",
@@ -59,7 +62,9 @@
   },
   "devDependencies": {
     "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "cross-env": "^7.0.3",
+    "ignore": "^7.0.5",
     "jsonlint-mod": "^1.7.6"
   },
   "funding": {
@@ -70,12 +75,8 @@
     "access": "public"
   },
   "dependencies": {
-    "ansi-styles": "^1.0.0",
-    "chalk": "^0.4.0",
-    "has-color": "^0.1.7",
-    "JSV": "^4.0.2",
+    "colorette": "^2.0.20",
     "lodash": "^4.17.21",
-    "strip-ansi": "^0.1.1",
     "yargs": "^18.0.0"
   }
 }

@@ -1,12 +1,25 @@
 {
-  "meta": {
-    "project": "Beispiel Projekt",
-    "version": "1.0.1",
-    "author": "Dein Name oder Organisation",
-    "description": "Kurzbeschreibung dieses Beispielprojekts",
-    "created": "2025-01-01",
-    "updated": "2025-07-09"
-  },
+    "meta": {
+        "project": "Beispiel Projekt",
+        "version": "1.0.1",
+        "author": "Dein Name",
+        "company": "AIQIA",
+        "publisher": "aiqia",
+        "companyUrl": "https://aiqia.de",
+        "repository": "beispiel-projekt",
+        "repositoryUrl": "https://github.com/AIQIA/beispiel-projekt",
+        "repositoryType": "git",
+        "email": "info@aiqia.de",
+        "description": "Kurzbeschreibung dieses Beispielprojekts",
+        "created": "2025-01-01",
+        "updated": "2025-07-09",
+        "ecosystem": {
+            "vscode": "vscode-extension/",
+            "composer": "scripts/ecosystem/composer-plugin/",
+            "php": "scripts/ecosystem/php-scanner/",
+            "workflows": ".github/workflows/"
+        }
+    },
   "architecture": [
     {
       "module": "Authentifizierung",

@@ -1,0 +1,51 @@
+{
+  "patterns": {
+    "personal": {
+      "patterns": ["*.private.md", "*.personal.md", "git-hilfe.*.md"],
+      "description": "Persönliche Notizen und Hilfestellungen",
+      "reason": "Schutz individueller Arbeitsweisen und persönlicher Informationen",
+      "impact": "low",
+      "reviewRequired": false
+    },
+    "development": {
+      "patterns": ["*.notes.md", "dev/*.md", "local-*.md"],
+      "description": "Entwicklungsbezogene temporäre Dateien",
+      "reason": "Vermeidung von Synchronisation temporärer Entwicklungsartefakte",
+      "impact": "medium",
+      "reviewRequired": true
+    },
+    "system": {
+      "patterns": [".DS_Store", "Thumbs.db"],
+      "description": "Betriebssystem-generierte Dateien",
+      "reason": "Vermeidung von OS-spezifischen Metadaten",
+      "impact": "none",
+      "reviewRequired": false
+    },
+    "backup": {
+      "patterns": ["*.tmp.md", "*.bak.md", "*~.md"],
+      "description": "Backup und temporäre Dateien",
+      "reason": "Vermeidung von Duplikaten und temporären Zuständen",
+      "impact": "low",
+      "reviewRequired": false
+    },
+    "ide": {
+      "patterns": [".idea/", ".vscode/", "*.sublime-*"],
+      "description": "IDE-spezifische Konfigurationen",
+      "reason": "Vermeidung von editor-spezifischen Einstellungen",
+      "impact": "none",
+      "reviewRequired": false
+    }
+  },
+  "globalDefaults": {
+    "patterns": ["node_modules/", "vendor/", "dist/", "build/"],
+    "description": "Standard-Ignore-Muster für alle Projekte",
+    "reason": "Vermeidung von generiertem Code und Abhängigkeiten",
+    "impact": "none",
+    "reviewRequired": false
+  },
+  "overrides": {
+    "allowLocal": true,
+    "requireJustification": true,
+    "maxImpact": "medium"
+  }
+}

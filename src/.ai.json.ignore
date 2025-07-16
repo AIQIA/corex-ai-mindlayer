@@ -1,0 +1,14 @@
+# Ordner-spezifische Ignore-Regeln
+# Diese Regeln gelten nur für den aktuellen Ordner und seine Unterordner
+
+# Entwicklungs-Assets
+*.dev.md
+*_wip.md
+
+# Lokale Tests
+test/*.local.md
+test/results/*.json
+
+# Begründung:
+# - Entwicklungs-Assets: Temporäre Dateien während der Entwicklung
+# - Lokale Tests: Testdateien und -ergebnisse, die nicht synchronisiert werden sollen

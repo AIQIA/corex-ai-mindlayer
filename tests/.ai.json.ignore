@@ -1,0 +1,13 @@
+# Test-spezifische Ignore-Regeln
+
+# Temporäre Testdaten
+*.test.tmp
+*.test.log
+
+# Mock-Daten
+mocks/*.local.json
+fixtures/*.personal.json
+
+# Begründung:
+# - Temporäre Testdaten: Werden während der Tests generiert
+# - Mock-Daten: Lokale Test-Szenarien

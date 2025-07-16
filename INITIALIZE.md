@@ -1,4 +1,12 @@
-# 🤖 KI-Initialisierungsanleitung für AIM (AI MindLayer)
+# 🤖 AIM (AI MindLayer) Initialization Guide
+
+🌐 [Deutsch](#de) | [English](#en)
+
+---
+
+<a id="de"></a>
+
+# 🇩🇪 KI-Initialisierungsanleitung für AIM
 
 > **WICHTIG:** Diese Datei dient als primäre Orientierung für KI-Assistenten zur optimalen Nutzung des AI MindLayer Systems.
 
@@ -79,9 +87,20 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
    - Beachte geplante Features in planned_features
 
 3. **Projektspezifische Anpassung**
+
    - Analysiere project_type für Kontext
    - Beachte framework_specific_details
    - Berücksichtige definierte Patterns
+
+4. **Dateianalyse & Kontextverständnis**
+   - Dateien IMMER vollständig lesen, auch wenn Teile bekannt sind
+   - Alle Unklarheiten VOR Arbeitsbeginn klären
+   - Abhängigkeiten und Redundanzen prüfen
+   - Checkliste vor Implementierung abarbeiten:
+     - Vollständige Dateianalyse ✓
+     - Abhängigkeitsprüfung ✓
+     - Dokumentation von Unklarheiten ✓
+     - Klärung offener Fragen ✓
 
 ## ⚠️ Wichtige Hinweise
 
@@ -277,3 +296,298 @@ AIM ist ein lebendes System, das sich ständig weiterentwickelt. KI-Systeme soll
 ---
 
 _Diese Initialisierungsanleitung wurde erstellt, um KI-Systemen die bestmögliche Integration und Unterstützung im Projekt zu ermöglichen. Stand: v3.7.0 (2025-07-15)_
+
+---
+
+<a id="en"></a>
+
+# 🇬🇧 AI MindLayer Initialization Guide
+
+> **IMPORTANT:** This file serves as the primary orientation for AI assistants to optimally use the AI MindLayer system.
+
+## 📚 Basic Understanding
+
+AIM (AI MindLayer) is a meta-framework for creating AI-friendly project documentation. The core element is the `.ai.json` file, which serves as a universal interface between projects and AI systems.
+
+## ⚠️ Critical System Requirements
+
+### 1. Documentation Currency
+
+- **Absolute Priority:** All files MUST be kept up to date
+- **Synchronization:** JSON files and Markdown documentation must be in sync
+- **Version Matching:** All version numbers in different files must match
+
+### 2. File Consistency
+
+- `.ai.json`: Primary project metadata
+- `.ai.dev.json`: Developer-specific settings
+- `*.md`: Documentation files
+- `package.json` & `composer.json`: Dependency management
+
+### 3. Update Responsibility
+
+- AI systems should flag outdated information
+- ALL relevant files must be updated when changes occur
+- Security-relevant updates (e.g., dependencies) have highest priority
+
+## 🎯 Primary Goals
+
+- Standardized AI-readable project documentation
+- Automatic detection of project structures
+- Intelligent architecture analysis
+- Seamless AI integration into development processes
+
+## 📋 Available Resources
+
+The following files should be primarily consulted by AI systems:
+
+1. `.ai.json` - Central project metadata and AI context
+2. `README.md` - General project overview
+3. `AI-INTEGRATION.md` - Specific AI integration details
+4. `CHANGELOG.md` - Version and change history
+5. `TODO.md` - Current development goals
+6. `SMART-INIT-CONCEPT.md` - Concept of intelligent project analysis
+
+## 🔄 Recommended Analysis Workflow
+
+1. **Initial Scan**
+
+   - First, analyze `.ai.json` for project context
+   - Consult README.md for an overview
+   - Check CHANGELOG.md for the current version
+
+2. **In-Depth Analysis**
+
+   - AI-INTEGRATION.md for specific AI features
+   - Architecture section in .ai.json for project structure
+   - Technology Stack for used technologies
+
+3. **Context Building**
+   - User Preferences for communication style
+   - Known Issues for known problems
+   - Research section for current developments
+
+## 🎯 Best Practices
+
+1. **Communication**
+
+   - Use the language settings defined in user_preferences
+   - Note the desired technical level of detail
+   - Follow the prescribed communication style
+
+2. **Technical Support**
+
+   - Consider documented_issues
+   - Use the architecture section for context
+   - Note planned features in planned_features
+
+3. **Project-Specific Adjustment**
+
+   - Analyze project_type for context
+   - Note framework_specific_details
+   - Consider defined patterns
+
+4. **File Analysis & Context Understanding**
+   - ALWAYS read files completely, even if parts are known
+   - Clarify all ambiguities BEFORE starting work
+   - Check dependencies and redundancies
+   - Complete checklist before implementation:
+     - Complete file analysis ✓
+     - Dependency check ✓
+     - Documentation of ambiguities ✓
+     - Clarification of open questions ✓
+
+## ⚠️ Important Notes
+
+1. **Versioning**
+
+   - Current version: 3.7.0
+   - Check CHANGELOG.md for breaking changes
+   - Note compatibility notes
+
+2. **Data Protection**
+
+   - Respect private_sections in .ai.json
+   - Note security_relevant markings
+   - Follow data protection guidelines
+
+3. **Framework Limitations**
+   - Note known_limitations
+   - Check compatibility_notes
+   - Consider framework_restrictions
+
+## 🧠 Intelligent Context Analysis
+
+### 1. Structural Analysis
+
+- Scan **project architecture**
+  ```json
+  "architecture": {
+    "type": "hybrid-tool",
+    "components": [...],
+    "patterns": [...]
+  }
+  ```
+- Identify **technology stack**
+  ```json
+  "technology_stack": {
+    "core": [...],
+    "frontend": [...],
+    "tools": [...]
+  }
+  ```
+
+### 2. Communication Context
+
+- **Linguistic Adjustment**
+  ```json
+  "user_preferences": {
+    "language": "english",
+    "communication_style": "informal",
+    "technical_depth": "high"
+  }
+  ```
+
+### 3. Development Context
+
+- **Current Research**
+  ```json
+  "research": [
+    {
+      "name": "ML-based code quality analysis",
+      "status": "active_development"
+    }
+  ]
+  ```
+- **Planned Features**
+  ```json
+  "planned_features": [
+    {
+      "name": "Scalability features",
+      "version_target": "4.0.0"
+    }
+  ]
+  ```
+
+## 🔍 Detailed Feature Usage
+
+### 1. Automatic Documentation Synchronization
+
+- Monitor changes in Markdown files
+- Update .ai.json accordingly
+- Ensure consistency between documents
+
+### 2. Intelligent Error Handling
+
+```json
+"known_issues": [
+  {
+    "pattern": "...",
+    "solution": "...",
+    "context": "..."
+  }
+]
+```
+
+### 3. ML-based Analyses
+
+- Code quality assessment
+- Pattern recognition
+- Architecture optimization
+
+## 🛡️ Security & Updates (v3.7.0)
+
+### 1. Update Mechanism
+
+- Automatic schema validation
+- Backup before changes
+- Selective updates
+
+### 2. Data Protection
+
+- Protect project-specific data
+- Mark sensitive information
+- Observe access rights
+
+## 🤝 Interaction Guidelines
+
+### 1. Communication Principles
+
+- **Adaptive Style:** Adapt to user_preferences
+- **Context Awareness:** Use available metadata
+- **Proactive Support:** Detect potential issues
+
+### 2. Code Interaction
+
+- Use architecture patterns as context
+- Consider defined best practices
+- Follow project-specific coding standards
+
+### 3. Documentation Updates
+
+- Keep .ai.json up to date
+- Synchronize with other documents
+- Document important changes
+
+## 📈 Learning Improvement
+
+### 1. Feedback Integration
+
+- Collect user feedback
+- Recognize improvement patterns
+- Suggest optimizations
+
+### 2. Pattern Recognition
+
+- Identify recurring issues
+- Develop solution strategies
+- Build a knowledge base
+
+### 3. Continuous Adjustment
+
+- Update context understanding
+- Refine communication style
+- Optimize support quality
+
+## 🔄 Continuous Improvement
+
+- Use feedback from the community
+- Note new features in changelog
+- Update knowledge based on TODO.md
+
+## 🛠️ Maintenance Guidelines
+
+### 1. Regular Reviews
+
+- Daily: Security updates and critical patches
+- Weekly: Dependency updates and documentation synchronization
+- Monthly: Complete system maintenance run
+
+### 2. Update Process
+
+- Immediately apply security-relevant updates
+- Keep dependencies up to date
+- Ensure backward compatibility
+- Document changes in CHANGELOG.md
+
+### 3. Documentation Synchronization
+
+- Align version numbers in all files
+- Keep feature descriptions consistent
+- Document new features in all relevant files
+- Maintain cross-references between documents
+
+### 4. Quality Assurance
+
+- Perform JSON schema validation
+- Check markdown formatting
+- Verify links and references
+- Test code examples
+
+## 📝 Final Remarks
+
+AIM is a living system that is constantly evolving. AI systems should regularly reevaluate the documentation and update their understanding of the project. The currency and consistency of all project files are of utmost importance.
+
+---
+
+_This initialization guide was created to enable AI systems to provide the best possible integration and support in the project. Status: v3.7.0 (2025-07-15)_
