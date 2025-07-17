@@ -17,9 +17,6 @@ composer.lock
 # Lokale Konfigurationsdateien
 .env
 *.env.local
-.ai.json
-.ai.dev.json
-FAQ.md
 
 # VS Code & Editor
 .vscode/settings.json
@@ -37,13 +34,18 @@ Thumbs.db
 *.cache
 
 # coreX MindLayer spezifisch
-.ai.json
-.ai-license.json
-ai-config-local.php
 git-hilfe.sascha.md
-STATUS.md
 
 # Backup-Dateien
+/backups/
+/backups/*
+/.ai-backups/
+/.ai-backups/*
 *.bak
 *.swp
 *.orig
+*~
+.backup/
+.backup/*
+_backup/
+_backup/*

@@ -47,7 +47,7 @@
 
 #### v3.8.0 (Q3/Q4 2025) - Performance
 
-- [ ] .ai.json Modularisierung & Komprimierung
+- [x] .ai.json Modularisierung & Komprimierung
 - [ ] Performance-Optimierung (Stream/Cache)
 - [ ] Vorbereitung ML-Features
 
@@ -75,9 +75,9 @@
 
 1. **💾 .ai.json Optimierung**
 
-   - [ ] Modularisierung v1
-     - [ ] Teil-Dateien pro Modul
-     - [ ] `$ref`-Verweisystem
+   - [x] Modularisierung v1
+     - [x] Teil-Dateien pro Modul
+     - [x] `$ref`-Verweisystem
    - [ ] Performance v1
      - [ ] Stream-Verarbeitung
      - [ ] Basic Caching

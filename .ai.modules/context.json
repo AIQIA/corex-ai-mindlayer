@@ -1,0 +1,12 @@
+[
+  {
+    "key": "Framework",
+    "value": "Das Projekt verwendet Laravel mit Vue.js Frontend",
+    "category": "technology"
+  },
+  {
+    "key": "Database", 
+    "value": "MySQL 8.0 mit Redis fuer Caching",
+    "category": "infrastructure"
+  }
+]

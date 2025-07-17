@@ -47,6 +47,30 @@
         "priority": "high",
         "automated": true,
         "onError": "block-commit",
-        "description": "Ensures all .md files (except those in .ai.json.ignore) maintain absolute redundancy"
+        "description": "Ensures all .md files from root directory (except those in .ai.json.ignore) maintain absolute redundancy"
+    },
+    {
+        "task": "Validate .gitignore",
+        "trigger": "pre-commit",
+        "command": "php scripts/validate-gitignore.php",
+        "priority": "high",
+        "automated": true,
+        "onError": "block-commit",
+        "description": "Prüft .gitignore auf Aktualität und stellt sicher, dass keine unnötigen Dateien (wie Backups) auf Git hochgeladen werden",
+        "rules": [
+            "Alle Backup-Verzeichnisse müssen ausgeschlossen sein",
+            "Temporäre Dateien müssen ausgeschlossen sein",
+            "Lokale Konfigurationsdateien müssen ausgeschlossen sein",
+            "Build-Artefakte müssen ausgeschlossen sein"
+        ],
+        "criticalPaths": [
+            "/backups/",
+            "*.bak",
+            "*.swp",
+            "*.orig",
+            "*~",
+            ".backup/",
+            "_backup/"
+        ]
     }
 ]

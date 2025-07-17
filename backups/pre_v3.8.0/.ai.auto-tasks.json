@@ -1,0 +1,52 @@
+[
+    {
+        "task": "Validate Schema",
+        "trigger": "pre-commit",
+        "command": "npm run validate",
+        "priority": "high",
+        "automated": true,
+        "onError": "block-commit"
+    },
+    {
+        "task": "Update .ai.json",
+        "trigger": "post-install",
+        "command": "php ai-init.php --update",
+        "priority": "high",
+        "automated": true,
+        "onError": "notify"
+    },
+    {
+        "task": "Sync Documentation",
+        "trigger": "post-update",
+        "command": "php scripts/sync-docs.php",
+        "priority": "medium",
+        "automated": true,
+        "onError": "log"
+    },
+    {
+        "task": "Generate Mind Map",
+        "trigger": "post-ai-update",
+        "command": "aiMindLayer.showMindMap",
+        "priority": "medium",
+        "automated": true,
+        "onError": "retry"
+    },
+    {
+        "task": "Update Context",
+        "trigger": "post-copilot-chat",
+        "command": "aiMindLayer.updateContext",
+        "priority": "high",
+        "automated": true,
+        "dependencies": ["aim-context.json"],
+        "onError": "log"
+    },
+    {
+        "task": "Check Documentation Redundancy",
+        "trigger": "pre-commit",
+        "command": "php scripts/check-doc-redundancy.php",
+        "priority": "high",
+        "automated": true,
+        "onError": "block-commit",
+        "description": "Ensures all .md files (except those in .ai.json.ignore) maintain absolute redundancy"
+    }
+]

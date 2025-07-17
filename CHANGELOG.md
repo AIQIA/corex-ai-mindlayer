@@ -4,6 +4,53 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.8.0] - 2025-07-17
+
+### Performance-Optimierungen
+
+**Umfassende Performance-Verbesserungen durch Modularisierung:**
+
+- .ai.json Modularisierung
+
+  - Einführung des `$modules` Systems für referenzierte Teil-Dateien
+  - Automatische Modul-Erkennung und -Verarbeitung
+  - Verbesserte Wartbarkeit durch logische Trennung
+  - Unterstützung für selektives Laden von Modulen
+  - Schema-Updates für modulare Struktur
+
+**Automatisierte Build- und Wartungsprozesse:**
+
+- Implementierung von VS Code Tasks
+  - Automatische Validierung der AI-Konfiguration
+  - Modul-Updates bei Änderungen
+  - Backup-System mit lokalem und globalem Storage
+  - Live-Watching für Konfigurations-Änderungen
+
+**Verbesserte Datensicherheit:**
+
+- Erweitertes Backup-System
+
+  - Konfigurierbare Backup-Speicherorte
+  - Automatische Aufbewahrungszeit-Verwaltung
+  - Gesicherte Versionierung aller Module
+
+- Datei-Komprimierung
+
+  - Neue Komprimierungsfunktion für große .ai.json Dateien
+  - GZIP-basierte Kompression der Module
+  - Base64-Kodierung für verbesserte Kompatibilität
+  - Automatische Dekomprimierung bei Bedarf
+  - Effiziente Speichernutzung
+
+- Technische Verbesserungen
+  - Neues Optimizer-Tool für automatische Modularisierung
+  - Aktualisiertes JSON Schema für Modul-Support
+  - Verbesserte Fehlerbehandlung
+  - Neue NPM-Skripte für Optimierung
+  - Rückwärtskompatibilität mit alten Versionen
+
+---
+
 ## [3.7.1] - 2025-07-16
 
 ### Verbesserte KI-Integration und Redundanz

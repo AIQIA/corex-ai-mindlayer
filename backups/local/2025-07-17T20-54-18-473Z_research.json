@@ -1,0 +1,37 @@
+[
+  {
+    "name": "ML-basierte Code-Qualitaetsanalyse",
+    "description": "Automatische Erkennung von Code-Qualitaetsmerkmalen mittels Machine Learning",
+    "status": "implementation",
+    "progress": 35,
+    "technologies": [
+      "TensorFlow.js",
+      "CodeBERT",
+      "TypeScript"
+    ],
+    "resources": [
+      {
+        "type": "paper",
+        "link": "https://arxiv.org/abs/2102.04664",
+        "description": "CodeBERT: A Pre-Trained Model for Programming and Natural Languages"
+      },
+      {
+        "type": "repository",
+        "link": "https://github.com/example/code-quality-ml",
+        "description": "Proof-of-concept Implementation"
+      }
+    ],
+    "potential_impact": "Automatische Qualitaetsbewertung und Verbesserungsvorschlaege direkt in der IDE"
+  },
+  {
+    "name": "Intelligente Architektur-Vorschlaege",
+    "description": "KI-generierte Vorschlaege zur Optimierung der Projektarchitektur",
+    "status": "analysis",
+    "progress": 15,
+    "technologies": [
+      "GPT-4",
+      "Architectural Pattern Recognition"
+    ],
+    "potential_impact": "Adaptive Architekturverbesserungen basierend auf Best Practices und Projektkontext"
+  }
+]

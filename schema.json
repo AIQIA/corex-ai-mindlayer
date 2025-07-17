@@ -2,686 +2,313 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/AIQIA/corex-ai-mindlayer/schema.json",
   "title": "coreX AI MindLayer Schema",
-  "description": "JSON Schema for .ai.json files used by AI assistants to understand project structure",
+  "description": "JSON Schema for .ai.json files used by AI assistants to understand project structure. WICHTIG: Die .ai.json ist ein dynamisches Dokument, das sich ständig weiterentwickelt. Dieses Schema muss regelmäßig angepasst werden, um neue Eigenschaften und Strukturen zu unterstützen.",
+  "version": "3.8.0",
+  "lastUpdated": "2025-07-17",
+  "dynamicNature": {
+    "description": "Die .ai.json darf und soll sich kontinuierlich weiterentwickeln",
+    "requirements": [
+      "Schema muss bei neuen .ai.json Eigenschaften aktualisiert werden",
+      "Versionshistorie dokumentieren",
+      "Abwärtskompatibilität beachten",
+      "Neue Eigenschaften validieren"
+    ]
+  },
   "type": "object",
-  "required": ["meta"],
-  "additionalProperties": true,
+  "required": ["$schema", "$modules"],
   "properties": {
-    "meta": {
-      "type": "object",
-      "required": ["project", "version", "author", "description", "company", "email"],
-      "properties": {
-        "project": {
-          "type": "string",
-          "description": "Name of the project"
-        },
-        "version": {
-          "type": "string",
-          "pattern": "^\\d+\\.\\d+\\.\\d+$",
-          "description": "Semantic version of the project"
-        },
-        "author": {
-          "type": "string",
-          "description": "Project author"
-        },
-        "company": {
-          "type": "string",
-          "description": "Company name"
-        },
-        "publisher": {
-          "type": "string",
-          "description": "Publisher identifier"
-        },
-        "companyUrl": {
-          "type": "string",
-          "format": "uri",
-          "description": "Company website URL"
-        },
-        "repository": {
-          "type": "string",
-          "description": "Repository identifier"
-        },
-        "repositoryUrl": {
-          "type": "string",
-          "format": "uri",
-          "description": "Full repository URL"
-        },
-        "repositoryType": {
-          "type": "string",
-          "enum": ["git", "svn", "mercurial"],
-          "description": "Type of version control system"
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "Contact email address"
-        },
-        "description": {
-          "type": "string",
-          "description": "Brief description of the project"
-        },
-        "created": {
-          "type": "string",
-          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Creation date in YYYY-MM-DD format"
-        },
-        "updated": {
-          "type": "string",
-          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-          "description": "Last update date in YYYY-MM-DD format"
-        },
-        "ecosystem": {
-          "type": "object",
-          "description": "Project ecosystem paths",
-          "properties": {
-            "vscode": {
-              "type": "string",
-              "description": "VS Code extension path"
-            },
-            "composer": {
-              "type": "string",
-              "description": "Composer plugin path"
-            },
-            "php": {
-              "type": "string",
-              "description": "PHP scanner path"
-            },
-            "workflows": {
-              "type": "string",
-              "description": "GitHub workflows path"
-            }
-          }
-        }
-      }
+    "$schema": {
+      "type": "string",
+      "description": "Path to the JSON schema file"
     },
-    "user_preferences": {
-      "type": "object",
-      "description": "User preferences for AI assistant communication and behavior",
-      "properties": {
-        "language": {
-          "type": "string",
-          "description": "Preferred language for communication (e.g. english, deutsch, français)"
-        },
-        "communication_style": {
-          "type": "string",
-          "description": "Preferred style of communication (e.g. formal, informal, technical)",
-          "enum": ["formal", "informell", "technisch", "freundschaftlich", "kompakt"]
-        },
-        "technical_depth": {
-          "type": "string",
-          "description": "Preferred level of technical detail in responses",
-          "enum": ["niedrig", "mittel", "hoch"]
-        },
-        "response_format": {
-          "type": "string",
-          "description": "Preferred format for responses",
-          "enum": ["kurz", "ausführlich", "mit_codebeispielen", "mit_analogien"]
-        },
-        "note": {
-          "type": "string",
-          "description": "Additional notes about user preferences"
-        }
-      }
-    },
-    "research": {
+    "$modules": {
       "type": "array",
-      "description": "Research & prototype features currently being explored",
+      "description": "List of modules to include",
       "items": {
         "type": "object",
-        "required": ["name", "description", "status"],
+        "required": ["name", "$ref"],
         "properties": {
           "name": {
             "type": "string",
-            "description": "Name of the research or prototype feature"
+            "description": "Name of the module"
           },
-          "description": {
+          "$ref": {
             "type": "string",
-            "description": "Description of what the feature does or aims to achieve"
-          },
-          "status": {
-            "type": "string",
-            "description": "Current status of the research or prototype",
-            "enum": [
-              "concept",
-              "early_prototype",
-              "active_development",
-              "testing",
-              "evaluation",
-              "analysis",
-              "implementation",
-              "validation",
-              "documentation",
-              "deployment"
-            ]
-          },
-          "progress": {
-            "type": "number",
-            "description": "Progress percentage of the research (0-100)",
-            "minimum": 0,
-            "maximum": 100
-          },
-          "technologies": {
-            "type": "array",
-            "description": "Technologies being used in this research",
-            "items": {
-              "type": "string"
-            }
-          },
-          "resources": {
-            "type": "array",
-            "description": "Links to papers, code examples or other resources",
-            "items": {
-              "type": "object",
-              "required": ["type", "link", "description"],
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "description": "Type of resource",
-                  "enum": ["paper", "repository", "blog", "video", "notebook", "other"]
-                },
-                "link": {
-                  "type": "string",
-                  "description": "URL or path to the resource"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Brief description of the resource"
-                }
-              }
-            },
-            "potential_impact": {
-              "type": "string",
-              "description": "Potential impact if research is successful"
-            }
+            "description": "Path to the module file"
           }
         }
       }
     },
     "architecture": {
       "type": "array",
-      "description": "Project architecture and module definitions",
+      "description": "Project architecture components",
       "items": {
         "type": "object",
         "required": ["module", "description"],
         "properties": {
           "module": {
             "type": "string",
-            "description": "Module or component name"
+            "description": "Name of the architecture module"
           },
           "description": {
             "type": "string",
-            "description": "What this module does"
+            "description": "Description of the module"
           },
           "entrypoints": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Main files or entry points"
-          },
-          "routes": {
-            "type": "array",
-            "items": {"type": "string"},
-            "description": "API routes or URL paths"
+            "items": {
+              "type": "string"
+            }
           },
           "dependencies": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Dependencies on other modules"
+            "items": {
+              "type": "string"
+            }
           },
-          "relations": {
+          "features": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "target": {"type": "string"},
-                "type": {"type": "string", "enum": ["imports", "extends", "implements", "calls"]},
-                "description": {"type": "string"}
-              }
-            },
-            "description": "Relationships to other modules"
+              "type": "string"
+            }
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "jobs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
     },
     "errors": {
       "type": "array",
-      "description": "Common errors and their solutions (main file references external .ai.errors.json)",
+      "description": "Error definitions",
       "items": {
         "type": "object",
-        "required": ["code", "message", "severity"],
+        "required": ["code", "message"],
         "properties": {
           "code": {
-            "type": "string",
-            "description": "Short error code identifier"
+            "type": "string"
           },
           "message": {
-            "type": "string",
-            "description": "Error description"
+            "type": "string"
           },
           "causes": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Possible causes of the error"
+            "items": {
+              "type": "string"
+            }
           },
           "solutions": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Recommended solutions"
+            "items": {
+              "type": "string"
+            }
           },
           "severity": {
             "type": "string",
-            "enum": ["low", "medium", "high", "critical"],
-            "description": "Error severity level"
+            "enum": ["low", "medium", "high", "critical"]
           },
           "path": {
-            "type": "string",
-            "description": "Path to external error definitions file"
+            "type": "string"
           }
         }
       }
     },
     "auto_tasks": {
       "type": "object",
-      "description": "Configuration for automated tasks (references external .ai.auto-tasks.json)",
-      "required": ["path", "triggers"],
       "properties": {
         "path": {
-          "type": "string",
-          "description": "Path to external auto-tasks file"
+          "type": "string"
         },
         "triggers": {
           "type": "array",
-          "description": "List of supported trigger events",
           "items": {
-            "type": "string",
-            "enum": [
-              "pre-commit",
-              "post-commit",
-              "pre-push",
-              "post-install",
-              "post-update",
-              "post-ai-update",
-              "post-copilot-chat"
-            ]
+            "type": "string"
+          }
+        },
+        "documentation_sync": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "watch_patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "rules": {
+              "type": "object"
+            },
+            "sync_behavior": {
+              "type": "object"
+            },
+            "validation": {
+              "type": "object"
+            },
+            "conflict_resolution": {
+              "type": "object"
+            },
+            "notifications": {
+              "type": "object"
+            }
           }
         }
       }
     },
     "tasks": {
       "type": "array",
-      "description": "Project tasks and todos",
       "items": {
         "type": "object",
-        "required": ["task"],
+        "required": ["task", "priority", "status"],
         "properties": {
           "task": {
-            "type": "string",
-            "description": "Task description"
+            "type": "string"
           },
           "priority": {
             "type": "string",
-            "enum": ["low", "medium", "high", "critical"],
-            "description": "Task priority"
+            "enum": ["low", "medium", "high", "critical"]
           },
           "status": {
             "type": "string",
-            "enum": ["open", "in-progress", "completed", "blocked"],
-            "description": "Current task status"
-          },
-          "assignee": {
-            "type": "string",
-            "description": "Person assigned to the task"
+            "enum": ["open", "in-progress", "completed", "blocked"]
           },
           "relatedModules": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": "Related architecture modules"
+            "items": {
+              "type": "string"
+            }
           },
           "due": {
             "type": "string",
-            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-            "description": "Due date in YYYY-MM-DD format"
-          },
-          "tags": {
-            "type": "array",
-            "items": {"type": "string"},
-            "description": "Task tags for categorization"
+            "format": "date"
           }
         }
       }
     },
     "context": {
       "type": "array",
-      "description": "Key-value context information",
       "items": {
         "type": "object",
         "required": ["key", "value"],
         "properties": {
           "key": {
-            "type": "string",
-            "description": "Context key or concept"
+            "type": "string"
           },
           "value": {
-            "type": "string",
-            "description": "Context value or explanation"
-          },
-          "category": {
-            "type": "string",
-            "description": "Context category"
+            "type": "string"
           }
         }
       }
     },
     "references": {
       "type": "array",
-      "description": "External references and documentation",
       "items": {
         "type": "object",
         "required": ["type", "label"],
         "properties": {
           "type": {
-            "type": "string",
-            "enum": ["doc", "api", "tutorial", "example", "tag", "link"],
-            "description": "Reference type"
+            "type": "string"
           },
           "label": {
-            "type": "string",
-            "description": "Reference label or title"
+            "type": "string"
           },
           "url": {
-            "type": "string",
-            "description": "Reference URL or file path"
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "description": "Reference description"
-          },
-          "category": {
-            "type": "string",
-            "description": "Reference category"
+            "type": "string"
           }
         }
       }
     },
-    "ai": {
+    "project": {
+      "type": "string",
+      "description": "Project identifier"
+    },
+    "user_preferences": {
       "type": "object",
-      "description": "AI-specific configuration and preferences",
       "properties": {
-        "assistants": {
+        "language": {
+          "type": "string"
+        },
+        "communication_style": {
+          "type": "string"
+        },
+        "technical_depth": {
+          "type": "string"
+        },
+        "response_format": {
+          "type": "string"
+        },
+        "interaction_rules": {
+          "type": "object"
+        },
+        "code_quality_requirements": {
+          "type": "object"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "learning_experiences": {
+      "type": "object",
+      "properties": {
+        "workflow_optimizations": {
           "type": "array",
-          "items": {"type": "string"},
-          "description": "Preferred AI assistants"
-        },
-        "prompts": {
-          "type": "object",
-          "description": "Custom prompts for different scenarios"
-        },
-        "ignore": {
-          "type": "array",
-          "items": {"type": "string"},
-          "description": "Files or patterns to ignore during AI analysis"
-        }
-      }
-    },
-    "update_config": {
-      "type": "object",
-      "description": "Configuration for the secure update mechanism",
-      "properties": {
-        "backup": {
-          "type": "object",
-          "properties": {
-            "local_storage": {
-              "type": "string",
-              "description": "Path to local backup storage"
-            },
-            "global_storage": {
-              "type": "string",
-              "description": "Path to global extension storage backup"
-            },
-            "retention_days": {
-              "type": "number",
-              "description": "Number of days to retain backups",
-              "minimum": 1
-            }
-          }
-        },
-        "schema_tracking": {
-          "type": "object",
-          "properties": {
-            "track_changes": {
-              "type": "boolean",
-              "description": "Enable detailed schema change tracking"
-            },
-            "visual_diff": {
-              "type": "boolean",
-              "description": "Enable visual difference highlighting"
-            },
-            "critical_changes": {
-              "type": "array",
-              "description": "List of changes marked as critical",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "path": {
-                    "type": "string",
-                    "description": "JSON path to changed element"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": ["added", "modified", "removed"]
-                  },
-                  "severity": {
-                    "type": "string",
-                    "enum": ["low", "medium", "high"]
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "machine_learning": {
-      "type": "object",
-      "description": "Machine learning and AI feature configuration",
-      "additionalProperties": false,
-      "properties": {
-        "architecture_analysis": {
-          "type": "object",
-          "required": ["pattern_recognition", "quality_metrics"],
-      "properties": {
-            "pattern_recognition": {
-              "type": "boolean",
-              "description": "Enable AI pattern recognition in architecture"
-            },
-            "quality_metrics": {
-              "type": "object",
-              "required": ["code_quality_score", "anti_patterns"],
-              "additionalProperties": false,
-              "properties": {
-                "code_quality_score": {
-                  "type": "number",
-                  "description": "Overall code quality score (0-100)",
-                  "minimum": 0,
-                  "maximum": 100
-                },
-                "anti_patterns": {              "type": "array",
-              "description": "Detected anti-patterns",
-              "items": {
-                "type": "object",
-                "required": ["pattern", "severity", "locations"],
-                "additionalProperties": false,
-                "properties": {
-                      "pattern": {
-                        "type": "string",
-                        "description": "Name of the anti-pattern"
-                      },
-                      "severity": {
-                        "type": "string",
-                        "enum": ["low", "medium", "high"]
-                      },
-                      "locations": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "description": "File paths where pattern was detected"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "metadata_generation": {
-          "type": "object",
-          "required": ["nlp_enabled", "analysis_depth"],
-          "additionalProperties": false,
-          "properties": {
-            "nlp_enabled": {
-              "type": "boolean",
-              "description": "Enable NLP-based metadata generation"
-            },
-            "analysis_depth": {
-              "type": "string",
-              "enum": ["basic", "detailed", "comprehensive"]
-            }
-          }
-        },
-        "predictive_maintenance": {
-          "type": "object",
-          "required": ["enabled", "scan_interval"],
-          "additionalProperties": false,
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "description": "Enable predictive maintenance features"
-            },
-            "scan_interval": {
-              "type": "string",
-              "description": "Interval for predictive scans (e.g. '1d', '1w')"
-            }
-          }
-        },
-        "explainable_ai": {
-          "type": "object",
-          "required": ["enabled", "methods"],
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "description": "Enable XAI features"
-            },
-            "methods": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": ["lime", "shap", "counterfactuals", "feature_importance"]
-              }
-            },
-            "visualization": {
-              "type": "boolean",
-              "description": "Enable XAI visualizations"
-            }
-          }
-        },
-        "monitoring": {
-          "type": "object",
-          "required": ["model_drift", "data_quality"],
-          "properties": {
-            "model_drift": {
-              "type": "object",
-              "properties": {
-                "metrics": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "enum": ["psi", "kl_divergence", "js_divergence"]
-                  }
-                },
-                "threshold": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              }
-            },
-            "data_quality": {
-              "type": "object",
-              "properties": {
-                "checks": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "enum": ["missing_values", "outliers", "schema_drift", "data_drift"]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "ethics": {
-          "type": "object",
-          "required": ["bias_detection", "fairness_metrics"],
-          "properties": {
-            "bias_detection": {
-              "type": "object",
-              "properties": {
-                "protected_attributes": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "metrics": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "enum": ["disparate_impact", "equal_opportunity", "demographic_parity"]
-                  }
-                }
-              }
-            },
-            "fairness_metrics": {
-              "type": "object",
-              "properties": {
-                "thresholds": {
-                  "type": "object",
-                  "properties": {
-                    "disparate_impact_ratio": {
-                      "type": "number",
-                      "minimum": 0.8,
-                      "maximum": 1.2
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "ignore_config": {
-      "type": "object",
-      "description": "Configuration for files to be ignored during validation and redundancy checks",
-      "properties": {
-        "patterns": {
-          "type": "array",
-          "description": "Glob patterns for files to ignore",
           "items": {
-            "type": "string"
+            "type": "object",
+            "required": ["id", "date", "type", "title", "description"],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "context": {
+                "type": "object"
+              },
+              "references": {
+                "type": "object"
+              },
+              "best_practices": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         },
-        "reasons": {
-          "type": "object",
-          "description": "Documentation of why certain patterns are ignored",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "override_global": {
-          "type": "boolean",
-          "description": "Whether to override global ignore patterns",
-          "default": false
+        "metrics": {
+          "type": "object"
         }
       }
     }

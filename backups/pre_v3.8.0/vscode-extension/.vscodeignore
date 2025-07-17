@@ -1,0 +1,58 @@
+# Entwicklungsdateien
+.vscode/**
+.gitignore
+.yarnrc
+**/tsconfig.json
+**/tslint.json
+**/*.map
+**/*.ts
+.github/**
+
+# Build-Tools und Konfiguration
+.eslintrc.json
+.eslintignore
+webpack.config.js
+.babelrc
+.editorconfig
+jest.config.js
+rollup.config.js
+**/package-lock.json
+**/yarn.lock
+
+# Node-Module
+node_modules/**
+!node_modules/ajv/**
+!node_modules/json-schema-traverse/**
+!node_modules/require-from-string/**
+!node_modules/fast-uri/**
+!node_modules/fast-deep-equal/**
+
+# Entwicklungsdateien
+**/*.test.js
+**/*.spec.js
+**/*.test.ts
+**/*.spec.ts
+**/__tests__/**
+**/test/**
+
+# Source-Dateien (nur compiled JS benötigt)
+src/**
+!src/snippets/**
+
+# Build-Artefakte
+**/dist/**
+!dist/extension.js
+
+# Dokumente
+**/*.md
+!README.md
+!LICENSE
+
+# Veraltete Pakete
+*.vsix
+
+# Debug-Dateien
+.DS_Store
+Thumbs.db
+**/.DS_Store
+**/Thumbs.db

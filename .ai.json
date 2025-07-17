@@ -1,25 +1,15 @@
 {
-    "meta": {
-        "project": "coreX AI MindLayer",
-        "version": "3.7.0",
-        "author": "Sascha Buscher",
-        "company": "AIQIA",
-        "publisher": "aiqia",
-        "companyUrl": "https://aiqia.de",
-        "repository": "https://github.com/AIQIA/corex-ai-mindlayer",
-        "repositoryUrl": "git+https://github.com/AIQIA/corex-ai-mindlayer.git",
-        "created": "2025-07-04",
-        "updated": "2025-07-15",
-        "repositoryType": "git",
-        "email": "info@aiqia.de",
-        "description": "Universal .ai.json-based standard for AI-friendly project documentation - the meta-tool that creates .ai.json for all other projects",
-        "ecosystem": {
-            "vscode": "vscode-extension/",
-            "composer": "scripts/ecosystem/composer-plugin/",
-            "php": "scripts/ecosystem/php-scanner/",
-            "workflows": ".github/workflows/"
+    "$schema": "./schema.json",
+    "$modules": [
+        {
+            "name": "meta",
+            "$ref": "./.ai.modules/meta.json"
+        },
+        {
+            "name": "architecture", 
+            "$ref": "./.ai.modules/architecture.json"
         }
-    },
+    ],
     "architecture": [
         {
             "module": "Core Scanner",

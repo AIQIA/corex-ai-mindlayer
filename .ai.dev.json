@@ -1,0 +1,424 @@
+{
+  "project": {
+    "name": "coreX AI MindLayer",
+    "version": "3.6.1",
+    "description": "Open-source standard for AI-friendly project documentation - the meta-tool that creates .ai.json for all other projects",
+    "type": "meta-framework",
+    "license": "MIT"
+  },
+  "meta": {
+    "note": "🤖 AIM.mini - Internal dev helper for the AI MindLayer creator himself",
+    "purpose": "Self-documentation without recursion paradox",
+    "excluded_from_git": true,
+    "ai_context": "This is the source project that generates .ai.json for others"
+  },
+  "user_preferences": {
+    "language": "deutsch",
+    "communication_style": "informell",
+    "technical_depth": "hoch",
+    "response_format": "ausführlich",
+    "note": "Dieser Abschnitt ermöglicht es KI-Assistenten, Kommunikationspräferenzen des Nutzers zu erkennen",
+    "cleanup": {
+      "test_files": true,
+      "test_file_patterns": [
+        "*.test.json",
+        "validate.mjs",
+        "test-*",
+        "*.tmp"
+      ],
+      "exclude_patterns": [
+        ".ai.json.example",
+        "schema.json"
+      ]
+    },
+    "validation": {
+      "prefer_local": true,
+      "validation_method": "ajv",
+      "show_detailed_errors": true,
+      "auto_fix_formatting": true
+    }
+  },
+  "known_issues": [
+    {
+      "id": "cmd_chaining",
+      "title": "Kommando-Verkettungen mit '&&' funktionieren nicht in der Konsole",
+      "description": "Bei Terminals in VS Code unter Windows können verkettete Befehle mit '&&' zu Problemen führen",
+      "workaround": "Befehle einzeln ausführen oder mit PowerShell-Syntax kombinieren",
+      "severity": "medium",
+      "environment": "Windows",
+      "affects": ["Terminal-Befehle", "Compiler-Aufrufe", "Skript-Ausführung"]
+    }
+  ],
+  "research": [
+    {
+      "name": "ML-basierte Code-Qualitätsanalyse",
+      "description": "Automatische Erkennung von Code-Qualitätsmerkmalen und Problemmuster durch ML",
+      "status": "active_development",
+      "progress": 45,
+      "technologies": ["TensorFlow.js", "CodeBERT", "VS Code API", "TypeScript"],
+      "resources": [
+        {
+          "type": "paper",
+          "link": "https://arxiv.org/abs/2102.04664",
+          "description": "CodeBERT: A Pre-Trained Model for Programming and Natural Languages"
+        },
+        {
+          "type": "repository",
+          "link": "scripts/research/ml-code-quality",
+          "description": "Prototype implementation in VS Code extension"
+        },
+        {
+          "type": "notebook",
+          "link": "scripts/research/notebooks/code-quality-model.ipynb",
+          "description": "Training data and analysis notebook"
+        }
+      ],
+      "potential_impact": "Automatische Qualitätsbewertung und intelligente Verbesserungsvorschläge in .ai.json"
+    },
+    {
+      "name": "Intelligente Architektur-Vorschläge",
+      "description": "KI-generierte Vorschläge zur Optimierung der Projektarchitektur basierend auf erkannten Mustern",
+      "status": "early_prototype",
+      "progress": 25,
+      "technologies": ["GPT-4", "Langchain", "Architecture Pattern Recognition"],
+      "resources": [
+        {
+          "type": "repository", 
+          "link": "scripts/research/architecture-suggestions",
+          "description": "Proof-of-concept implementation"
+        }
+      ],
+      "potential_impact": "Adaptive Architekturverbesserungen und Refactoring-Vorschläge"
+    },
+    {
+      "name": "NLP-basierte Tag-Vorschläge",
+      "description": "Automatische Generierung von semantisch relevanten Tags für Projektkomponenten",
+      "status": "testing",
+      "progress": 60,
+      "technologies": ["Natural.js", "Word2Vec", "Node.js"],
+      "resources": [
+        {
+          "type": "repository",
+          "link": "scripts/research/tag-suggestions",
+          "description": "Working prototype with test suite"
+        },
+        {
+          "type": "blog",
+          "link": "https://aiqia.de/blog/nlp-for-code-understanding",
+          "description": "Blogpost explaining the approach and techniques"
+        }
+      ],
+      "potential_impact": "Konsistente und semantisch bedeutsame Taxonomie für Projektkomponenten"
+    }
+  ],
+  "architecture": {
+    "type": "hybrid-tool",
+    "components": [
+      {
+        "name": "ai-init.php",
+        "type": "scanner",
+        "description": "Intelligent CLI scanner that detects frameworks and generates .ai.json",
+        "responsibilities": [
+          "Multi-Language Framework detection (PHP, JavaScript, Python, Java, C#, Go, Rust)",
+          "Detection of 100+ frameworks and technologies",
+          "Smart .ai.json generation",
+          "Interactive project setup"
+        ],
+        "key_features": ["15+ supported frameworks", "CLI interface", "Pattern recognition"]
+      },
+      {
+        "name": "Multi-Language Scanners",
+        "type": "analysis-engine",
+        "description": "Polyglot code analysis system for detecting project structures across languages",
+        "responsibilities": [
+          "Language-specific code analysis",
+          "Framework fingerprinting",
+          "Technology stack detection",
+          "Prioritized scanner execution"
+        ],
+        "key_features": ["7 language scanners", "100+ framework detection", "Modular architecture", "Priority-based execution"]
+      },
+      {
+        "name": "VS Code Extension",
+        "type": "editor-integration", 
+        "description": "Complete VS Code integration with 12 commands and advanced features",
+        "responsibilities": [
+          "Architecture Preview (visual project structure)",
+          "Tree Explorer (interactive navigation)",
+          "AI IntelliSense (context-aware completion)",
+          "Mind Map Visualizer (D3.js graphs)",
+          "AI Documentation Comments",
+          "Diff Analyzer (.ai.json comparison)",
+          "Auto-Sync with Documentation",
+          "Package Manager Integration",
+          "Docker Configuration Scanner"
+        ],
+        "key_features": ["12 commands", "WebView panels", "TypeScript", "Modern UI", "Ecosystem Integration"]
+      },
+      {
+        "name": "JSON Schema",
+        "type": "validation",
+        "description": "schema.json for .ai.json validation and structure definition",
+        "responsibilities": ["Schema validation", "IDE support", "Standard definition"]
+      },
+      {
+        "name": "Documentation System", 
+        "type": "docs",
+        "description": "Comprehensive documentation for community adoption",
+        "responsibilities": ["README.md", "CHANGELOG.md", "TODO.md", "API docs"]
+      }
+    ],
+    "patterns": [
+      "CLI-first approach",
+      "VS Code native integration", 
+      "Schema-driven validation",
+      "Community-friendly open source",
+      "Self-improving meta-tool"
+    ]
+  },
+  "technology_stack": {
+    "core": ["PHP (ai-init.php)", "TypeScript (VS Code Extension)", "JSON Schema"],
+    "frontend": ["HTML5", "CSS3", "D3.js", "VS Code WebView API"],
+    "tools": ["npm", "vsce", "GitHub Actions", "Docker"],
+    "languages": ["PHP", "TypeScript", "JavaScript", "JSON", "Markdown"]
+  },
+  "development": {
+    "current_version": "3.2.0",
+    "status": "production-ready",
+    "last_major_update": "2025-07-05",
+    "key_milestones": [
+      "v1.0.0: Basic ai-init.php marker",
+      "v2.0.0: Intelligent scanner + VS Code extension",
+      "v3.0.0: Architecture Preview, Tree Explorer, AI IntelliSense", 
+      "v3.1.0: Mind Map, AI Docs, Diff Analyzer",
+      "v3.2.0: All features combined and working",
+      "v3.5.0: User Preferences + Research & Prototypes",
+      "v3.6.0: Multi-Language Scanner Support (7 languages)"
+    ]
+  },
+  "ai_context": {
+    "purpose": "This tool creates .ai.json files for OTHER projects to be AI-friendly",
+    "irony": "The AI tool creator doesn't use its own tool (recursion paradox)",
+    "approach": "Meta-development: Build the tool that builds AI-context for others",
+    "key_concepts": [
+      "Multi-Language Framework detection",
+      "Smart code analysis", 
+      "VS Code integration",
+      "Community standards",
+      "Open source philosophy",
+      "Polyglot development support"
+    ]
+  },
+  "community": {
+    "target_audience": ["Developers", "AI enthusiasts", "Open source contributors"],
+    "adoption_strategy": "GitHub release + VS Code Marketplace + NPM package",
+    "contribution_welcome": true,
+    "philosophy": "Make every project AI-ready with minimal effort"
+  },
+  "autotasks": {
+    "changelog_management": {
+      "description": "Automatic CHANGELOG.md updates for version releases",
+      "triggers": [
+        "Version bump in package.json",
+        "New feature implementation",
+        "VS Code extension VSIX package creation"
+      ],
+      "actions": [
+        "Add new version section with current date",
+        "Document new features and commands",
+        "List technical improvements",
+        "Preserve version history"
+      ],
+      "format": "## [X.Y.Z] – YYYY-MM-DD",
+      "sections": ["Features", "Commands", "Technical Improvements", "Breaking Changes"]
+    },
+    "todo_management": {
+      "description": "Automatic TODO.md updates based on development progress",
+      "triggers": [
+        "Feature completion",
+        "New feature ideas",
+        "Version milestone reached"
+      ],
+      "actions": [
+        "Move completed items from TODO to DONE",
+        "Update project status (e.g. 'PRODUCTION READY')",
+        "Add new feature ideas to roadmap",
+        "Track technical debt and improvements"
+      ],
+      "status_levels": ["TODO", "IN PROGRESS", "TESTING", "DONE", "PRODUCTION READY"]
+    },
+    "version_sync": {
+      "description": "Keep version numbers synchronized across all files",
+      "files_to_update": [
+        "vscode-extension/package.json",
+        "package.json", 
+        "CHANGELOG.md",
+        "TODO.md",
+        ".ai.dev.json"
+      ],
+      "pattern": "Semantic versioning (X.Y.Z)",
+      "automation": "Auto-detect version changes and propagate"
+    },
+    "documentation_consistency": {
+      "description": "Ensure documentation stays in sync with code changes",
+      "checks": [
+        "Commands in package.json match extension.ts",
+        "Feature list in README matches implemented features",
+        "CHANGELOG reflects actual changes",
+        "TODO status matches real progress"
+      ],
+      "auto_fixes": [
+        "Update command descriptions",
+        "Sync feature counts",
+        "Fix version mismatches"
+      ]
+    }
+  },
+  "planned_features": [
+    {
+      "id": "scalability",
+      "name": "Skalierbarkeits-Features",
+      "description": "Lösungen für große Projekte und Enterprise-Anwendungen",
+      "status": "planned",
+      "version_target": "4.0.0",
+      "components": [
+        {
+          "id": "modularization",
+          "name": "JSON Modularisierung",
+          "description": "Split großer .ai.json-Dateien in modulare Teilkomponenten",
+          "key_features": ["$ref-Verweise", "Komponentenbasierte Organisation", "Nahtloses Zusammenführen"]
+        },
+        {
+          "id": "compression",
+          "name": "Komprimierungsstrategien",
+          "description": "Effiziente Speicherung großer Projektmetadaten",
+          "key_features": ["Binärformat (.ai.bin)", "Deduplizierung", "Lazy-Loading"]
+        },
+        {
+          "id": "filtering",
+          "name": "Selektive Generierung",
+          "description": "Intelligente Filter für Teil-Scanning und -Import/-Export",
+          "key_features": ["Detail-Level", "Partielle Scans", "Temporäres Auslagern"]
+        },
+        {
+          "id": "alt-storage",
+          "name": "Alternative Datenhaltung",
+          "description": "Nicht-JSON basierte Speicherlösungen für große Projekte",
+          "key_features": ["SQLite", "GraphQL-API", "Verteilte Speicherung"]
+        }
+      ]
+    },
+    {
+      "id": "ml_features",
+      "name": "Machine Learning Features",
+      "description": "KI-gestützte Analyse und Optimierung von Projekten",
+      "status": "research",
+      "version_target": "4.0.0",
+      "components": [
+        {
+          "id": "arch_analysis",
+          "name": "Intelligente Architekturanalyse",
+          "description": "ML-basierte Erkennung und Optimierung von Softwarearchitekturen",
+          "key_features": ["Pattern-Erkennung", "Architektur-Empfehlungen", "Technical Debt Vorhersage"]
+        },
+        {
+          "id": "metadata_gen",
+          "name": "KI-gestützte Metadaten",
+          "description": "Automatische Generierung von Metadaten durch NLP",
+          "key_features": ["Tag-Vorschläge", "Semantische Beziehungsanalyse", "Kontextbasierte Dokumentation"]
+        },
+        {
+          "id": "code_quality",
+          "name": "Code-Qualität-Scoring",
+          "description": "ML-basierte Bewertung und Verbesserung der Codequalität",
+          "key_features": ["Anti-Pattern-Erkennung", "Komplexitätsanalyse", "Refactoring-Empfehlungen"]
+        },
+        {
+          "id": "predictive",
+          "name": "Predictive Maintenance",
+          "description": "Vorhersage von Wartungsbedarf und kritischen Code-Bereichen",
+          "key_features": ["Hot-Spot-Identifikation", "Impact-Analyse", "Ressourcen-Optimierung"]
+        }
+      ]
+    },
+    {
+      "id": "extended_ecosystem",
+      "name": "Erweiterte Ecosystem-Integrationen",
+      "description": "Integration mit zusätzlichen Tools, Plattformen und IDEs",
+      "status": "planned",
+      "version_target": "4.0.0",
+      "components": [
+        {
+          "id": "web_interface",
+          "name": "Web-Interface und API",
+          "description": "Webbasierte Visualisierung und RESTful API für externe Zugriffe",
+          "key_features": ["Dashboard", "Team-Kollaboration", "RESTful API", "Echtzeit-Updates"]
+        },
+        {
+          "id": "ci_cd",
+          "name": "CI/CD-Pipeline Integration",
+          "description": "Integration in verschiedene CI/CD-Systeme",
+          "key_features": ["GitHub Actions", "Jenkins-Plugin", "GitLab CI", "Azure DevOps"]
+        },
+        {
+          "id": "ide_plugins",
+          "name": "Multi-IDE-Support",
+          "description": "Plugins und Erweiterungen für verschiedene IDEs",
+          "key_features": ["JetBrains-IDEs", "Eclipse", "Atom", "Sublime Text"]
+        },
+        {
+          "id": "ai_integration",
+          "name": "Erweiterte KI-Integration",
+          "description": "Direkte Integration mit KI-Plattformen und -Modellen",
+          "key_features": ["OpenAI API", "Hugging Face", "GitHub Copilot", "Fine-Tuning"]
+        }
+      ]
+    },
+    {
+      "id": "version_checker",
+      "name": "Sicherer Versionschecker mit datenerhaltenden Updates",
+      "description": "Integriertes System zur sicheren Erkennung und Installation von Updates mit Schutz projektspezifischer Daten",
+      "status": "planned",
+      "version_target": "3.7.0",
+      "priority": "critical",
+      "components": [
+        {
+          "id": "update_detection",
+          "name": "Update-Erkennung",
+          "description": "Automatisches Prüfen auf neue Versionen beim Extension-Start",
+          "key_features": ["GitHub API-Integration", "Semver-Vergleich", "Konfigurierbarer Check-Intervall", "Detaillierte Changelog-Analyse"]
+        },
+        {
+          "id": "notification_system",
+          "name": "Intelligentes Benachrichtigungssystem",
+          "description": "Benutzerfreundliche Update-Hinweise mit Detailgrad-Informationen",
+          "key_features": ["Status-Bar-Indikator", "Detaillierte Änderungsübersicht", "Risiko-Einstufung", "Update-Dialoge mit Schema-Vergleich"]
+        },
+        {
+          "id": "safety_mechanism",
+          "name": "Datenschutz-Mechanismus",
+          "description": "Intelligente Erkennung und Schutz projektspezifischer Daten",
+          "key_features": ["Automatische Differenzanalyse", "Projektspezifische Daten-Identifikation", "Selektives Update", "Visueller Änderungsvergleich"]
+        },
+        {
+          "id": "update_mechanism",
+          "name": "Sicherer Update-Mechanismus",
+          "description": "Geführter Prozess für kontrollierte Updates aus VS Code",
+          "key_features": ["Mehrstufige Updates", "Geführter Update-Assistent", "Explizite Änderungsbestätigungen", "Fortschrittsanzeige"]
+        },
+        {
+          "id": "backup_system",
+          "name": "Mehrschichtiges Backup-System",
+          "description": "Robustes Sicherungssystem für alle aktualisierten Dateien",
+          "key_features": ["Automatisches Vollbackup", "Inkrementelle Änderungsprotokolle", "Zeitstempelbasierte Backups", "Backup-Verwaltung"]
+        },
+        {
+          "id": "rollback",
+          "name": "Umfassendes Rollback-System",
+          "description": "Sicherheitsnetz für fehlgeschlagene Updates mit Datenwiederherstellung",
+          "key_features": ["One-Click-Rollback", "Teilweiser Rollback bestimmter Komponenten", "Automatischer Rollback", "Fehlerprotokollierung"]
+        }
+      ]
+    }
+  ]
+}

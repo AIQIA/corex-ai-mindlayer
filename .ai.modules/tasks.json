@@ -1,0 +1,28 @@
+[
+  {
+    "task": "Passwort-Reset-Funktion implementieren",
+    "priority": "high",
+    "status": "open",
+    "relatedModules": [
+      "Authentifizierung"
+    ],
+    "due": "2025-12-31",
+    "tags": [
+      "security",
+      "user-management"
+    ]
+  },
+  {
+    "task": "Dashboard Performance optimieren",
+    "priority": "medium",
+    "status": "in-progress", 
+    "relatedModules": [
+      "Dashboard"
+    ],
+    "due": "2025-08-15",
+    "tags": [
+      "performance",
+      "ui"
+    ]
+  }
+]

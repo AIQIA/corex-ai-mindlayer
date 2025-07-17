@@ -1,0 +1,23 @@
+{
+  "backup": {
+    "local_storage": "./backups/local",
+    "global_storage": "%APPDATA%/AIMLExtension/backups",
+    "retention_days": 30
+  },
+  "schema_tracking": {
+    "track_changes": true,
+    "visual_diff": true,
+    "critical_changes": [
+      {
+        "path": "$.architecture[0].security",
+        "type": "added",
+        "severity": "high"
+      },
+      {
+        "path": "$.meta.version",
+        "type": "modified",
+        "severity": "medium"
+      }
+    ]
+  }
+}

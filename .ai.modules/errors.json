@@ -1,0 +1,28 @@
+[
+  {
+    "code": "AUTH_FAILED",
+    "message": "Authentifizierung fehlgeschlagen",
+    "causes": [
+      "Falsche Anmeldedaten",
+      "Session abgelaufen"
+    ],
+    "solutions": [
+      "Anmeldedaten pruefen",
+      "Neu anmelden"
+    ],
+    "severity": "medium"
+  },
+  {
+    "code": "DB_CONNECTION", 
+    "message": "Datenbankverbindung fehlgeschlagen",
+    "causes": [
+      "Server nicht erreichbar",
+      "Falsche Credentials"
+    ],
+    "solutions": [
+      "Verbindung pruefen",
+      "Credentials validieren"
+    ],
+    "severity": "high"
+  }
+]

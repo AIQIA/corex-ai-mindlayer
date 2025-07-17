@@ -1,0 +1,95 @@
+{
+  "AI JSON Template": {
+    "prefix": "ai-json",
+    "body": [
+      "{",
+      "  \"$$schema\": \"./schema.json\",",
+      "  \"meta\": {",
+      "    \"project\": \"${1:Project Name}\",",
+      "    \"version\": \"${2:1.0.0}\",",
+      "    \"author\": \"${3:Your Name}\",",
+      "    \"description\": \"${4:Project description}\",",
+      "    \"created\": \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\",",
+      "    \"updated\": \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
+      "  },",
+      "  \"architecture\": [",
+      "    {",
+      "      \"module\": \"${5:Core}\",",
+      "      \"description\": \"${6:Main application logic}\",",
+      "      \"entrypoints\": [\"${7:index.js}\"],",
+      "      \"routes\": [\"${8:/}\"],",
+      "      \"dependencies\": []",
+      "    }",
+      "  ],",
+      "  \"errors\": [],",
+      "  \"tasks\": [],",
+      "  \"context\": [],",
+      "  \"references\": []",
+      "}"
+    ],
+    "description": "Complete AI JSON template"
+  },
+  "Architecture Module": {
+    "prefix": "ai-module",
+    "body": [
+      "{",
+      "  \"module\": \"${1:Module Name}\",",
+      "  \"description\": \"${2:Module description}\",",
+      "  \"entrypoints\": [\"${3:main.js}\"],",
+      "  \"routes\": [\"${4:/api}\"],",
+      "  \"dependencies\": [\"${5:Dependency}\"]",
+      "}"
+    ],
+    "description": "Architecture module template"
+  },
+  "Error Pattern": {
+    "prefix": "ai-error",
+    "body": [
+      "{",
+      "  \"code\": \"${1:ERROR_CODE}\",",
+      "  \"message\": \"${2:Error description}\",",
+      "  \"causes\": [\"${3:Possible cause}\"],",
+      "  \"solutions\": [\"${4:Recommended solution}\"],",
+      "  \"severity\": \"${5|low,medium,high,critical|}\"",
+      "}"
+    ],
+    "description": "Error pattern template"
+  },
+  "Task Item": {
+    "prefix": "ai-task",
+    "body": [
+      "{",
+      "  \"task\": \"${1:Task description}\",",
+      "  \"priority\": \"${2|low,medium,high,critical|}\",",
+      "  \"status\": \"${3|open,in-progress,completed,blocked|}\",",
+      "  \"relatedModules\": [\"${4:Module}\"],",
+      "  \"due\": \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\",",
+      "  \"tags\": [\"${5:tag}\"]",
+      "}"
+    ],
+    "description": "Task item template"
+  },
+  "Context Entry": {
+    "prefix": "ai-context",
+    "body": [
+      "{",
+      "  \"key\": \"${1:Context Key}\",",
+      "  \"value\": \"${2:Context description}\",",
+      "  \"category\": \"${3:technology}\"",
+      "}"
+    ],
+    "description": "Context entry template"
+  },
+  "Reference": {
+    "prefix": "ai-reference",
+    "body": [
+      "{",
+      "  \"type\": \"${1|doc,api,tutorial,example,tag,link|}\",",
+      "  \"label\": \"${2:Reference Name}\",",
+      "  \"url\": \"${3:./path/to/file}\",",
+      "  \"description\": \"${4:Reference description}\"",
+      "}"
+    ],
+    "description": "Reference template"
+  }
+}

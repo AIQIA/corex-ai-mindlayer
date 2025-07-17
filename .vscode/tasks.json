@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Validate AI Configuration",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "validate"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": ["$eslint-stylish"]
+    },
+    {
+      "label": "Update Module Files",
+      "type": "shell", 
+      "command": "node",
+      "args": ["scripts/update-modules.js"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Backup Configuration",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/backup.js"],
+      "group": "build"
+    },
+    {
+      "label": "Watch AI Config Changes",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/watch.js"],
+      "isBackground": true,
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": "^.*$",
+              "file": 1,
+              "location": 2,
+              "message": 3
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "Watching for changes...",
+            "endsPattern": "Watch ended"
+          }
+        }
+      ]
+    }
+  ]
+}

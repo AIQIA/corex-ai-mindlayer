@@ -1,0 +1,32 @@
+[
+    {
+        "code": "SCHEMA_001",
+        "message": "JSON Schema validation failed",
+        "causes": [
+            "Invalid .ai.json structure",
+            "Missing required fields",
+            "Wrong data types"
+        ],
+        "solutions": [
+            "Validate against schema.json",
+            "Run npm run validate",
+            "Check .ai.json.example for correct structure"
+        ],
+        "severity": "high"
+    },
+    {
+        "code": "SCAN_001",
+        "message": "Project scanner execution failed",
+        "causes": [
+            "Missing PHP requirements",
+            "Invalid project structure",
+            "Permission issues"
+        ],
+        "solutions": [
+            "Ensure PHP >= 8.2 is installed",
+            "Check file permissions",
+            "Run scanner with --debug flag"
+        ],
+        "severity": "medium"
+    }
+]

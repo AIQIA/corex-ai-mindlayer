@@ -1,4 +1,4 @@
-# coreX AI MindLayer v3.7.0 by Sascha Buscher - aiqia.de
+# coreX AI MindLayer v3.8.0 by Sascha Buscher - aiqia.de
 
 ## ⚠️ WICHTIG: Dokumentations-Redundanz
 
@@ -17,37 +17,29 @@ ABSOLUTE REDUNDANZ zwischen allen .md Dateien ist PFLICHT! (Ausgenommen sind Dat
 | `.ai.json`          | Strukturierte Projektmetadaten        | KI-Assistenten  |
 | `INITIALIZE.md`     | 🤖 **Primärer Einstiegspunkt für KI** | KI-Assistenten  |
 | `AI-INTEGRATION.md` | Technische KI-Integration             | Entwickler & KI |
+| `RESEARCH.md`       | KI-Forschung & Entwicklung            | Entwickler & KI |
 | `schema.json`       | JSON Schema für .ai.json              | Entwickler      |
-| `CHANGELOG.md`      | Versions- und Änderungshistorie       | Alle            |
-| `TODO.md`           | Entwicklungsziele & Roadmap           | Entwickler & KI |
-| `INSTALL.md`        | Installationsanleitung                | Entwickler      |
 
-> **🤖 Für KI-Assistenten:** Bitte lesen Sie zuerst `INITIALIZE.md` für ein vollständiges Verständnis des Projekts und seiner Funktionsweise.
+## 🔄 Neue Features in v3.8.0
 
-## 🧠 Was ist der coreX AI MindLayer?
+### Modulare Struktur
 
-Der **coreX AI MindLayer** ist eine innovative Metaebene, die statisches Projektwissen in ein strukturiertes, maschinenlesbares Format für KI-Assistenten wie ChatGPT, GitHub Copilot, Cody und andere transformiert.
+- `.ai.json` verwendet jetzt ein modulares System
+- Module werden in `.ai.modules/` gespeichert
+- Verbesserte Wartbarkeit und Performance
 
-Das Herzstück ist die `.ai.json`-Datei – eine lebende, strukturierte Abbildung der Projektarchitektur, Logik, Fehlermuster und Arbeitsabläufe. Sie ermöglicht es KI-Tools, Ihr Projekt wirklich zu verstehen.
+### Automatisierte Tasks
 
-### 🎯 Kernfunktionen
+- Validierung der Konfiguration
+- Modul-Synchronisation
+- Backup-Management
+- Live-Watching
 
-1. **Universelle KI-Schnittstelle**
+### KI-Optimierungen
 
-   - Standardisiertes Format für Projektmetadaten
-   - Automatische Architekturerkennung
-   - Intelligente Kontextanalyse
-
-2. **Smarte Integration**
-
-   - VS Code Extension mit 12+ Features
-   - Multi-Language Scanner (7 Sprachen)
-   - Automatische Updates & Synchronisation
-
-3. **KI-Optimierung**
-   - Kontextbewusste Unterstützung
-   - Beschleunigte Einarbeitung
-   - Verbesserte Fehlerdiagnose
+- Erweitertes Kontextverständnis
+- Verbesserte Code-Analyse
+- Intelligente Entwicklungsunterstützung
 
 ## 🚀 Quick Start
 

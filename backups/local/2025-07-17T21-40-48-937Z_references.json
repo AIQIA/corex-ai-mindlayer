@@ -1,0 +1,20 @@
+[
+  {
+    "type": "doc",
+    "label": "AI Integration Guide",
+    "url": "./AI-INTEGRATION.md",
+    "description": "Anleitung zur Integration von AI-Tools"
+  },
+  {
+    "type": "api",
+    "label": "REST API Documentation",
+    "url": "./api-docs.md",
+    "description": "Vollstaendige API-Referenz"
+  },
+  {
+    "type": "tag",
+    "label": "@ai-docs",
+    "url": "#",
+    "description": "Markiert AI-lesbare Dokumentation im Code"
+  }
+]

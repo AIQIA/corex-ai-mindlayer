@@ -1,0 +1,28 @@
+# Files to be ignored by AI MindLayer's redundancy check
+# These files will not be kept in sync with other .md files
+
+# Personal notes and guides
+git-hilfe.sascha.md
+
+# Other potential files to ignore
+*.private.md
+*.personal.md
+*.notes.md
+
+# Temporary and backup files
+*.tmp.md
+*.bak.md
+*~.md
+
+# Development specific
+dev/*.md
+local-*.md
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.idea/
+.vscode/
+*.sublime-*

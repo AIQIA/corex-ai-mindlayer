@@ -1,0 +1,33 @@
+{
+    "architecture": [
+        {
+            "module": "Core Scanner",
+            "description": "Intelligent project analyzer that detects frameworks, patterns and generates .ai.json",
+            "entrypoints": [
+                "ai-init.php",
+                "scripts/ecosystem/php-scanner/PhpProjectScanner.php"
+            ],
+            "dependencies": ["PHP >= 8.2"],
+            "features": [
+                "Framework detection",
+                "Project structure analysis",
+                "Smart metadata generation",
+                "Interactive CLI setup"
+            ]
+        },
+        {
+            "module": "VS Code Extension",
+            "description": "IDE integration with rich features for .ai.json management",
+            "entrypoints": [
+                "vscode-extension/src/extension.ts"
+            ],
+            "commands": [
+                "aiMindLayer.createAiJson",
+                "aiMindLayer.validateSchema", 
+                "aiMindLayer.runScanner",
+                "aiMindLayer.architecturePreview",
+                "aiMindLayer.openTreeExplorer"
+            ]
+        }
+    ]
+}
