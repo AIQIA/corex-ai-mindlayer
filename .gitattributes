@@ -1,0 +1,5 @@
+# Immer LF verwenden
+*.json text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+*.php text eol=lf
