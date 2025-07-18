@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["task", "trigger", "command", "priority", "automated"],
+    "properties": {
+      "task": {
+        "type": "string"
+      },
+      "trigger": {
+        "type": "string",
+        "enum": ["pre-commit", "post-install", "post-update", "post-ai-update", "post-copilot-chat"]
+      },
+      "command": {
+        "type": "string"
+      },
+      "priority": {
+        "type": "string",
+        "enum": ["low", "medium", "high", "critical"]
+      },
+      "automated": {
+        "type": "boolean"
+      },
+      "dependencies": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "onError": {
+        "type": "string",
+        "enum": ["notify", "log", "retry", "block-commit"]
+      },
+      "description": {
+        "type": "string"
+      }
+    }
+  }
+}
