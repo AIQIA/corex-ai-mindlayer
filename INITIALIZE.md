@@ -1,4 +1,4 @@
-# 🤖 AIM (AI MindLayer) Initialization Guide v3.8.0
+# 🤖 AIM (AI MindLayer) Initialization Guide v3.8.2
 
 🌐 [Deutsch](#de) | [English](#en)
 
@@ -8,10 +8,8 @@
 
 # 🇩🇪 KI-Initialisierungsanleitung für AIM
 
-> **WICHTIG:** Diese Datei dient als primäre Orientierung für KI-Assistenten zur optimalen Nutzung des AI MindLayer Systems.
-
-Sie soll dir helfen, den Sinn vom "coreX AI MindLayer" (kurz AIM) zu verinnerlichen. Dreh und Angelpunkt für die KI ist die ".ai.json",
-hier stehen alle wichtigen informationsn zum Projekt drin, dies sind wichtige Infos die der KI nützen, wenn sie etwas neues einbauen oder etwas anpassen oder gar löschen soll. Darüber hinaus findet die KI auch die "auto_tasks", Dinge die immer nach jeder Arbeit beachtet bzw durchgeführt werden müssen. Es gibt viele verschiedene Sektionen / Bereiche in der .ai.json, so auch zB die "learning_experiences", etc. Lies dir alle wichtigen "\*.md"-Dateien im root Verzeichnis durch, alle, bis auf die die in der .ai.json.ignore vermerkt sind. Dann bekommt die KI von ganz alleine ein hervorangendes Verständnis von diesem Projekt. Die Hauptaufgabe der KI ist es aber auch, die .ai.json und alle ggfs betroffenen Dateien, gemäß der .ai.json aktuell zu halten, hier gilt es unter anderem die "auto_tasks" innerhalb der .ai.json ebenfalls stetig upzudaten. Alles ist im wandel ...
+> **WICHTIGE EINLEITUNG:** Diese Datei dient als primäre Orientierung für KI-Assistenten zur optimalen Nutzung des AI MindLayer Systems, sie soll dir helfen, den Sinn vom "coreX AI MindLayer" (kurz AIM) zu verinnerlichen. Dreh und Angelpunkt für die KI ist die ".ai.json",
+> hier stehen alle wichtigen informationsn zum Projekt drin, dies sind wichtige Infos die der KI nützen, wenn sie etwas neues einbauen oder etwas anpassen oder gar löschen soll. Darüber hinaus findet die KI auch die "auto_tasks", Dinge die immer nach jeder Arbeit beachtet bzw durchgeführt werden müssen. Es gibt viele verschiedene Sektionen / Bereiche in der .ai.json, so auch zB die "learning_experiences", etc. Lies dir alle wichtigen "\*.md"-Dateien im root Verzeichnis durch, alle, bis auf die die in der .ai.json.ignore vermerkt sind. Dann bekommt die KI von ganz alleine ein hervorangendes Verständnis von diesem Projekt. Die Hauptaufgabe der KI ist es aber auch, die .ai.json und alle ggfs betroffenen Dateien, gemäß der .ai.json aktuell zu halten, hier gilt es unter anderem die "auto_tasks" innerhalb der .ai.json ebenfalls stetig upzudaten. Alles ist im wandel ...
 
 ## 📚 Grundlegendes Verständnis
 
@@ -105,12 +103,14 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## 🔄 Empfohlener Analyse-Workflow
 
 1. **Initialer Scan**
+
    - `.ai.json` für Modulstruktur analysieren
    - Module nach Bedarf laden
    - README.md für Überblick konsultieren
    - CHANGELOG.md für aktuelle Version prüfen
 
 2. **Vertiefte Analyse**
+
    - AI-INTEGRATION.md für spezifische KI-Features
    - Architektur-Modul für Projektstruktur
    - RESEARCH.md für aktuelle KI-Forschung
@@ -123,16 +123,19 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## 🎯 Beste Praktiken
 
 1. **Kommunikation**
+
    - Nutze die in user_preferences definierten Spracheinstellungen
    - Beachte den gewünschten technischen Detailgrad
    - Folge dem vorgegebenen Kommunikationsstil
 
 2. **Technische Unterstützung**
+
    - Berücksichtige documented_issues
    - Nutze die architecture-Sektion für Kontext
    - Beachte geplante Features
 
 3. **Projektspezifische Anpassung**
+
    - Analysiere project_type für Kontext
    - Beachte framework_specific_details
    - Berücksichtige definierte Patterns
@@ -150,7 +153,8 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## ⚠️ Wichtige Hinweise
 
 1. **Versionierung**
-   - Aktuelle Version: 3.8.0
+
+   - Aktuelle Version: 3.8.2
    - Prüfe CHANGELOG.md für Breaking Changes (insb. Modulsystem)
    - Beachte Kompatibilitätshinweise
    - Validiere .ai.modules/ Integrität
@@ -163,16 +167,19 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## 🧠 Intelligente Kontextanalyse
 
 ### 1. Strukturelle Analyse
+
 - **Projektarchitektur** aus Modulen laden
 - **Technologie-Stack** identifizieren
 - **Modulare Beziehungen** analysieren
 
 ### 2. Kommunikationskontext
+
 - Sprachliche Anpassung gemäß Präferenzen
 - Technische Tiefe nach Kontext
 - Proaktive Unterstützung
 
 ### 3. Entwicklungskontext
+
 - Aktuelle Forschungsschwerpunkte
 - Geplante Features und Updates
 - Modulare Erweiterungen
@@ -180,12 +187,14 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## 🛡️ Sicherheit & Updates (v3.8.0)
 
 ### 1. Update-Mechanismus
+
 - Automatische Schema-Validierung
 - Modul-spezifische Backups
 - Selektive Updates
 - Integritätsprüfungen
 
 ### 2. Datenschutz
+
 - Modulare Zugriffskontrollen
 - Sensitive Informationen markieren
 - Verschlüsselte Backups
@@ -200,23 +209,27 @@ Folgende Dateien sollten von KI-Systemen primär konsultiert werden:
 ## 🛠️ Wartungsrichtlinien
 
 ### 1. Regelmäßige Überprüfungen
+
 - Täglich: Modul-Validierung und kritische Updates
 - Wöchentlich: Dependency-Updates und Doku-Sync
 - Monatlich: Vollständiger Systempflegelauf
 
 ### 2. Update-Prozess
+
 - Modulare Updates koordinieren
 - Dependencies aktuell halten
 - Backward Compatibility sichern
 - Änderungen dokumentieren
 
 ### 3. Dokumentations-Synchronisation
+
 - Versions-Nummern abgleichen
 - Modul-Beschreibungen aktualisieren
 - Neue Features dokumentieren
 - Cross-Referenzen pflegen
 
 ### 4. Qualitätssicherung
+
 - Schema-Validierung aller Module
 - Markdown-Formatierung prüfen
 - Links und Referenzen verifizieren
@@ -228,7 +241,7 @@ AIM ist ein lebendes, modulares System, das sich ständig weiterentwickelt. KI-S
 
 ---
 
-_Diese Initialisierungsanleitung wurde erstellt, um KI-Systemen die bestmögliche Integration und Unterstützung im Projekt zu ermöglichen. Stand: v3.8.0 (2025-07-17)_
+_Diese Initialisierungsanleitung wurde erstellt, um KI-Systemen die bestmögliche Integration und Unterstützung im Projekt zu ermöglichen. Stand: v3.8.2 (2025-07-19)_
 
 ---
 

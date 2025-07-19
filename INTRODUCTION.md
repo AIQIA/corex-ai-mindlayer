@@ -7,7 +7,7 @@
 
 # 🚀 Einführung in coreX AI MindLayer
 
-> Eine sanfte Einführung in die Welt der KI-gestützten Projektdokumentation
+> Eine sanfte Einführung in die Welt der KI-gestützten Projektentwicklung & Projektdokumentation
 
 ## 🎯 Was ist der AI MindLayer?
 

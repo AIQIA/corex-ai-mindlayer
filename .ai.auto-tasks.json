@@ -1,35 +1,32 @@
 [
     {
-        "task": "Validate Schema",
+        "task": "Validate .ai.json if updated and adapt the schema.js to the new .ai.json if necessary, then trigger the command: npm run validate",
         "trigger": "pre-commit",
         "command": "npm run validate",
         "priority": "high",
         "automated": true,
+        "handler": "ai-assistant",
         "onError": "block-commit"
     },
-    {
-        "task": "Update .ai.json",
-        "trigger": "post-install",
-        "command": "php ai-init.php --update",
-        "priority": "high",
-        "automated": true,
-        "onError": "notify"
-    },
+
     {
         "task": "Sync Documentation",
         "trigger": "post-update",
-        "command": "php scripts/sync-docs.php",
+        "command": "ai-sync-docs",
         "priority": "medium",
         "automated": true,
-        "onError": "log"
-    },
-    {
-        "task": "Generate Mind Map",
-        "trigger": "post-ai-update",
-        "command": "aiMindLayer.showMindMap",
-        "priority": "medium",
-        "automated": true,
-        "onError": "retry"
+        "onError": "log",
+        "handler": "ai-assistant",
+        "aiConfig": {
+            "type": "documentation-sync",
+            "files": ["*.md"],
+            "updateStrategy": "intelligent",
+            "context": {
+                "project": true,
+                "changes": true,
+                "version": true
+            }
+        }
     },
     {
         "task": "Update Context",
@@ -43,10 +40,11 @@
     {
         "task": "Check Documentation Redundancy",
         "trigger": "pre-commit",
-        "command": "php scripts/check-doc-redundancy.php",
+        "command": "ai-sync-docs --check-redundancy",
         "priority": "high",
         "automated": true,
         "onError": "block-commit",
+        "handler": "ai-assistant",
         "description": "Ensures all .md files from root directory (except those in .ai.json.ignore) maintain absolute redundancy"
     },
     {
@@ -72,5 +70,33 @@
             ".backup/",
             "_backup/"
         ]
+    },
+    {
+        "task": "Post-Update Validation",
+        "trigger": "post-update",
+        "command": "php scripts/validate-all.php",
+        "priority": "critical",
+        "automated": true,
+        "onError": "block-push",
+        "description": "Führt umfassende Validierung nach Software-Updates durch",
+        "validations": [
+            "Schema-Validierung der .ai.json und aller Module",
+            "Code-Linting für PHP Files",
+            "Unit Tests",
+            "Integration Tests",
+            "Dokumentations-Konsistenz"
+        ],
+        "dependencies": [
+            "composer.json",
+            "package.json",
+            "schema.json",
+            ".ai.json"
+        ],
+        "errorHandling": {
+            "action": "block-push",
+            "notification": true,
+            "logFile": "logs/validation-errors.log",
+            "generateReport": true
+        }
     }
 ]

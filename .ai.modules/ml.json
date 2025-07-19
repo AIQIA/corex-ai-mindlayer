@@ -1,0 +1,59 @@
+{
+    "ml_features": {
+        "code_scoring": {
+            "metrics": {
+                "complexity": {
+                    "cyclomatic": true,
+                    "cognitive": true,
+                    "nesting_depth": true
+                },
+                "performance": {
+                    "memory_usage": true,
+                    "time_complexity": true,
+                    "optimization_potential": true
+                },
+                "maintainability": {
+                    "readability": true,
+                    "documentation": true,
+                    "coupling": true
+                }
+            },
+            "thresholds": {
+                "complexity": {
+                    "cyclomatic": 10,
+                    "cognitive": 15,
+                    "nesting_depth": 4
+                },
+                "maintainability": {
+                    "min_documentation_coverage": 0.7,
+                    "max_coupling": 0.5
+                }
+            }
+        },
+        "context_analysis": {
+            "priority_factors": {
+                "urgency": true,
+                "importance": true,
+                "dependencies": true,
+                "resources": true
+            },
+            "impact_assessment": {
+                "scope": true,
+                "risk": true,
+                "benefits": true,
+                "effort": true
+            },
+            "recommendations": {
+                "actions": true,
+                "timeline": true,
+                "resources": true
+            }
+        },
+        "training_data": {
+            "collect": true,
+            "anonymize": true,
+            "store_duration": "90d",
+            "feedback_loop": true
+        }
+    }
+}

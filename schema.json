@@ -3,7 +3,7 @@
   "$id": "https://github.com/AIQIA/corex-ai-mindlayer/schema.json",
   "title": "coreX AI MindLayer Schema",
   "description": "JSON Schema for .ai.json files used by AI assistants to understand project structure. WICHTIG: Die .ai.json ist ein dynamisches Dokument, das sich ständig weiterentwickelt. Dieses Schema muss regelmäßig angepasst werden, um neue Eigenschaften und Strukturen zu unterstützen.",
-  "version": "3.8.0",
+  "version": "3.8.2",
   "lastUpdated": "2025-07-17",
   "dynamicNature": {
     "description": "Die .ai.json darf und soll sich kontinuierlich weiterentwickeln",

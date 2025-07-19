@@ -1,7 +1,71 @@
-# 🚀 STATUS – coreX AI MindLayer v3.8.0
+# 🚀 STATUS – coreX AI MindLayer v3.8.2
 
 > Aktuelle Funktionen, Features und Status des Projekts.
-> Stand: 2025-07-17
+> Stand: 2025-07-19
+
+---
+
+## 🆕 Neue Features in v3.8.2
+
+### 🧠 Machine Learning Framework
+
+#### Code-Analyse Engine
+
+- **Komplexitäts-Metriken:**
+
+  - Zyklomatische & Kognitive Komplexität
+  - Verschachtelungstiefe-Analyse
+  - Wartbarkeits-Scoring
+
+- **Performance-Analyse:**
+  - Speicherverbrauchs-Schätzung
+  - Zeitkomplexitäts-Bewertung
+  - Optimierungs-Potenzial-Erkennung
+
+#### Kontext-Analyse System
+
+- **Intelligente Priorisierung:**
+
+  - Multi-Faktor Bewertungssystem
+  - Abhängigkeits-Tracking
+  - Ressourcen-Optimierung
+
+- **Impact Assessment:**
+  - Änderungs-Scope-Analyse
+  - Risiko-Evaluierung
+  - Nutzen-Aufwand-Bewertung
+
+#### ML-Infrastruktur
+
+- **Konfigurations-System:**
+  - Anpassbare Scoring-Parameter
+  - Flexible Schwellenwerte
+  - Trainings-Daten-Management
+
+---
+
+## 🆕 Neue Features in v3.8.1
+
+### Performance-Optimierung
+
+- **Stream Processing:**
+
+  - Chunk-basierte JSON-Verarbeitung für große Dateien
+  - Reduzierter Speicherverbrauch durch Stream-Verarbeitung
+  - Optimierte Verarbeitung von großen .ai.json Dateien
+
+- **Cache System:**
+  - Intelligentes Caching häufig genutzter Daten
+  - Konfigurierbare Cache-Dauer (TTL)
+  - Automatische Cache-Invalidierung
+  - Verbessertes Antwortverhalten bei wiederholten Anfragen
+
+### Technische Updates
+
+- **PHP 8.2 Unterstützung:**
+  - Update der PHP-Mindestanforderung
+  - Integration des JSON-Streaming-Parsers
+  - Optimierte Autoloader-Konfiguration
 
 ---
 

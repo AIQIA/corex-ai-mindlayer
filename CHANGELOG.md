@@ -4,6 +4,76 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.8.2] - 2025-07-19
+
+### Machine Learning Vorbereitung
+
+**Framework für ML-Features:**
+
+- Code-Analyzer
+
+  - Komplexitätsanalyse-Framework
+    - Zyklomatische Komplexität
+    - Kognitive Komplexität
+    - Verschachtelungstiefe
+  - Performance-Metriken-System
+    - Speicherverbrauch-Analyse
+    - Zeitkomplexitäts-Schätzung
+    - Optimierungspotential-Erkennung
+  - Wartbarkeits-Bewertung
+    - Lesbarkeits-Score
+    - Dokumentations-Coverage
+    - Kopplungs-Analyse
+
+- Kontext-Analyzer
+
+  - Prioritäts-Engine
+    - Dringlichkeits-Bewertung
+    - Wichtigkeits-Scoring
+    - Abhängigkeits-Analyse
+    - Ressourcen-Planung
+  - Impact-Assessment
+    - Änderungs-Scope-Analyse
+    - Risiko-Bewertung
+    - Nutzen-Analyse
+    - Aufwands-Schätzung
+  - ML-basierte Empfehlungen
+    - Aktions-Vorschläge
+    - Timeline-Optimierung
+    - Ressourcen-Allokation
+
+- ML-Modul Integration
+  - Konfigurierbares Scoring-System
+  - Anpassbare Schwellenwerte
+  - Trainings-Daten-Management
+  - Feedback-Loop-System
+
+## [3.8.1] - 2025-07-19
+
+### Performance-Verbesserungen
+
+**Erweiterte Performance-Optimierung:**
+
+- Stream-Verarbeitung
+
+  - Implementierung eines Stream-Processors für .ai.json
+  - Chunk-basierte JSON-Verarbeitung
+  - Reduzierter Speicherverbrauch
+  - Optimierte Verarbeitung großer Dateien
+
+- Cache-System
+  - Einführung eines zentralen Cache-Managers
+  - Intelligentes Caching häufig genutzter Daten
+  - Konfigurierbarer TTL (Time To Live)
+  - Automatische Cache-Invalidierung
+
+**Technische Verbesserungen:**
+
+- PHP-Abhängigkeiten
+  - Update auf PHP 8.2
+  - Integration des JSON-Streaming-Parsers
+  - Optimierte Autoloader-Konfiguration
+
 ## [3.8.0] - 2025-07-17
 
 ### Performance-Optimierungen

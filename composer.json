@@ -10,24 +10,35 @@
         }
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.2",
+        "salsify/json-streaming-parser": "^8.2",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
     },
     "autoload": {
         "psr-4": {
-            "CoreX\\AIMindLayer\\": "scripts/ecosystem/composer-plugin/src/"
+            "CoreX\\AIMindLayer\\": "scripts/ecosystem/composer-plugin/src/",
+            "CoreX\\AI\\MindLayer\\": "scripts/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\CoreX\\AI\\MindLayer\\": "tests/"
         }
     },
     "scripts": {
         "post-update-cmd": [
             "php scripts/ecosystem/composer-plugin/src/ComposerPlugin.php"
         ],
-        "aimindlayer:update": "php scripts/ecosystem/composer-plugin/src/ComposerPlugin.php"
+        "aimindlayer:update": "php scripts/ecosystem/composer-plugin/src/ComposerPlugin.php",
+        "test": "phpunit"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "aiqia/corex-ai-mindlayer-plugin": true
+            "aiqia/corex-ai-mindlayer": true
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
