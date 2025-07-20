@@ -28,6 +28,9 @@ function activate(context) {
     const manageResearchCommand = vscode.commands.registerCommand('aiMindLayer.manageResearch', manageResearch);
     // NEW: v3.7.0 Version Checker Feature
     const checkForUpdatesCommand = (0, version_checker_1.registerVersionCheckerCommand)(context);
+    // NEW: v3.8.3 Cleanup Command
+    const cleanupCommand = vscode.commands.registerCommand('aiMindLayer.cleanup', cleanupAIMFiles);
+    context.subscriptions.push(cleanupCommand);
     // Register file system watcher for .ai.json files
     const aiJsonWatcher = vscode.workspace.createFileSystemWatcher('**/.ai.json');
     aiJsonWatcher.onDidChange(() => {
@@ -203,6 +206,47 @@ async function checkForAiJson() {
             runScanner();
         }
     }
+}
+async function cleanupAIMFiles() {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+        return;
+    }
+    const filesToRemove = [
+        '.ai.json',
+        'install.ai.json',
+        '.ai.json.config',
+        '.ai.json.config.example'
+    ];
+    const foldersToRemove = [
+        '.ai.modules',
+        '.ai.backup',
+        '.ai.cache'
+    ];
+    // Entferne Dateien
+    for (const file of filesToRemove) {
+        const filePath = vscode.Uri.joinPath(workspaceFolder.uri, file);
+        try {
+            await vscode.workspace.fs.delete(filePath);
+            console.log(`Deleted file: ${file}`);
+        }
+        catch (error) {
+            // Ignoriere Fehler wenn Datei nicht existiert
+        }
+    }
+    // Entferne Ordner
+    for (const folder of foldersToRemove) {
+        const folderPath = vscode.Uri.joinPath(workspaceFolder.uri, folder);
+        try {
+            await vscode.workspace.fs.delete(folderPath, { recursive: true });
+            console.log(`Deleted folder: ${folder}`);
+        }
+        catch (error) {
+            // Ignoriere Fehler wenn Ordner nicht existiert
+        }
+    }
+    // Zeige Bestätigung
+    vscode.window.showInformationMessage('🧹 Alle AIM-Dateien wurden erfolgreich entfernt.');
 }
 function deactivate() {
     console.log('🤖 AI MindLayer extension deactivated');

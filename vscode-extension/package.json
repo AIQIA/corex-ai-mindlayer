@@ -2,7 +2,7 @@
   "name": "corex-ai-mindlayer",
   "displayName": "coreX AI MindLayer",
   "description": "Automated AI project initialization and management with direct Copilot integration",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "publisher": "aiqia",
   "engines": {
     "vscode": "^1.74.0"
@@ -22,6 +22,11 @@
     "workspaceContains:.ai.json",
     "workspaceContains:.ai.json.example"
   ],
+  "extensionKind": ["workspace"],
+  "extensionDependencies": [],
+  "uninstall": {
+    "command": "aiMindLayer.cleanup"
+  },
   "keywords": [
     "ai",
     "json",
