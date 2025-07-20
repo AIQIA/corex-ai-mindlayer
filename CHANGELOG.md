@@ -4,6 +4,73 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.8.5] - 2025-07-20
+
+### Verbesserungen
+
+- **Project Visualizer (Beta)**
+  - Erste Implementation des neuen Project Visualizers
+  - Modernes VS Code-konformes Design
+  - Unterstützung für Mind Map und Tree View
+  - Responsive Layout mit VS Code Theming
+  - Verbesserte Code-Struktur durch CSS-Auslagerung
+
+## [3.9.0] - PLANNED
+
+### Feature-Optimierung & Modularisierung
+
+**Geplante Zusammenlegungen:**
+
+- Mind Map und Tree Explorer werden zu "Project Visualizer"
+  - Verbesserte Visualisierungsoptionen
+  - Einheitliche Benutzeroberfläche
+  - Performance-Optimierung
+- Auto-Sync und Package-Update werden zu "Smart Update System"
+  - Intelligente Update-Erkennung
+  - Automatische Dependency-Analyse
+  - Verbessertes Konfliktmanagement
+
+**Geplante Modularisierung:**
+
+- Docker Integration als optionales Add-on
+- Research Management als separates Feature-Modul
+- Verbesserte Erweiterbarkeit durch Plugin-System
+
+**UI/UX Verbesserungen:**
+
+- Integration der User Preferences in VS Code Settings
+- Streamlined Command-Palette
+- Verbesserte Dokumentations-Integration
+
+## [3.8.4] - 2025-07-20
+
+### Code-Qualität & Cleanup Features
+
+**Neue Features:**
+
+- Implementierung der Deinstallations-Funktionalität
+  - Automatische Bereinigung aller AIM-Dateien bei Extension-Deinstallation
+  - Sicheres Entfernen von .ai.json und zugehörigen Ordnern
+  - Benutzerfreundliche Bestätigungsmeldungen
+
+**Technische Verbesserungen:**
+
+- PSR-4 Konformität hergestellt
+  - Umbenennung aller Analyzer-Dateien gemäß PSR-4 Standard
+  - Korrektur der Namespace-Struktur
+- Fehlerbehebung im StreamProcessor
+  - Korrekter Typ-Hint für JsonStreamingParser
+  - Verbesserte Fehlerbehandlung
+- Anpassung der Test-Validierung
+  - Syntax-Check statt vollständiger Ausführung
+  - Verbesserte CI/CD Integration
+
+**Dokumentation:**
+
+- Aktualisierte Deinstallations-Anleitung
+- Verbesserte Code-Dokumentation
+- Klare Namespace-Struktur
+
 ## [3.8.3] - 2025-07-20
 
 ### Installation & Setup Verbesserungen

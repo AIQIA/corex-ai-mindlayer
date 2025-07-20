@@ -1,11 +1,26 @@
-# 🚀 STATUS – coreX AI MindLayer v3.8.2
+# 🚀 STATUS – coreX AI MindLayer v3.8.5
 
 > Aktuelle Funktionen, Features und Status des Projekts.
-> Stand: 2025-07-19
+> Stand: 2025-07-20
 
 ---
 
-## 🆕 Neue Features in v3.8.2
+## 🆕 Neue Features in v3.8.5
+
+### 🎯 Project Visualizer (Beta)
+
+- **Visualisierungs-Engine:**
+
+  - Mind Map Darstellung
+  - Tree View Integration
+  - Dynamische Ansichtswechsel
+  - VS Code Theme Integration
+
+- **Technische Verbesserungen:**
+  - Modulare Code-Struktur
+  - Ausgelagerte Styling-Komponenten
+  - Responsive Layout-System
+  - Singleton Pattern Implementation
 
 ### 🧠 Machine Learning Framework
 

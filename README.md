@@ -1,4 +1,4 @@
-# coreX AI MindLayer v3.8.3 by Sascha Buscher - aiqia.de
+# coreX AI MindLayer v3.8.5 by Sascha Buscher - aiqia.de
 
 ## 🚀 Schnellstart
 
@@ -7,13 +7,15 @@
 3. Führen Sie `CoreX: Initialize Project` aus
 4. Die Extension führt Sie durch den Setup-Prozess
 
-## ✨ Neue Features in v3.8.3
+## ✨ Neue Features in v3.8.5
 
-- 🔄 Vollautomatischer Setup-Prozess
-- 🛠️ Nahtlose VS Code Integration
-- 🤖 Direkte Copilot-Anbindung
-- 📊 Status-Tracking in der IDE
-- 🔒 Verbesserte Konfigurationsverwaltung
+- 🎯 Project Visualizer (Beta)
+  - �️ Mind Map Visualisierung
+  - 🌲 Tree View Integration
+  - 🎨 VS Code Theme Support
+  - � Responsive Layout System
+- 🤖 Verbesserte KI-Integration
+- 🎨 Modernisiertes UI/UX Design
 
 ## ⚠️ WICHTIG: Dokumentations-Redundanz
 

@@ -1,6 +1,6 @@
-# AIM Initial Context
+# 🧠 AIM Initial Context v3.8.5
 
-## Projekt-Übersicht
+## 🎯 Projekt-Übersicht
 
 coreX AI MindLayer (AIM) ist ein zweistufiges System zur AI-freundlichen Projektdokumentation:
 
@@ -70,10 +70,65 @@ Als Meta-Tool ermöglicht AIM nicht nur die initiale Erstellung, sondern vor all
 - Entwicklerfreundlichkeit
 - Kontinuierliche Selbstoptimierung
 
-## Arbeiten mit AIM (coreX AI MindLayer)
+## 🔄 Aktuelle Funktionen (v3.8.5)
+
+### Project Visualizer (Beta)
+
+- Mind Map & Tree View Integration
+- VS Code Theme Support
+- Responsive Layout System
+- Modulare Architektur
+
+### Machine Learning Framework
+
+- Code-Analyse Engine
+- Kontext-Analyse System
+- Performance Metriken
+- Intelligente Priorisierung
+
+## 📚 Dokumentations-Ökosystem
+
+Folgende Kerndateien MÜSSEN bei JEDER Änderung berücksichtigt werden:
+
+- `CHANGELOG.md`: Versions-Historie und Änderungen
+- `STATUS.md`: Aktuelle Features und Projektstatus
+- `TODO.md`: Anstehende Tasks und Entwicklungsziele
+- `README.md`: Projektdokumentation
+- `.ai.json`: KI-Metadaten und Projektverständnis
+
+## ⚡ Arbeiten mit AIM (coreX AI MindLayer)
 
 - Wünscht der Anwender Änderungen an seinem Projekt, also an bestehenden Dateien oder den Aufbau neuer Dateien/Sektionen, **müssen die betroffenen Dateien vollständig gelesen werden**, um den Kontext und die Zusammenhänge zu verstehen. Nur so kann sichergestellt werden, dass erforderliche Anpassungen auch in angrenzenden oder verbundenen Dateien/Sektionen korrekt übernommen und durchgeführt werden.
 
 - **Nach Abschluss jeder Arbeit ist zu prüfen, ob es definierte `auto_tasks` gibt** – z. B. das Aktualisieren von `CHANGELOG.md`, `TODO.md`, `README.md`, `STATUS.md` etc. Auch hier gilt: **Immer zuerst die gesamte Datei lesen**, um Inkonsistenzen zu vermeiden.
 
 - **Prinzipiell gilt: Redundanz ist ausdrücklich erwünscht.**
+
+Hey AI-Assistant! Lass uns kurz über AIM (coreX AI MindLayer) sprechen, damit du weißt, wie wir hier zusammenarbeiten:
+
+AIM ist ein Meta-Tool für intelligente Projektunterstützung. Das Wichtigste für dich:
+
+Die .ai.json - im Hauptverzeichnisses des Projekts - ist dein MindLayer:
+
+Hier findest du das gesamte Projektverständnis:
+
+- Framework-Erkennung und Projektstruktur
+- Systemkomponenten und deren Zusammenhänge
+- Definierte auto_tasks, z.B. für Dokumentation und Wartung
+- Projekteigene Konventionen und Best Practices
+- Grundprinzipien für die Arbeit:
+
+(!) Lies IMMER erst die komplette .ai.json, weitere wichtige Dinge:
+
+- Vor Änderungen: Lies alle betroffenen Dateien vollständig
+- Nach Änderungen: Führe die definierten auto_tasks aus, ist diese leer, frage den Anwender ob du welche definieren sollst
+- Bei Unklarheiten: Frag immer erst nach oder erweitere die .ai.json wenn du sicher bist, was du da tust
+
+Kontinuierliche Verbesserung:
+
+- Halte die .ai.json aktuell
+- Lerne aus Fehlerbehebungen
+- Speichere neue Erkenntnisse über das Projekt
+- Optimiere die definierten Workflows
+
+Verstanden? Perfekt, dann können wir anfangen!
