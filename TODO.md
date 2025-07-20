@@ -3,11 +3,59 @@
 > Aufgaben, Ideen, geplante Features und nächste Schritte  
 > Diese Liste wächst dynamisch mit dem Projekt – Einträge dürfen direkt von KI-Systemen gelesen und ergänzt werden.
 
-## 📈 ENTWICKLUNGSSTAND (Stand: 2025-07-19)
+## 📈 ENTWICKLUNGSSTAND (Stand: 2025-07-20)
 
 ### 🎉 Fertige Versionen
 
-#### v3.0.0 - Basis-Features
+---
+
+## 📌 Aktuelle Prioritäten & Roadmap
+
+### 🎯 Höchste Priorität - Kernfeatures
+
+1. **💾 Performance & .ai.json Optimierung**
+
+   - [ ] Modularisierung der .ai.json (Split in Teil-Dateien)
+   - [ ] Optimierte Datenhaltung für große Projekte
+   - [ ] Performance-Monitoring und Optimierung
+   - [ ] Smart Caching & Lazy Loading
+
+2. **🧠 ML & KI Verbesserungen**
+
+   - [ ] Verbesserte Projektanalyse
+   - [ ] Intelligente Code-Vorschläge
+   - [ ] Pattern Recognition
+   - [ ] Selbstoptimierung
+
+3. **🔌 IDE-Integration & Workflow**
+   - [ ] VSCode Extension Optimierung
+   - [ ] PHPStorm Integration
+   - [ ] Multi-IDE Support
+   - [ ] Nahtlose Entwicklererfahrung
+
+### 🚀 Wichtige Features (Performance-abhängig)
+
+1. **📦 Kontext-Management (Optional)**
+
+   - [ ] Ressourcen-effiziente Kontextspeicherung
+   - [ ] Smart Initial-Text Alternative
+   - [ ] Konfigurierbares Kontext-Verhalten
+
+2. **🔄 VSC Plugin Erweiterungen**
+   - [ ] Auto-Context Push (wenn Performance OK)
+   - [ ] Intelligente Projekterkennung
+   - [ ] Ressourcen-Monitoring
+
+### ✨ Nice to have Features
+
+- [x] **Multi-Language Scanner Support**
+
+  - [x] Python Project Scanner (Django, Flask, FastAPI)
+  - [x] JavaScript/Node.js Scanner (Express, Nest.js)
+  - [x] Java Project Scanner (Spring, Android)
+  - [x] C# Project Scanner (.NET, ASP.NET Core)
+  - [x] Go Project Scanner
+  - [x] Rust Project Scanner### v3.0.0 - Basis-Features
 
 - [x] Architecture Preview
 - [x] Tree Explorer
@@ -67,12 +115,6 @@
 - [x] Vorbereitung ML-Features
 
 #### v3.9.0 (Q4 2025) - ML & KI
-
-- [ ] Machine Learning Integration
-- [ ] Verbesserte KI-Kommunikation 2.0
-- [ ] Kontext-Optimierung & Testing
-
-#### v3.9.0 (Q4 2025) - ML & KI 🔄
 
 - [ ] Machine Learning Integration
 - [ ] Verbesserte KI-Kommunikation 2.0
@@ -155,49 +197,27 @@
 
 ---
 
-## 🎉 COMPLETE VERSIONS
+## 📋 Detaillierte Versionsplanung
 
-### � Core-System Evolution
+### 🎯 Nächste Releases (Q4 2025 - Q2 2026)
 
-- [x] **v3.0.0: Core Features**
+#### v3.9.0: ML & KI Integration
 
-  - [x] Architecture Preview
-  - [x] Tree Explorer
-  - [x] AI IntelliSense
+- Machine Learning Integration verfeinern
+- KI-Kommunikation 2.0 implementieren
+- Kontext-System optimieren und testen
 
-- [x] **v3.1.0: Advanced Visualization**
+#### v4.0.0: Persistenz & Stabilität
 
-  - [x] Mind Map Visualizer (D3.js)
-  - [x] AI Documentation Comments
-  - [x] Diff Analyzer
+- Persistenter KI-Kontext entwickeln
+- Core Features vervollständigen
+- System stabilisieren und absichern
 
-- [x] **v3.3.0: Ecosystem Integration**
+#### v4.1.0: Monitoring & Performance
 
-  - [x] Auto-Sync System
-  - [x] Composer/NPM Plugin
-  - [x] Docker Integration
-
-- [x] **v3.4.1: Technical Excellence**
-
-  - [x] Composer-Integration Fixes
-  - [x] Standalone-PHP-Scanner
-  - [x] Verbessertes Error-Handling
-
-- [x] **v3.7.0: Security Update**
-
-  - [x] Schema-Vergleichsanalyse
-  - [x] Backup-System
-  - [x] Recovery-System
-
-- [x] **v3.7.1: Documentation Sync**
-
-  - [x] Auto-Sync für Markdown
-  - [x] Konsistenzprüfung
-  - [x] Changelog-Management
-  - [x] Intelligenter Fallback-Mechanismus bei fehlender Composer-Installation
-  - [x] Bessere Benutzerführung mit konkreten Lösungsvorschlägen
-
-- [x] **🔧 Technical Excellence**
+- Kontext-Features erweitern
+- Monitoring-System aufbauen
+- Performance-Optimierungen durchführen
   - [x] Alle 11 Commands fehlerfrei implementiert
   - [x] TypeScript Kompilierung erfolgreich
   - [x] VSIX Package v3.6.0 erstellt und installiert
@@ -224,20 +244,37 @@
 
 ---
 
-## 🧠 AIM v4.0 – Persistenter KI-Kontext & IDE-Synchronisierung (IDE pushed INITIALIZE.md an CoPilot, sofern verfügbar)
+## 🧠 Optionales Kontext-System (Performance-abhängig)
 
-### 🔄 Automatische Kontextverwaltung
+### 🔄 Smart Kontext-Management
 
-- [ ] `.aim-context.json` einführen: speichert letzten relevanten Kontext aus Chat / Aktionen
-- [ ] Kontext aus `INITIALIZE.md` + `.aim-context.json` kombinieren und an CoPilot pushen
-- [ ] Kontextdatei bei jeder relevanten Interaktion aktualisieren (nur bei echten Änderungen)
+- [ ] **Ressourceneffiziente Speicherung**
 
-### 🧩 Plugin-Integration (coreX AI MindLayer Extension)
+  - [ ] `.aim-context.json` für relevanten Chat-Kontext
+  - [ ] Intelligente Datenkomprimierung
+  - [ ] Selektive Kontextauswahl
+  - [ ] Cleanup-Mechanismen
 
-- [ ] Trigger: Nach jedem Copilot-Chat → Analyse von Eingabe & Antwort (Eingaben ausführlich speichern, Antworten auf's wichtigste zusammengefasst)
-- [ ] Kontextauszug automatisiert in `.aim-context.json` speichern
-- [ ] Projektstart (also bei Start der IDE): `INITIALIZE.md` + `.aim-context.json` zusammenfassen (ungekürzt!) → Push an CoPilot
-- [ ] Bei `create.aiJson` (Generierung der .ai.json) `.aim-context.json` mitliefern, entsprechend müssen alle AI MindLayer-Files in .gitignore eingetragen sein!
+- [ ] **Alternatives Initialisierungs-System**
+  - [ ] Smart Initial-Text Generator
+  - [ ] Projekt-spezifische Einführung
+  - [ ] Kontext-Priorisierung
+  - [ ] Performance-Monitoring
+
+### 🧩 IDE Integration (Optional)
+
+- [ ] **VSCode Extension Erweiterung**
+
+  - [ ] Konfigurierbarer Auto-Context Push
+  - [ ] Ressourcen-Monitoring
+  - [ ] Performance-basierte Aktivierung
+  - [ ] Fallback auf Initial-Text
+
+- [ ] **Kontext-Optimierung**
+  - [ ] Intelligente Zusammenfassung
+  - [ ] Relevanz-Filter
+  - [ ] Automatische Priorisierung
+  - [ ] Speicher-Optimierung
 
 ### 🧪 Intelligente Kontextanalyse
 
@@ -363,43 +400,63 @@
 
 ---
 
-## 🧪 Forschung & Prototypen
+## 🧪 Forschung & Innovation
+
+### ✅ Abgeschlossene Forschung
 
 - [x] **Research Tracking & Management**
+  - [x] Strukturierte Projekterfassung
+  - [x] Fortschrittsverfolgung
+  - [x] Ressourcen-Tracking
+  - [x] VS Code Integration
 
-  - [x] Strukturierte Erfassung von Forschungsprojekten in `.ai.json`
-  - [x] Status- und Fortschrittsverfolgung
-  - [x] Ressourcenmanagement und Technologie-Tracking
-  - [x] VS Code Integration mit interaktiver Verwaltung
+### 🔬 Aktuelle Forschungsgebiete
 
-- [ ] **Machine Learning Features**
+#### 1. Performance-Optimierung
 
-  - [ ] **Intelligente Architekturanalyse**
+- [ ] Datenhaltungs-Strategien
+- [ ] Ressourcen-Effizienz
+- [ ] Skalierbarkeit
+- [ ] Enterprise-Readiness
 
-    - [ ] Automatische Architektur-Erkennung und Visualisierung
-    - [ ] Pattern-Erkennung (MVC, MVVM, Microservices, etc.)
-    - [ ] Empfehlungen für Architektur-Optimierungen
-    - [ ] Vorhersage potentieller Architektur-Probleme (Technical Debt)
+#### 2. KI & ML Innovation
 
-  - [ ] **KI-gestützte Metadaten-Generierung**
+- [ ] Adaptive Lernsysteme
+- [ ] Kontext-Optimierung
+- [ ] Pattern Recognition
+- [ ] Smart Automation
 
-    - [ ] Intelligente Tag-Vorschläge durch NLP
-    - [ ] Automatische Kategorisierung von Komponenten
-    - [ ] Semantische Beziehungsanalyse zwischen Modulen
-    - [ ] Kontextbasierte Dokumentationsvorschläge
+### 🧠 ML & KI Optimierungen
 
-  - [ ] **Code-Qualität und Metriken**
+#### 1. Intelligente Projektanalyse
 
-    - [ ] ML-basiertes Code-Qualität-Scoring
-    - [ ] Komplexitätsanalyse mit Verbesserungsvorschlägen
-    - [ ] Erkennung von Anti-Patterns und Code-Smells
-    - [ ] Refactoring-Empfehlungen basierend auf Projektkontext
+- [ ] **Architektur-Verständnis**
 
-  - [ ] **Predictive Maintenance**
-    - [ ] Vorhersage von Wartungsbedarf in Code-Bereichen
-    - [ ] Identifikation von "Hot Spots" (häufig geänderte Bereiche)
-    - [ ] Impact-Analyse für Änderungen (was muss angepasst werden?)
-    - [ ] Intelligente Ressourcenzuweisung für Entwicklungsteams
+  - [ ] Pattern-Erkennung (MVC, MVVM, etc.)
+  - [ ] Strukturanalyse & Optimierungsvorschläge
+  - [ ] Technical Debt Erkennung
+  - [ ] Impact-Analyse für Änderungen
+
+- [ ] **Code-Qualität**
+  - [ ] ML-basiertes Qualitäts-Scoring
+  - [ ] Anti-Pattern Erkennung
+  - [ ] Smart Refactoring Vorschläge
+  - [ ] Hot-Spot Identifikation
+
+#### 2. KI-Assistenz Verbesserungen
+
+- [ ] **Smart Documentation**
+
+  - [ ] Kontextbasierte Doku-Generierung
+  - [ ] Intelligente Tag-Vorschläge
+  - [ ] Automatische Kategorisierung
+  - [ ] Semantische Beziehungsanalyse
+
+- [ ] **Predictive Features**
+  - [ ] Wartungsvorhersage
+  - [ ] Ressourcenoptimierung
+  - [ ] Automatische Priorisierung
+  - [ ] Entwicklungsunterstützung
 
 ### 🗣️ Mensch-KI-Kommunikationsoptimierung
 
@@ -516,7 +573,6 @@
 
     - [ ] JetBrains-Plugin (IntelliJ, PHPStorm, PyCharm, WebStorm)
     - [ ] Eclipse-Plugin für Java-Entwicklung
-    - [ ] Atom-Package für einfachere Projekte
     - [ ] Sublime Text und Notepad++ Unterstützung
 
   - [ ] **Erweiterte KI-Integration**
@@ -591,43 +647,38 @@
 
 > ⚙️ _PROBLEM: Die .ai.json kann in größeren Projekten sehr schnell sehr groß werden, was mir Sorgen bereitet, hier muss frühzeitig eine Lösung her!_
 
-### 💡 Lösungsansätze für große .ai.json Dateien
+### 💡 Performance & .ai.json Optimierung
 
-- [ ] **Modularisierung der .ai.json**
+#### 1. Modularisierung & Datenhaltung
 
-  - [ ] Split in mehrere Teil-Dateien (z.B. pro Modul/Komponente)
-  - [ ] Referenzsystem mit `$ref`-Verweisen nach JSON Schema Standard
-  - [ ] Hauptdatei enthält nur Metadaten und Verweise
-  - [ ] VS Code Extension unterstützt nahtloses Zusammenführen beim Lesen
+- [ ] **Modulare Struktur**
 
-- [ ] **Komprimierungsstrategien**
+  - [ ] Split in Teil-Dateien (pro Modul/Komponente)
+  - [ ] `$ref`-Verweissystem nach JSON Schema Standard
+  - [ ] Zentrale Metadaten-Verwaltung
+  - [ ] Automatisches Zusammenführen beim Lesen
 
-  - [ ] Optionales Binärformat für große Projekte (.ai.bin)
-  - [ ] Intelligente Deduplizierung wiederholter Strukturen
-  - [ ] Lazy-Loading-Mechanismus in Extension und Scannern
-  - [ ] Komprimierungsalgorithmus speziell für strukturierte Projektdaten
+- [ ] **Enterprise Storage Options**
+  - [ ] Binärformat (.ai.bin) für große Projekte
+  - [ ] SQLite Alternative (.ai.sqlite) für komplexe Queries
+  - [ ] Optionales verteiltes Speichersystem
+  - [ ] GraphQL-Schnittstelle für effiziente Abfragen
 
-- [ ] **Selektive Generierung und Filterung**
+#### 2. Performance-Optimierungen
 
-  - [ ] CLI-Optionen für partielle Scanning/Generierung
-  - [ ] Filter-System für Import/Export bestimmter Bereiche
-  - [ ] Verschiedene Detail-Level (z. B. "core", "extended", "full")
-  - [ ] Temporäres Auslagern selten genutzter Metadaten
+- [ ] **Ressourcen-Management**
 
-- [ ] **Alternative Datenhaltung für Enterprise-Projekte**
+  - [ ] Worker-Threads für Parallelverarbeitung
+  - [ ] Intelligentes Caching-System
+  - [ ] Stream-basierte Verarbeitung
+  - [ ] Memory-Optimized Handling
 
-  - [ ] SQLite-Datenbank als Alternative (.ai.sqlite)
-  - [ ] GraphQL-Schnittstelle für effiziente Teilabfragen
-  - [ ] Verteiltes Speichersystem für Microservice-Architekturen
-  - [ ] Inkrementelles Update-System statt vollständiger Neugenerierung
+- [ ] **Smart Features**
 
-- [ ] **Performance-Optimierungen**
-  - [ ] Worker-Threads für parallele Verarbeitung
-  - [ ] Cache-Mechanismen für schnelleren Zugriff
-  - [ ] Stream-basierte Verarbeitung statt komplettes Laden
-  - [ ] Diff-basiertes Update-System (nur Änderungen speichern)
-
-### Lösungsansätze zur Optimierung großer .ai.json-Dateien:
+  - [ ] Selektives Laden nach Bedarf (Lazy Loading)
+  - [ ] Automatische Deduplizierung
+  - [ ] Diff-basierte Updates
+  - [ ] Intelligente Komprimierung
 
 - [ ] **Modulare Struktur mit Referenzen**
 
@@ -731,32 +782,34 @@
 
 ---
 
-### 📅 VERSION NUMBERING & TIMELINES
+### 📅 Versions-Roadmap 2025-2026
 
-> Vorläufiger Zeitplan für die Entwicklung:
+#### Q3/Q4 2025
 
-1. **🎯 v3.8.0 (Q3 2023)**
+1. **🎯 v3.8.2 (Current)**
 
-   - [ ] Performance-Optimierung
-   - [ ] Core-System-Updates
-   - [ ] Basis für v4.0 Features
+   - [x] ML Framework Basis
+   - [x] Performance-Optimierungen
+   - [x] Kontext-Analyse System
 
-2. **🔄 v3.9.0 (Q4 2023)**
+2. **🔄 v3.9.0**
+   - [ ] Performance-Monitoring
+   - [ ] ML-Feature Integration
+   - [ ] Erweiterte Analyse-Tools
 
-   - [ ] ML-Features
-   - [ ] Kommunikationsverbesserungen
-   - [ ] Beta-Tests für v4.0 Features
+#### Q1/Q2 2026
 
-3. **⭐ v4.0.0 (Q1 2024)**
+3. **⭐ v4.0.0**
 
-   - [ ] Persistenter KI-Kontext
-   - [ ] Neue Core-Features
-   - [ ] Stabilisierung & Testing
+   - [ ] Performance-First Architecture
+   - [ ] Optimierte .ai.json Struktur
+   - [ ] Optionales Kontext-System
+   - [ ] Enterprise-Ready Features
 
-4. **🚀 v4.1.0 (Q2 2024)**
-   - [ ] Erweiterte Kontext-Features
-   - [ ] Monitoring-System
-   - [ ] Performance-Verbesserungen
+4. **🚀 v4.1.0**
+   - [ ] Advanced ML Features
+   - [ ] Multi-IDE Support
+   - [ ] Erweiterte Enterprise-Integration
 
 ---
 
@@ -830,14 +883,30 @@
 - [ ] REST-API
 - [ ] Team-Kollaboration
 
-### IDE-Integration (v4.3)
+### 🔌 IDE-Integration (v4.3)
 
-- [ ] JetBrains-Plugins
-- [ ] Eclipse-Integration
-- [ ] Multi-IDE-Support
+#### 1. Primäre IDEs
 
-### CMS & Backend (v5.0)
+- [ ] VS Code Extension Optimierung
+- [ ] JetBrains Familie (PHPStorm, IntelliJ, etc.)
+- [ ] Eclipse für Enterprise-Umgebungen
 
-- [ ] CMS-Integration
-- [ ] Backend-Systeme
-- [ ] Enterprise-Features
+#### 2. Weitere IDEs
+
+- [ ] Sublime Text Integration
+- [ ] Notepad++ Plugin
+- [ ] Generischer Editor Support
+
+### 🏢 Enterprise Integration (v5.0)
+
+#### 1. CMS & Backend
+
+- [ ] CoreX CMS Integration
+- [ ] Enterprise-Skalierung
+- [ ] Multi-Team Support
+
+#### 2. Deployment & CI/CD
+
+- [ ] Automatisierte Validierung
+- [ ] Pipeline Integration
+- [ ] Enterprise Security Features

@@ -4,15 +4,61 @@
   "title": "coreX AI MindLayer Schema",
   "description": "JSON Schema for .ai.json files used by AI assistants to understand project structure. WICHTIG: Die .ai.json ist ein dynamisches Dokument, das sich ständig weiterentwickelt. Dieses Schema muss regelmäßig angepasst werden, um neue Eigenschaften und Strukturen zu unterstützen.",
   "version": "3.8.2",
-  "lastUpdated": "2025-07-17",
+  "lastUpdated": "2025-07-20",
   "dynamicNature": {
     "description": "Die .ai.json darf und soll sich kontinuierlich weiterentwickeln",
     "requirements": [
       "Schema muss bei neuen .ai.json Eigenschaften aktualisiert werden",
       "Versionshistorie dokumentieren",
       "Abwärtskompatibilität beachten",
-      "Neue Eigenschaften validieren"
+      "Neue Eigenschaften validieren",
+      "Performance-Metriken berücksichtigen"
     ]
+  },
+  "performance": {
+    "description": "Performance-Konfiguration und Metriken",
+    "type": "object",
+    "properties": {
+      "storage": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["standard", "modular", "binary", "sqlite"],
+            "default": "standard",
+            "description": "Speichermodus für .ai.json Daten"
+          },
+          "compression": {
+            "type": "boolean",
+            "default": false,
+            "description": "Aktiviert Datenkomprimierung"
+          },
+          "lazyLoading": {
+            "type": "boolean",
+            "default": true,
+            "description": "Aktiviert bedarfsgesteuertes Laden von Modulen"
+          }
+        }
+      },
+      "monitoring": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Aktiviert Performance-Monitoring"
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["memory", "loadTime", "responseTime", "diskUsage"]
+            },
+            "default": ["memory", "loadTime"]
+          }
+        }
+      }
+    }
   },
   "type": "object",
   "required": ["$schema", "$modules"],
@@ -35,6 +81,62 @@
           "$ref": {
             "type": "string",
             "description": "Path to the module file"
+          },
+          "loadPriority": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "default": "medium",
+            "description": "Priorität beim Laden des Moduls"
+          }
+        }
+      }
+    },
+    "contextManagement": {
+      "type": "object",
+      "description": "Konfiguration für optionales Kontext-Management",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Aktiviert das erweiterte Kontext-Management"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["full", "smart", "minimal", "initialText"],
+          "default": "smart",
+          "description": "Kontext-Management Modus"
+        },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "maxMemoryUsage": {
+              "type": "string",
+              "pattern": "^\\d+[MG]B$",
+              "default": "512MB",
+              "description": "Maximaler Speicherverbrauch für Kontext"
+            },
+            "cleanupInterval": {
+              "type": "string",
+              "pattern": "^\\d+[hd]$",
+              "default": "24h",
+              "description": "Intervall für Kontext-Bereinigung"
+            }
+          }
+        },
+        "initialization": {
+          "type": "object",
+          "properties": {
+            "useInitialText": {
+              "type": "boolean",
+              "default": true,
+              "description": "Verwendet Initial-Text statt vollem Kontext"
+            },
+            "smartMode": {
+              "type": "boolean",
+              "default": true,
+              "description": "Automatische Anpassung basierend auf Performance"
+            }
           }
         }
       }
