@@ -1,4 +1,14 @@
 {
+    "module_config": {
+        "performance": {
+            "priority": "high",
+            "caching": {
+                "enabled": true,
+                "ttl": "1h",
+                "strategy": "memory_first"
+            }
+        }
+    },
     "architecture": [
         {
             "module": "Core Scanner",

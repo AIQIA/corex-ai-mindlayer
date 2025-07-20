@@ -1,0 +1,31 @@
+{
+    "initialized": false,
+    "aiAssistantSetup": false,
+    "readyForAI": false,
+    "lastUpdate": null,
+    "version": "3.8.2",
+    "projectName": "your-project-name",
+    "setupDate": null,
+    "environment": {
+        "php": "8.x",
+        "os": "any",
+        "encoding": "UTF-8"
+    },
+    "status": {
+        "initial_scan": "pending",
+        "ai_analysis": "pending",
+        "modules_setup": "pending",
+        "last_optimization": null
+    },
+    "extensionEvent": {
+        "type": "ai.mindlayer.event",
+        "action": "waiting_for_init",
+        "timestamp": null,
+        "data": {
+            "analyzed": false,
+            "optimized": false,
+            "modules_processed": []
+        }
+    },
+    "_comment": "Dies ist eine Beispiel-Konfiguration. Die echte .ai.json.config wird von ai-init.php erstellt und lokal verwaltet."
+}

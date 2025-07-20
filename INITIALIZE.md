@@ -48,6 +48,10 @@ AIM (AI MindLayer) ist ein Meta-Framework zur Erstellung von KI-freundlicher Pro
 - VS Code Tasks für Validierung
 - Automatische Modulsynchronisation
 - Backup-System mit Versionierung
+- Vollständig integrierte VS Code Extension (v3.8.3+)
+
+> **Hinweis zur Version 3.8.3**: Im Rahmen der Neustrukturierung wurden temporäre Entwicklungsdateien (`.new`, `.tmp`) entfernt. Die Installation erfolgt nun vollständig über die VS Code Extension.
+
 - Live-Watching für Änderungen
 
 ### 4. Beste Praktiken für Module

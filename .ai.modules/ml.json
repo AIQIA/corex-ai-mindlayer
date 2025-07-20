@@ -1,4 +1,18 @@
 {
+    "module_config": {
+        "performance": {
+            "priority": "high",
+            "caching": {
+                "enabled": true,
+                "ttl": "1h",
+                "max_size": "100MB"
+            },
+            "resource_limits": {
+                "max_memory": "256MB",
+                "max_processing_time": "30s"
+            }
+        }
+    },
     "ml_features": {
         "code_scoring": {
             "metrics": {

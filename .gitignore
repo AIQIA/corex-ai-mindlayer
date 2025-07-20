@@ -36,6 +36,10 @@ Thumbs.db
 
 # coreX MindLayer spezifisch
 git-hilfe.sascha.md
+.ai.json.config
+.ai.modules/extension.event.json
+.ai.cache/
+.ai.backup/
 
 # Backup-Dateien
 /backups/

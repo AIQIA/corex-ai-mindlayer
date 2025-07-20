@@ -4,6 +4,73 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [3.8.3] - 2025-07-20
+
+### Installation & Setup Verbesserungen
+
+**Cleanup & Optimierung:**
+
+- Bereinigung temporärer Entwicklungsdateien
+  - Entfernt: `.ai.json.example.new`
+  - Entfernt: `.ai.json.example.tmp`
+  - Entfernt: `INITIALIZE.md.new`
+  - Entfernt: `schema.json.new`
+- Verbesserte Codestruktur in der Extension
+
+**Neue Features:**
+
+- Vollständig automatisierter Setup-Prozess
+- VS Code Extension Integration
+  - Direkter Setup über die Extension
+  - Automatische Copilot Integration
+  - Status-Anzeige in der IDE
+
+**Technische Verbesserungen:**
+
+- Neue `install.ai.json` für Extension-gesteuerte Installation
+- Verbessertes Konfigurations-Management
+  - Lokale `.ai.json.config` (nicht im Repository)
+  - Example-Konfiguration als Referenz
+- Sicherer Extension-Token für Setup-Prozess
+
+**Dokumentation:**
+
+- Aktualisierte Installations-Anweisungen
+- Neue Entwickler-Dokumentation für Extension-Integration
+- Verbesserte Benutzerführung während Setup
+
+## [3.8.2] - 2025-07-20
+
+### Performance & Architektur Update
+
+**Performance-Optimierungen:**
+
+- Neue Performance-first Architektur
+  - Modulares Speichersystem mit Lazy Loading
+  - Smart Caching-Mechanismen
+  - Ressourcen-Monitoring und Limits
+
+**Schema-Erweiterungen:**
+
+- Performance-Metriken integriert
+  - Memory Usage Tracking
+  - Load Time Monitoring
+  - Response Time Analysis
+  - Disk Usage Tracking
+
+**Kontext-Management:**
+
+- Optionales Kontext-System eingeführt
+  - Smart Mode für automatische Anpassung
+  - Resource-Aware Kontext-Handling
+  - Initial-Text Alternative implementiert
+
+**Dokumentation:**
+
+- TODO.md restrukturiert für klare Priorisierung
+- Neue Performance-Guidelines
+- Verbesserte Modul-Dokumentation
+
 ## [3.8.2] - 2025-07-19
 
 ### Machine Learning Vorbereitung

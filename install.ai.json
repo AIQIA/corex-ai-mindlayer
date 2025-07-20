@@ -1,0 +1,58 @@
+{
+    "installation": {
+        "required": {
+            "extension": "aiqia.corex-ai-mindlayer",
+            "copilot": "github.copilot",
+            "copilotChat": "github.copilot-chat"
+        },
+        "steps": [
+            {
+                "id": "check_extensions",
+                "type": "extension_check",
+                "status": "pending"
+            },
+            {
+                "id": "init_setup",
+                "type": "run_script",
+                "script": "ai-init.php",
+                "status": "pending"
+            },
+            {
+                "id": "ai_analysis",
+                "type": "copilot_integration",
+                "status": "pending"
+            }
+        ]
+    },
+    "extension": {
+        "commands": {
+            "setup": "corex-ai.initializeProject",
+            "analyze": "corex-ai.analyzeProject",
+            "copilot": "github.copilot.openChatView"
+        },
+        "paths": {
+            "config": ".ai.json.config",
+            "modules": ".ai.modules",
+            "backup": ".ai.backup",
+            "cache": ".ai.cache"
+        }
+    },
+    "hooks": {
+        "pre_init": {
+            "check_requirements": true,
+            "backup_existing": true
+        },
+        "post_init": {
+            "trigger_analysis": true,
+            "show_welcome": true
+        }
+    },
+    "ui": {
+        "welcomeMessage": "Willkommen bei CoreX AI MindLayer! Der Setup-Prozess wird automatisch gestartet...",
+        "setupComplete": "Setup abgeschlossen! Die KI-Analyse beginnt...",
+        "buttons": {
+            "setup": "Setup starten",
+            "analyze": "KI-Analyse starten"
+        }
+    }
+}

@@ -1,8 +1,8 @@
 {
   "name": "corex-ai-mindlayer",
   "displayName": "coreX AI MindLayer",
-  "description": "VS Code extension for .ai.json editing and AI-ready project management",
-  "version": "3.7.0",
+  "description": "Automated AI project initialization and management with direct Copilot integration",
+  "version": "3.8.3",
   "publisher": "aiqia",
   "engines": {
     "vscode": "^1.74.0"
@@ -10,7 +10,17 @@
   "categories": [
     "Other",
     "Snippets",
-    "Formatters"
+    "Formatters",
+    "Programming Languages",
+    "Machine Learning"
+  ],
+  "activationEvents": [
+    "onCommand:corex-ai.initializeProject",
+    "onCommand:corex-ai.analyzeProject",
+    "workspaceContains:install.ai.json",
+    "onLanguage:json",
+    "workspaceContains:.ai.json",
+    "workspaceContains:.ai.json.example"
   ],
   "keywords": [
     "ai",
@@ -19,11 +29,6 @@
     "documentation",
     "copilot",
     "assistant"
-  ],
-  "activationEvents": [
-    "onLanguage:json",
-    "workspaceContains:.ai.json",
-    "workspaceContains:.ai.json.example"
   ],
   "main": "./out/extension.js",
   "contributes": {

@@ -3,17 +3,43 @@
     "$modules": [
         {
             "name": "meta",
-            "$ref": "./.ai.modules/meta.json"
+            "$ref": "./.ai.modules/meta.json",
+            "loadPriority": "high"
         },
         {
             "name": "ml",
-            "$ref": "./.ai.modules/ml.json"
+            "$ref": "./.ai.modules/ml.json",
+            "loadPriority": "medium"
         },
         {
             "name": "architecture",
-            "$ref": "./.ai.modules/architecture.json"
+            "$ref": "./.ai.modules/architecture.json",
+            "loadPriority": "high"
         }
     ],
+    "performance": {
+        "storage": {
+            "mode": "modular",
+            "compression": true,
+            "lazyLoading": true
+        },
+        "monitoring": {
+            "enabled": true,
+            "metrics": ["memory", "loadTime", "responseTime", "diskUsage"]
+        }
+    },
+    "contextManagement": {
+        "enabled": true,
+        "mode": "smart",
+        "resources": {
+            "maxMemoryUsage": "512MB",
+            "cleanupInterval": "24h"
+        },
+        "initialization": {
+            "useInitialText": true,
+            "smartMode": true
+        }
+    },
     "meta": {
         "project": "coreX AI MindLayer",
         "version": "3.9.0",

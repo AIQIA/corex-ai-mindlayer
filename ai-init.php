@@ -1,667 +1,362 @@
 <?php
 /**
- * coreX AI MindLayer - Intelligent Project Scanner & .ai.json Generator
+ * coreX AI MindLayer - Initial Setup & .ai.json Generator
  * 
- * This script analyzes your project structure and generates an optimized .ai.json
- * based on detected frameworks, patterns, and architecture.
+ * Creates a basic .ai.json structure with setup state tracking.
+ * The AI assistant will handle the advanced configuration after initial setup.
  * 
  * Usage: php ai-init.php
  * 
  * @author Sascha Buscher - AIQIA
- * @version 2.0.0
+ * @version 3.8.2
  */
 
-class AIProjectScanner {
-    
+class AIMInitializer {
+    // Grundlegende Projekt-Konfiguration
     private $projectPath;
-    private $detectedFrameworks = [];
-    private $projectStructure = [];
-    private $suggestedModules = [];
+    private $projectName;
+    private $configFile = '.ai.json.config';
+    private $aiJsonFile = '.ai.json';
     
+    // Extension-spezifische Konfiguration
+    private $extensionConfig = [
+        'eventFile' => '.ai.modules/extension.event.json',
+        'eventType' => 'ai.mindlayer.event',
+        'commands' => [
+            'analyze' => 'CoreX: Analyze AI Configuration',
+            'openChat' => 'github.copilot.openChatView'
+        ],
+        'ui' => [
+            'buttonLabel' => 'AI Analysis',
+            'statusBarId' => 'aiMindlayer.status'
+        ]
+    ];
+    
+    // Basis-Module für die .ai.json
+    private $baseModules = [
+        'meta',
+        'architecture',
+        'errors',
+        'auto_tasks',
+        'ml',
+        'context'
+    ];
+
     public function __construct($path = '.') {
         $this->projectPath = realpath($path);
-        echo "🔍 coreX AI MindLayer - Intelligent Project Scanner\n";
-        echo "📁 Scanning: " . $this->projectPath . "\n\n";
+        $this->projectName = basename($this->projectPath);
+        echo "🚀 coreX AI MindLayer - Initial Setup\n";
+        echo "📁 Project: " . $this->projectName . "\n\n";
     }
-    
+
     /**
-     * Main execution flow
+     * Main setup flow
      */
-    public function run() {
-        $this->scanFrameworks();
-        $this->analyzeStructure();
-        $this->generateSuggestions();
-        $this->interactiveSetup();
-        $this->generateAiJson();
-    }
-    
-    /**
-     * Detect frameworks and technologies
-     */
-    private function scanFrameworks() {
-        echo "🔍 Detecting frameworks and technologies...\n";
+    public function setup() {
+        // Prüfe Setup-Status
+        $setupState = $this->checkSetupState();
         
-        // Multi-Language Scanner verwenden
-        if (class_exists('CoreX\\AIMindLayer\\Scanners\\ScannerManager')) {
-            $this->useScannerManager();
+        if ($setupState['initialized'] && !$this->confirmOverwrite()) {
+            echo "❌ Setup abgebrochen. Bestehende Konfiguration wird beibehalten.\n";
             return;
         }
+
+        $this->createDirectories();
+        $this->createInitialConfig();
+        $this->createBaseModules();
+        $this->createInitialAiJson();
+        $this->updateSetupState('initialized', true);
         
-        echo "⚠️ Multi-Language Scanner nicht verfügbar - nutze eingebauten Scanner\n";
-        
-        // Check for PHP frameworks
-        if (file_exists($this->projectPath . '/composer.json')) {
-            $composer = json_decode(file_get_contents($this->projectPath . '/composer.json'), true);
-            $this->analyzeComposerDependencies($composer);
-        }
-        
-        // Check for Node.js/JavaScript frameworks
-        if (file_exists($this->projectPath . '/package.json')) {
-            $package = json_decode(file_get_contents($this->projectPath . '/package.json'), true);
-            $this->analyzePackageDependencies($package);
-        }
-        
-        // Check for Python projects
-        if (file_exists($this->projectPath . '/requirements.txt') || 
-            file_exists($this->projectPath . '/pyproject.toml')) {
-            $this->detectedFrameworks[] = 'Python';
-            $this->detectPythonFramework();
-        }
-        
-        // Check for specific framework files
-        $this->detectByFilePatterns();
-        
-        $this->displayDetectedFrameworks();
+        // Starte KI-Assistenten Setup
+        $this->initiateAIAssistant();
     }
-    
+
     /**
-     * Analyze composer.json for PHP frameworks
+     * Prüft den aktuellen Setup-Status
      */
-    private function analyzeComposerDependencies($composer) {
-        if (!isset($composer['require'])) return;
+    private function checkSetupState() {
+        $configPath = $this->projectPath . '/' . $this->configFile;
+        if (file_exists($configPath)) {
+            return json_decode(file_get_contents($configPath), true) ?: [
+                'initialized' => false,
+                'aiAssistantSetup' => false,
+                'lastUpdate' => null
+            ];
+        }
+        return [
+            'initialized' => false,
+            'aiAssistantSetup' => false,
+            'lastUpdate' => null
+        ];
+    }
+
+    /**
+     * Aktualisiert den Setup-Status
+     */
+    private function updateSetupState($key, $value) {
+        $configPath = $this->projectPath . '/' . $this->configFile;
+        $config = $this->checkSetupState();
+        $config[$key] = $value;
+        $config['lastUpdate'] = date('Y-m-d H:i:s');
+        file_put_contents($configPath, json_encode($config, JSON_PRETTY_PRINT));
+    }
+
+    /**
+     * Fragt den Benutzer nach Bestätigung zum Überschreiben
+     */
+    private function confirmOverwrite() {
+        echo "⚠️ WARNUNG: Eine bestehende AI MindLayer Konfiguration wurde gefunden!\n";
+        echo "Möchten Sie die bestehende Konfiguration überschreiben? (j/N): ";
+        $handle = fopen("php://stdin", "r");
+        $line = fgets($handle);
+        fclose($handle);
+        return strtolower(trim($line)) === 'j';
+    }
+
+    /**
+     * Erstellt notwendige Verzeichnisse
+     */
+    private function createDirectories() {
+        echo "📂 Erstelle Verzeichnisse...\n";
         
-        $dependencies = array_keys($composer['require']);
+        $dirs = [
+            '.ai.modules',
+            '.ai.backup',
+            '.ai.cache'
+        ];
         
-        foreach ($dependencies as $dep) {
-            if (strpos($dep, 'laravel/framework') !== false) {
-                $this->detectedFrameworks[] = 'Laravel';
-            } elseif (strpos($dep, 'symfony/') !== false) {
-                $this->detectedFrameworks[] = 'Symfony';
-            } elseif (strpos($dep, 'codeigniter4/') !== false) {
-                $this->detectedFrameworks[] = 'CodeIgniter';
-            } elseif (strpos($dep, 'cakephp/') !== false) {
-                $this->detectedFrameworks[] = 'CakePHP';
-            } elseif (strpos($dep, 'slim/slim') !== false) {
-                $this->detectedFrameworks[] = 'Slim Framework';
+        foreach ($dirs as $dir) {
+            $path = $this->projectPath . '/' . $dir;
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+                echo "  ✓ Erstellt: $dir\n";
             }
         }
     }
-    
+
     /**
-     * Analyze package.json for JavaScript frameworks
+     * Erstellt initiale Konfigurationsdatei
      */
-    private function analyzePackageDependencies($package) {
-        $allDeps = array_merge(
-            $package['dependencies'] ?? [],
-            $package['devDependencies'] ?? []
-        );
+    private function createInitialConfig() {
+        echo "\n⚙️ Erstelle initiale Konfiguration...\n";
         
-        $dependencies = array_keys($allDeps);
-        
-        foreach ($dependencies as $dep) {
-            if (in_array($dep, ['vue', '@vue/cli'])) {
-                $this->detectedFrameworks[] = 'Vue.js';
-            } elseif (in_array($dep, ['react', 'react-dom'])) {
-                $this->detectedFrameworks[] = 'React';
-            } elseif (in_array($dep, ['@angular/core', '@angular/cli'])) {
-                $this->detectedFrameworks[] = 'Angular';
-            } elseif ($dep === 'next') {
-                $this->detectedFrameworks[] = 'Next.js';
-            } elseif ($dep === 'nuxt') {
-                $this->detectedFrameworks[] = 'Nuxt.js';
-            } elseif ($dep === 'svelte') {
-                $this->detectedFrameworks[] = 'Svelte';
-            } elseif ($dep === 'express') {
-                $this->detectedFrameworks[] = 'Express.js';
-            }
-        }
-    }
-    
-    /**
-     * Detect Python frameworks
-     */
-    private function detectPythonFramework() {
-        // Check requirements.txt
-        if (file_exists($this->projectPath . '/requirements.txt')) {
-            $requirements = file_get_contents($this->projectPath . '/requirements.txt');
-            if (strpos($requirements, 'Django') !== false) {
-                $this->detectedFrameworks[] = 'Django';
-            } elseif (strpos($requirements, 'Flask') !== false) {
-                $this->detectedFrameworks[] = 'Flask';
-            } elseif (strpos($requirements, 'FastAPI') !== false) {
-                $this->detectedFrameworks[] = 'FastAPI';
-            }
-        }
-        
-        // Check for Django-specific files
-        if (file_exists($this->projectPath . '/manage.py')) {
-            $this->detectedFrameworks[] = 'Django';
-        }
-    }
-    
-    /**
-     * Detect frameworks by file patterns
-     */
-    private function detectByFilePatterns() {
-        // Laravel specific
-        if (file_exists($this->projectPath . '/artisan')) {
-            $this->detectedFrameworks[] = 'Laravel';
-        }
-        
-        // WordPress
-        if (file_exists($this->projectPath . '/wp-config.php') || 
-            file_exists($this->projectPath . '/wp-content/')) {
-            $this->detectedFrameworks[] = 'WordPress';
-        }
-        
-        // Drupal
-        if (file_exists($this->projectPath . '/core/') && 
-            file_exists($this->projectPath . '/sites/')) {
-            $this->detectedFrameworks[] = 'Drupal';
-        }
-        
-        // .NET
-        if (file_exists($this->projectPath . '/Program.cs') || 
-            file_exists($this->projectPath . '/Startup.cs')) {
-            $this->detectedFrameworks[] = '.NET Core';
-        }
-    }
-    
-    /**
-     * Display detected frameworks
-     */
-    private function displayDetectedFrameworks() {
-        if (empty($this->detectedFrameworks)) {
-            echo "⚠️  No specific frameworks detected - will generate generic structure\n\n";
-            return;
-        }
-        
-        echo "✅ Detected frameworks:\n";
-        foreach (array_unique($this->detectedFrameworks) as $framework) {
-            echo "   • $framework\n";
-        }
-        echo "\n";
-    }
-    
-    /**
-     * Analyze project structure
-     */
-    private function analyzeStructure() {
-        echo "🏗️  Analyzing project structure...\n";
-        
-        $this->projectStructure = $this->scanDirectory($this->projectPath, 2); // 2 levels deep
-        
-        echo "✅ Structure analyzed\n\n";
-    }
-    
-    /**
-     * Recursively scan directory structure
-     */
-    private function scanDirectory($path, $maxDepth, $currentDepth = 0) {
-        if ($currentDepth >= $maxDepth) return [];
-        
-        $structure = [];
-        $items = glob($path . '/*');
-        
-        foreach ($items as $item) {
-            $basename = basename($item);
-            
-            // Skip hidden files and common ignore patterns
-            if ($basename[0] === '.' || 
-                in_array($basename, ['node_modules', 'vendor', '.git', 'storage', 'cache'])) {
-                continue;
-            }
-            
-            if (is_dir($item)) {
-                $structure['directories'][] = $basename;
-                if ($currentDepth < $maxDepth - 1) {
-                    $structure['subdirs'][$basename] = $this->scanDirectory($item, $maxDepth, $currentDepth + 1);
-                }
-            } else {
-                $structure['files'][] = $basename;
-            }
-        }
-        
-        return $structure;
-    }
-    
-    /**
-     * Generate smart suggestions based on detected frameworks
-     */
-    private function generateSuggestions() {
-        echo "💡 Generating intelligent suggestions...\n";
-        
-        foreach ($this->detectedFrameworks as $framework) {
-            switch ($framework) {
-                case 'Laravel':
-                    $this->suggestLaravelModules();
-                    break;
-                case 'Vue.js':
-                    $this->suggestVueModules();
-                    break;
-                case 'React':
-                    $this->suggestReactModules();
-                    break;
-                case 'WordPress':
-                    $this->suggestWordPressModules();
-                    break;
-                case 'Django':
-                    $this->suggestDjangoModules();
-                    break;
-                default:
-                    $this->suggestGenericModules();
-            }
-        }
-        
-        if (empty($this->detectedFrameworks)) {
-            $this->suggestGenericModules();
-        }
-        
-        echo "✅ Suggestions generated\n\n";
-    }
-    
-    /**
-     * Laravel-specific module suggestions
-     */
-    private function suggestLaravelModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Authentication',
-                'description' => 'User authentication and authorization system',
-                'entrypoints' => ['app/Http/Controllers/Auth/', 'routes/auth.php'],
-                'routes' => ['/login', '/register', '/logout', '/password/reset'],
-                'dependencies' => ['Middleware', 'User Model']
-            ],
-            [
-                'module' => 'API',
-                'description' => 'RESTful API endpoints and resources',
-                'entrypoints' => ['app/Http/Controllers/Api/', 'routes/api.php'],
-                'routes' => ['/api/v1/*'],
-                'dependencies' => ['Authentication', 'Models']
-            ],
-            [
-                'module' => 'Database',
-                'description' => 'Database models, migrations and relationships',
-                'entrypoints' => ['app/Models/', 'database/migrations/'],
-                'routes' => [],
-                'dependencies' => ['Eloquent ORM']
+        $config = [
+            'initialized' => false,
+            'aiAssistantSetup' => false,
+            'lastUpdate' => date('Y-m-d H:i:s'),
+            'version' => '3.8.2',
+            'projectName' => $this->projectName,
+            'setupDate' => date('Y-m-d'),
+            'environment' => [
+                'php' => PHP_VERSION,
+                'os' => PHP_OS,
+                'encoding' => mb_internal_encoding()
             ]
-        ]);
+        ];
+
+        $configPath = $this->projectPath . '/' . $this->configFile;
+        file_put_contents($configPath, json_encode($config, JSON_PRETTY_PRINT));
+        echo "  ✓ Konfigurationsdatei erstellt\n";
     }
-    
+
     /**
-     * Vue.js-specific module suggestions
+     * Erstellt Basis-Module
      */
-    private function suggestVueModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Components',
-                'description' => 'Vue.js components and composables',
-                'entrypoints' => ['src/components/', 'src/composables/'],
-                'routes' => [],
-                'dependencies' => ['Vue Router', 'Pinia/Vuex']
-            ],
-            [
-                'module' => 'Router',
-                'description' => 'Vue Router configuration and guards',
-                'entrypoints' => ['src/router/'],
-                'routes' => ['/*'],
-                'dependencies' => ['Components']
-            ]
-        ]);
-    }
-    
-    /**
-     * React-specific module suggestions
-     */
-    private function suggestReactModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Components',
-                'description' => 'React components and hooks',
-                'entrypoints' => ['src/components/', 'src/hooks/'],
-                'routes' => [],
-                'dependencies' => ['React Router']
-            ],
-            [
-                'module' => 'State Management',
-                'description' => 'Redux/Context state management',
-                'entrypoints' => ['src/store/', 'src/context/'],
-                'routes' => [],
-                'dependencies' => ['Components']
-            ]
-        ]);
-    }
-    
-    /**
-     * WordPress-specific module suggestions
-     */
-    private function suggestWordPressModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Theme',
-                'description' => 'WordPress theme files and templates',
-                'entrypoints' => ['wp-content/themes/active-theme/'],
-                'routes' => [],
-                'dependencies' => ['WordPress Core']
-            ],
-            [
-                'module' => 'Plugins',
-                'description' => 'Custom WordPress plugins',
-                'entrypoints' => ['wp-content/plugins/'],
-                'routes' => [],
-                'dependencies' => ['WordPress Core']
-            ]
-        ]);
-    }
-    
-    /**
-     * Django-specific module suggestions
-     */
-    private function suggestDjangoModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Views',
-                'description' => 'Django views and URL patterns',
-                'entrypoints' => ['views.py', 'urls.py'],
-                'routes' => ['/*'],
-                'dependencies' => ['Models', 'Templates']
-            ],
-            [
-                'module' => 'Models',
-                'description' => 'Django models and database schema',
-                'entrypoints' => ['models.py', 'migrations/'],
-                'routes' => [],
-                'dependencies' => ['Django ORM']
-            ]
-        ]);
-    }
-    
-    /**
-     * Generic module suggestions for unknown frameworks
-     */
-    private function suggestGenericModules() {
-        $this->suggestedModules = array_merge($this->suggestedModules, [
-            [
-                'module' => 'Core',
-                'description' => 'Main application logic and entry points',
-                'entrypoints' => ['index.php', 'main.py', 'app.js', 'src/'],
-                'routes' => ['/'],
-                'dependencies' => []
-            ],
-            [
-                'module' => 'Configuration',
-                'description' => 'Application configuration and settings',
-                'entrypoints' => ['config/', 'settings.py', '.env'],
-                'routes' => [],
-                'dependencies' => ['Core']
-            ]
-        ]);
-    }
-    
-    /**
-     * Interactive setup with user input
-     */
-    private function interactiveSetup() {
-        echo "🤖 Interactive Setup\n";
-        echo "==================\n\n";
+    private function createBaseModules() {
+        echo "\n📄 Erstelle Basis-Module...\n";
         
-        if (!empty($this->detectedFrameworks)) {
-            echo "I detected: " . implode(', ', array_unique($this->detectedFrameworks)) . "\n";
-            echo "Should I generate framework-specific modules? (y/n): ";
-            $useFrameworkModules = trim(fgets(STDIN));
-            
-            if (strtolower($useFrameworkModules) !== 'y') {
-                $this->suggestedModules = [];
-                $this->suggestGenericModules();
+        foreach ($this->baseModules as $module) {
+            $path = $this->projectPath . '/.ai.modules/' . $module . '.json';
+            if (!file_exists($path)) {
+                $template = $this->getModuleTemplate($module);
+                file_put_contents($path, json_encode($template, JSON_PRETTY_PRINT));
+                echo "  ✓ Erstellt: $module.json\n";
             }
         }
-        
-        echo "\n";
     }
-    
+
     /**
-     * Generate the final .ai.json file
+     * Liefert Template für Module
      */
-    private function generateAiJson() {
-        echo "🎉 Generating optimized .ai.json...\n";
+    private function getModuleTemplate($module) {
+        $templates = [
+            'meta' => [
+                'project' => $this->projectName,
+                'created' => date('Y-m-d'),
+                'updated' => date('Y-m-d'),
+                'status' => 'initial'
+            ],
+            'architecture' => [
+                'components' => [],
+                'dependencies' => [],
+                'patterns' => [],
+                'status' => 'pending_ai_analysis'
+            ],
+            'errors' => [
+                'patterns' => [],
+                'solutions' => [],
+                'history' => [],
+                'status' => 'collecting'
+            ],
+            'auto_tasks' => [
+                'tasks' => [],
+                'workflows' => [],
+                'scheduler' => [
+                    'enabled' => false,
+                    'interval' => '1h'
+                ]
+            ],
+            'ml' => [
+                'enabled' => true,
+                'features' => [],
+                'models' => [],
+                'training' => [
+                    'autoUpdate' => true,
+                    'interval' => '24h'
+                ]
+            ],
+            'context' => [
+                'enabled' => true,
+                'mode' => 'smart',
+                'scope' => 'project',
+                'retention' => '30d'
+            ]
+        ];
         
-        $projectName = basename($this->projectPath);
-        $timestamp = date('Y-m-d');
+        return $templates[$module] ?? [];
+    }
+
+    /**
+     * Erstellt initiale .ai.json
+     */
+    private function createInitialAiJson() {
+        echo "\n🔧 Erstelle .ai.json...\n";
         
         $aiJson = [
             '$schema' => './schema.json',
-            'meta' => [
-                'project' => $projectName,
-                'version' => '1.0.0',
-                'author' => 'Generated by AI MindLayer',
-                'description' => 'AI-generated project structure based on detected frameworks: ' . 
-                               implode(', ', array_unique($this->detectedFrameworks)),
-                'created' => $timestamp,
-                'updated' => $timestamp,
-                'frameworks' => array_unique($this->detectedFrameworks)
+            '$modules' => array_map(function($module) {
+                return [
+                    'name' => $module,
+                    '$ref' => "./.ai.modules/$module.json",
+                    'loadPriority' => $module === 'meta' ? 'high' : 'medium'
+                ];
+            }, $this->baseModules),
+            'performance' => [
+                'storage' => [
+                    'mode' => 'modular',
+                    'compression' => true,
+                    'lazyLoading' => true
+                ],
+                'monitoring' => [
+                    'enabled' => true,
+                    'metrics' => ['memory', 'loadTime']
+                ]
             ],
-            'architecture' => $this->suggestedModules,
-            'errors' => $this->generateCommonErrors(),
-            'tasks' => $this->generateInitialTasks(),
-            'context' => $this->generateProjectContext(),
-            'user_preferences' => [
-                'language' => $this->detectPreferredLanguage(),
-                'communication_style' => 'informell',
-                'technical_depth' => 'mittel',
-                'response_format' => 'mit_codebeispielen',
-                'note' => 'Automatisch generiert durch AI MindLayer'
+            'contextManagement' => [
+                'enabled' => true,
+                'mode' => 'smart',
+                'resources' => [
+                    'maxMemoryUsage' => '512MB',
+                    'cleanupInterval' => '24h'
+                ]
             ],
-            'references' => [
-                [
-                    'type' => 'doc',
-                    'label' => 'AI Integration Guide',
-                    'url' => './AI-INTEGRATION.md',
-                    'description' => 'How to integrate AI assistants with this project'
+            'aiAssistant' => [
+                'enabled' => true,
+                'mode' => 'proactive',
+                'preferences' => [
+                    'language' => 'de',
+                    'style' => 'collaborative',
+                    'detailLevel' => 'detailed'
                 ]
             ]
         ];
         
-        $jsonContent = json_encode($aiJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        
-        if (file_put_contents($this->projectPath . '/.ai.json', $jsonContent)) {
-            echo "✅ Successfully generated .ai.json!\n";
-            echo "📁 Location: " . $this->projectPath . "/.ai.json\n\n";
-            
-            echo "🔍 Summary:\n";
-            echo "   • Detected frameworks: " . implode(', ', array_unique($this->detectedFrameworks)) . "\n";
-            echo "   • Generated modules: " . count($this->suggestedModules) . "\n";
-            echo "   • Common errors: " . count($this->generateCommonErrors()) . "\n";
-            echo "\n💡 Your project is now AI-ready! Try asking ChatGPT or Copilot about your architecture.\n";
-        } else {
-            echo "❌ Failed to write .ai.json file\n";
+        // Backup existierende .ai.json falls vorhanden
+        if (file_exists($this->projectPath . '/' . $this->aiJsonFile)) {
+            $backupPath = $this->projectPath . '/.ai.backup/ai.json.' . date('Y-m-d-His');
+            copy($this->projectPath . '/' . $this->aiJsonFile, $backupPath);
+            echo "  ✓ Backup erstellt: " . basename($backupPath) . "\n";
         }
+
+        file_put_contents($this->projectPath . '/' . $this->aiJsonFile, json_encode($aiJson, JSON_PRETTY_PRINT));
+        echo "  ✓ .ai.json erstellt\n";
     }
-    
+
     /**
-     * Generate common errors based on detected frameworks
+     * Startet das KI-Assistenten Setup
      */
-    private function generateCommonErrors() {
-        $errors = [];
+    private function initiateAIAssistant() {
+        echo "\n🤖 Starte KI-Assistenten Setup...\n";
         
-        foreach ($this->detectedFrameworks as $framework) {
-            switch ($framework) {
-                case 'Laravel':
-                    $errors[] = [
-                        'code' => 'ROUTE_NOT_FOUND',
-                        'message' => 'Route not found or not properly defined',
-                        'causes' => ['Route not registered in routes/web.php or routes/api.php', 'Route cache needs clearing'],
-                        'solutions' => ['Check route definitions', 'Run php artisan route:clear'],
-                        'severity' => 'medium'
-                    ];
-                    break;
-                case 'Vue.js':
-                    $errors[] = [
-                        'code' => 'COMPONENT_NOT_FOUND',
-                        'message' => 'Vue component not found or not properly imported',
-                        'causes' => ['Component not registered', 'Import path incorrect'],
-                        'solutions' => ['Check component registration', 'Verify import paths'],
-                        'severity' => 'medium'
-                    ];
-                    break;
-            }
-        }
-        
-        // Generic errors
-        $errors[] = [
-            'code' => 'DEPENDENCY_ERROR',
-            'message' => 'Missing or incompatible dependencies',
-            'causes' => ['Package not installed', 'Version conflicts'],
-            'solutions' => ['Run package manager install', 'Check dependency versions'],
-            'severity' => 'high'
-        ];
-        
-        return $errors;
-    }
-    
-    /**
-     * Generate initial tasks based on project type
-     */
-    private function generateInitialTasks() {
-        return [
-            [
-                'task' => 'Review and customize generated .ai.json structure',
-                'priority' => 'high',
-                'status' => 'open',
-                'relatedModules' => ['All'],
-                'due' => date('Y-m-d', strtotime('+7 days')),
-                'tags' => ['setup', 'documentation']
+        // Erstelle Extension Event Datei
+        $extensionEvent = [
+            'type' => $this->extensionConfig['eventType'],
+            'action' => 'initiate_ai_analysis',
+            'timestamp' => time(),
+            'data' => [
+                'projectName' => $this->projectName,
+                'projectPath' => $this->projectPath,
+                'configFile' => $this->configFile,
+                'aiJsonFile' => $this->aiJsonFile,
+                'prompt' => "Bitte analysiere und optimiere die .ai.json für das Projekt '" . $this->projectName . "'",
+                'modules' => $this->baseModules,
+                'version' => '3.8.2'
             ],
-            [
-                'task' => 'Add project-specific error patterns and solutions',
-                'priority' => 'medium',
-                'status' => 'open',
-                'relatedModules' => ['All'],
-                'due' => date('Y-m-d', strtotime('+14 days')),
-                'tags' => ['documentation', 'debugging']
-            ]
+            'ui' => $this->extensionConfig['ui']
         ];
-    }
-    
-    /**
-     * Generate project context information
-     */
-    private function generateProjectContext() {
-        $context = [
-            [
-                'key' => 'Generated',
-                'value' => 'This .ai.json was automatically generated by coreX AI MindLayer',
-                'category' => 'meta'
-            ]
-        ];
+
+        // Speichere Event für die Extension
+        file_put_contents(
+            $this->projectPath . '/' . $this->extensionConfig['eventFile'],
+            json_encode($extensionEvent, JSON_PRETTY_PRINT)
+        );
         
-        if (!empty($this->detectedFrameworks)) {
-            $context[] = [
-                'key' => 'Tech Stack',
-                'value' => 'Primary frameworks: ' . implode(', ', array_unique($this->detectedFrameworks)),
-                'category' => 'technology'
-            ];
-        }
+        // Markiere den Status als bereit für KI-Setup
+        $this->updateSetupState('readyForAI', true);
+        $this->updateSetupState('extensionEvent', $extensionEvent);
         
-        return $context;
-    }
-    
-    /**
-     * Detektiert die bevorzugte Sprache basierend auf Projektdateien und Systemeinstellungen
-     */
-    private function detectPreferredLanguage() {
-        // Prüfe auf deutsche Inhalte in README/Dokumentationsdateien
-        $docsFiles = glob($this->projectPath . '/{README,*.md,docs/*.md}', GLOB_BRACE);
-        $germanKeywords = ['Übersicht', 'Einleitung', 'Beschreibung', 'Funktionen', 'Installieren'];
-        
-        foreach ($docsFiles as $file) {
-            $content = file_exists($file) ? file_get_contents($file) : '';
-            if ($content) {
-                $germanMatches = 0;
-                foreach ($germanKeywords as $keyword) {
-                    if (stripos($content, $keyword) !== false) {
-                        $germanMatches++;
-                    }
-                }
-                
-                // Wenn mehr als 2 deutsche Keywords gefunden wurden, ist es wahrscheinlich ein deutsches Projekt
-                if ($germanMatches >= 2) {
-                    return 'deutsch';
-                }
-            }
-        }
-        
-        // Prüfen der System-Locale als Fallback
-        $locale = setlocale(LC_ALL, 0);
-        if (stripos($locale, 'de_') !== false) {
-            return 'deutsch';
-        }
-        
-        // Standard-Rückgabewert
-        return 'english';
-    }
-    
-    /**
-     * Verwenden des Multi-Language Scanners
-     */
-    private function useScannerManager() {
-        echo "🌐 Verwende Multi-Language Scanner...\n";
-        
-        // Scanner Manager einbinden und initialisieren
-        require_once __DIR__ . '/scanners/ScannerInterface.php';
-        require_once __DIR__ . '/scanners/ScannerManager.php';
-        
-        // Scanner Manager erstellen
-        $scannerManager = new \CoreX\AIMindLayer\Scanners\ScannerManager($this->projectPath);
-        
-        // Verfügbare Scanner anzeigen
-        $loadedScanners = $scannerManager->getLoadedScanners();
-        if (count($loadedScanners) > 0) {
-            echo "  ℹ️ Geladene Scanner: " . implode(', ', $loadedScanners) . "\n";
-        } else {
-            echo "  ⚠️ Keine Scanner geladen! Falle zurück auf eingebaute Erkennung.\n";
-            return;
-        }
-        
-        // Scanner ausführen
-        $results = $scannerManager->runScanners();
-        
-        // Ergebnisse verarbeiten
-        if (!empty($results)) {
-            $this->detectedFrameworks = array_merge($this->detectedFrameworks, $results);
-            
-            // Frameworks deduplizieren
-            $this->detectedFrameworks = array_unique($this->detectedFrameworks);
-        }
-        
-        // Zeige erkannte Frameworks an
-        if (!empty($this->detectedFrameworks)) {
-            echo "  ✅ Erkannte Technologien: " . implode(', ', $this->detectedFrameworks) . "\n";
-        }
+        // Ausgabe für den Benutzer
+        echo "\n📋 Nächste Schritte:\n";
+        echo "1. Öffnen Sie VS Code in diesem Verzeichnis:\n";
+        echo "   code .\n";
+        echo "2. Die CoreX AI MindLayer Extension wird automatisch aktiviert\n";
+        echo "3. Klicken Sie auf den '{$this->extensionConfig['ui']['buttonLabel']}' Button in der Seitenleiste\n";
+        echo "   oder nutzen Sie den Befehl '{$this->extensionConfig['commands']['analyze']}'\n\n";
+        echo "✨ Tipp: Die Extension zeigt den Setup-Status in der Statusleiste an!\n";
     }
 }
 
-// Main execution
-if (php_sapi_name() === 'cli') {
-    $scanner = new AIProjectScanner();
-    $scanner->run();
+// Prüfe ob der Aufruf von der Extension kommt
+if (php_sapi_name() === 'cli' && isset($_SERVER['COREX_EXTENSION_TOKEN'])) {
+    // Validiere Extension Token
+    $validToken = $_SERVER['COREX_EXTENSION_TOKEN'] === 'your-secure-token';
+    
+    if ($validToken) {
+        $initializer = new AIMInitializer();
+        $initializer->setup();
+    } else {
+        echo "❌ Ungültiger Extension Token. Setup muss über die CoreX AI MindLayer Extension gestartet werden.\n";
+        exit(1);
+    }
 } else {
-    // Web interface fallback
-    echo "<!DOCTYPE html><html><head><title>AI MindLayer Scanner</title></head><body>";
-    echo "<h1>🤖 coreX AI MindLayer</h1>";
-    echo "<p>This scanner should be run from command line:</p>";
-    echo "<code>php ai-init.php</code>";
-    echo "<p>For web usage, please use the CLI version for security reasons.</p>";
-    echo "</body></html>";
+    // Fallback mit Installationshinweis
+    if (php_sapi_name() === 'cli') {
+        echo "\n❌ Setup kann nur über die CoreX AI MindLayer Extension ausgeführt werden!\n\n";
+        echo "🔧 Installation:\n";
+        echo "1. Öffnen Sie VS Code\n";
+        echo "2. Installieren Sie die 'CoreX AI MindLayer' Extension\n";
+        echo "3. Öffnen Sie die Command Palette (Strg+Shift+P)\n";
+        echo "4. Führen Sie 'CoreX: Initialize Project' aus\n\n";
+        exit(1);
+    } else {
+        echo "<!DOCTYPE html><html><head><title>AI MindLayer Setup</title></head><body>";
+        echo "<h1>🤖 coreX AI MindLayer</h1>";
+        echo "<p>Dieses Setup muss über die VS Code Extension durchgeführt werden:</p>";
+        echo "<ol>";
+        echo "<li>Installieren Sie die 'CoreX AI MindLayer' Extension in VS Code</li>";
+        echo "<li>Öffnen Sie die Command Palette (Strg+Shift+P)</li>";
+        echo "<li>Führen Sie 'CoreX: Initialize Project' aus</li>";
+        echo "</ol>";
+        echo "</body></html>";
+    }
 }
-?>
