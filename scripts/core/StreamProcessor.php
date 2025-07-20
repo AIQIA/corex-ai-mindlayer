@@ -2,16 +2,17 @@
 
 namespace CoreX\AI\MindLayer\Core;
 
+use JsonStreamingParser\Listener\ListenerInterface;
+use JsonStreamingParser\Parser;
+
 class StreamProcessor {
     private $chunkSize = 8192; // 8KB chunks
     private $cache = [];
     private $cacheExpiry = 300; // 5 minutes
 
-    public function processJsonStream(string $filePath, callable $callback) {
+    public function processJsonStream(string $filePath, \JsonStreamingParser\Listener\ListenerInterface $listener) {
         $handle = fopen($filePath, 'r');
-        $parser = new \JsonStreamingParser\Parser($handle, [
-            'jsonEvents' => $callback
-        ]);
+        $parser = new Parser($handle, $listener);
         $parser->parse();
         fclose($handle);
     }

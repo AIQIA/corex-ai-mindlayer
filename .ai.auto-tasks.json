@@ -74,7 +74,7 @@
     {
         "task": "Post-Update Validation",
         "trigger": "post-update",
-        "command": "php scripts/validate-all.php",
+        "command": "php scripts/ValidationRunner.php",
         "priority": "critical",
         "automated": true,
         "onError": "block-push",

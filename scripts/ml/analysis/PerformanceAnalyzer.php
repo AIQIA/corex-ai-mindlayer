@@ -183,8 +183,8 @@ class PerformanceAnalyzer {
         
         // Beispiele für ineffiziente Patterns
         $inefficientPatterns = [
-            T_ARRAY_MERGE => 'Häufiges Array-Merging in Schleifen',
-            T_CONCAT => 'String-Konkatenation in Schleifen',
+            'array_merge' => 'Häufiges Array-Merging in Schleifen',
+            '.' => 'String-Konkatenation in Schleifen',
             T_NEW => 'Objektinstanziierung in Schleifen'
         ];
         
