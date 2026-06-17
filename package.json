@@ -26,7 +26,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "node node_modules/jsonlint-mod/lib/cli.js .ai.json.example && php -l ai-init.php",
-    "test": "npm run validate && npm run lint && npm run docs:validate",
+    "test": "npm run validate:all && npm run lint && npm run docs:validate",
     "install-example": "cp .ai.json.example .ai.json",
     "check-syntax": "find . -name '*.php' -exec php -l {} \\;",
     "docs:sync": "node tools/sync-docs.js",
@@ -78,7 +78,6 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "lodash": "^4.17.21",
     "yargs": "^18.0.0"
   }
 }
