@@ -38,7 +38,7 @@ Dieser Release markiert einen vollständigen technologischen und konzeptionellen
 - **README Update**: Integration von "Powered by coreX" und neuen Community-Links.
 - **Contributing**: Neue Richtlinien für Mitwirkende nach dem "Compass, not Chronicle" Prinzip.
 - **Repo-Hygiene**: Radikale Bereinigung des Repository-Roots; Archivierung von Legacy-Konzepten und redundanten Skripten.
-- **Transparenz-Dokumentation**: Das v4-Konzept wird als nachvollziehbare Grundlage im Repository mitgeführt.
+- **Dokumentationsklarheit**: Öffentliche v4-Informationen stehen in README, CONTRIBUTING und CHANGELOG; interne Konzeptnotizen bleiben privat und werden nicht im Repository mitgeführt.
 
 #### ✅ Release-Finalisierung & CI-Fixes
 - **Version Sync**: `package.json` und `package-lock.json` wurden auf `4.0.0` angehoben, damit Release, Changelog und CI-Ausgaben denselben Stand zeigen.

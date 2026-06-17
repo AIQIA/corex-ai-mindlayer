@@ -34,8 +34,13 @@ Thumbs.db
 *.tmp
 *.cache
 
+# Build- und Release-Artefakte
+vscode-extension/out/
+*.vsix
+
 # coreX MindLayer spezifisch
 git-hilfe.sascha.md
+.ai.json-conzept.md
 .ai.json.config
 .ai.modules/extension.event.json
 .ai.cache/

@@ -1,141 +1,121 @@
-# coreX AI MindLayer v3.8.5 by Sascha Buscher - aiqia.de
+# coreX AI MindLayer v4.0.0
 
-## 🚀 Schnellstart
+**AIM is a compact project compass for AI-assisted development.**
 
-1. Installieren Sie die **CoreX AI MindLayer Extension** in VS Code
-2. Öffnen Sie die Command Palette (Strg+Shift+P)
-3. Führen Sie `CoreX: Initialize Project` aus
-4. Die Extension führt Sie durch den Setup-Prozess
+The coreX AI MindLayer keeps the long-lived truths of a project in structured `.ai.json` files: project identity, red lines, architecture, workflow rules, feature references and user preferences. It is built for humans and AI assistants who need fast orientation without reading an entire repository first.
 
-## ✨ Neue Features in v3.8.5
+## Compass, Not Chronicle
 
-- 🎯 Project Visualizer (Beta)
-  - �️ Mind Map Visualisierung
-  - 🌲 Tree View Integration
-  - 🎨 VS Code Theme Support
-  - � Responsive Layout System
-- 🤖 Verbesserte KI-Integration
-- 🎨 Modernisiertes UI/UX Design
+AIM v4 follows one central rule:
 
-## ⚠️ WICHTIG: Dokumentations-Redundanz
+> Keep the project memory small, current and actionable.
 
-ABSOLUTE REDUNDANZ zwischen allen .md Dateien ist PFLICHT! (Ausgenommen sind Dateien in .ai.json.ignore)
+The MindLayer is not a changelog, chat archive or documentation dump. It should help an assistant answer three questions quickly:
 
-- Alle Dokumentationsdateien sind redundant gehalten
-- Änderungen werden automatisch in allen Dateien gespiegelt
-- Ausnahmen sind in .ai.json.ignore definiert
-- Konsistenz wird durch auto_tasks überprüft
+- What is this project?
+- What must never be violated?
+- Where should deeper feature knowledge be loaded from?
 
-## 📚 Dokumentation & Ressourcen
+Detailed documentation can still live in Markdown files, feature detail files or normal project docs. AIM points to them deliberately instead of copying everything into one oversized context file.
 
-| Datei               | Zweck                                 | Für wen?        |
-| ------------------- | ------------------------------------- | --------------- |
-| `README.md`         | Projektübersicht & Schnellstart       | Entwickler      |
-| `.ai.json`          | Strukturierte Projektmetadaten        | KI-Assistenten  |
-| `INITIALIZE.md`     | 🤖 **Primärer Einstiegspunkt für KI** | KI-Assistenten  |
-| `AI-INTEGRATION.md` | Technische KI-Integration             | Entwickler & KI |
-| `RESEARCH.md`       | KI-Forschung & Entwicklung            | Entwickler & KI |
-| `schema.json`       | JSON Schema für .ai.json              | Entwickler      |
+## What v4 Provides
 
-## 🔄 Neue Features in v3.8.0
+- Root Compass schema for `.ai.json`
+- Optional feature index and feature detail schemas
+- AJV-based CLI validation
+- VS Code extension with Project Compass view
+- Commands for initialization, validation, agent anchors and AI onboarding
+- Snippets for `ai-root`, `ai-index` and `ai-details`
+- Public release docs under MIT license
 
-### Modulare Struktur
-
-- `.ai.json` verwendet jetzt ein modulares System
-- Module werden in `.ai.modules/` gespeichert
-- Verbesserte Wartbarkeit und Performance
-
-### Automatisierte Tasks
-
-- Validierung der Konfiguration
-- Modul-Synchronisation
-- Backup-Management
-- Live-Watching
-
-### KI-Optimierungen
-
-- Erweitertes Kontextverständnis
-- Verbesserte Code-Analyse
-- Intelligente Entwicklungsunterstützung
-
-## 🚀 Quick Start
-
-### 1. Installation
+## Quick Start
 
 ```bash
-git clone https://github.com/AIQIA/corex-ai-mindlayer.git mein-projekt
-cd mein-projekt
+git clone https://github.com/AIQIA/corex-ai-mindlayer.git
+cd corex-ai-mindlayer
 npm install
+npm run validate:example
 ```
 
-### 2. Konfiguration
+Create your own AIM file from the example:
 
 ```bash
-cp .ai.json.example .ai.json  # Basis-Template kopieren
+cp .ai.json.example .ai.json
+npm run validate:all
 ```
 
-Passen Sie die `.ai.json` an Ihr Projekt an oder nutzen Sie den automatischen Scanner:
+For PHP syntax validation of the initializer:
 
 ```bash
-php ai-init.php --scan  # Automatische Projekterkennung
+php -l ai-init.php
 ```
 
-### 3. VS Code Extension
+## VS Code Extension
 
-Installieren Sie unsere VS Code Extension für die beste Integration:
+The extension lives in `vscode-extension/`.
 
-- Architecture Preview
-- Tree Explorer
-- Mind Map Visualizer
-- Automatische Updates
+Useful commands:
 
-📦 [VS Code Marketplace Link]
+- `AIM: Initialize Project`
+- `AIM: Validate Workspace`
+- `AIM: Copy Context for AI`
+- `AIM: Install Agent Anchors`
+- `AIM: Prepare AI Onboarding Briefing`
+- `AIM: Add Feature Details File`
 
-## 🔄 Aktuelle Version
+Development workflow:
 
-**Version 3.7.0** (2025-07-15) bringt:
-
-- Sicherer Update-Mechanismus
-- Intelligente Schema-Vergleichsanalyse
-- Mehrstufiges Backup-System
-- Verbesserter Datenschutz
-
-Alle Details im [CHANGELOG.md](CHANGELOG.md)
-
-## 🤝 Community & Support
-
-- **GitHub Issues:** Feature-Requests & Bugmeldungen
-- **Discussions:** Fragen & Austausch
-- **[Documentation]:** Ausführliche Guides
-- **[Discord]:** Live Community Support
-
-## 📝 Lizenz
-
-Lizenziert unter der **MIT-Lizenz** mit Attributierungsanforderung.
-Details in der [LICENSE](LICENSE) Datei.
-
-## 📁 Projektstruktur
-
-```
-.
-├── .ai.json               # Hauptkonfigurationsdatei
-├── .ai.errors.json        # Fehlerszenarien und Lösungen
-├── .ai.auto-tasks.json    # Automatisierte Aufgaben-Definitionen
-├── ai-init.php           # Kern-Initialisierungsskript
-├── scripts/              # Kernskripte und -tools
-└── vscode-extension/     # VS Code Erweiterungsquelle
+```bash
+cd vscode-extension
+npm install
+npm run compile
 ```
 
-### Konfigurationsdateien
+Use `F5` in VS Code to start an Extension Development Host.
 
-- `.ai.json`: Die Hauptkonfigurationsdatei, die die AI-ready Struktur Ihres Projekts definiert
-- `.ai.errors.json`: Enthält detaillierte Fehlerszenarien, Ursachen und Lösungen
-- `.ai.auto-tasks.json`: Definiert automatisierte Aufgaben für verschiedene Trigger (pre-commit, post-install, etc.)
+## Validation
 
-Kommt in v4.0:
+Main validation commands:
 
-- `.aim-context.json`: Wird den persistente AI-Kontext und den Chatverlauf verwalten (zu .gitignore hinzufügen)
+```bash
+npm run validate:example
+npm run validate:all
+npm run lint
+```
+
+`validate.js` registers the schema files with stable local keys. The schema files do not need public `$id` values for local validation.
+
+## File Overview
+
+| File | Purpose |
+| ---- | ------- |
+| `.ai.json.example` | Minimal v4 Root Compass example |
+| `.ai.json` | AIM for this repository itself |
+| `.ai.features.index.json` | Optional feature index in AIM-enabled projects |
+| `.ai.features.*.details.json` | Optional feature-specific knowledge files |
+| `validate.js` | CLI validator for AIM JSON files |
+| `ai-init.php` | PHP initializer/scanner entry point |
+| `vscode-extension/` | VS Code extension source and VSIX build files |
+| `CHANGELOG.md` | Public release history |
+| `CONTRIBUTING.md` | Contributor rules |
+
+## Documentation
+
+- [CHANGELOG.md](CHANGELOG.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [FAQ.md](FAQ.md)
+- [REQUIREMENTS.md](REQUIREMENTS.md)
+
+## Links
+
+- Homepage: [aim.aiqia.de](https://aim.aiqia.de)
+- coreX: [corex.aiqia.de](https://corex.aiqia.de)
+- Repository: [github.com/AIQIA/corex-ai-mindlayer](https://github.com/AIQIA/corex-ai-mindlayer)
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
 
 ---
 
-_"Making every project AI-ready, one .ai.json at a time."_
+Making every project AI-ready, one focused compass at a time.
