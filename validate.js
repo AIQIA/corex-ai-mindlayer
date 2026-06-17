@@ -40,10 +40,12 @@ const schemas = {
   ),
 };
 
-// Register schemas
-Object.values(schemas).forEach((schema) => {
-  if (!ajv.getSchema(schema.$id || schema.title)) {
-    ajv.addSchema(schema);
+// Register schemas with stable local keys. The schema files intentionally do
+// not need public $id values, so relying on AJV's implicit empty id would make
+// the second schema registration fail.
+Object.entries(schemas).forEach(([schemaKey, schema]) => {
+  if (!ajv.getSchema(schemaKey)) {
+    ajv.addSchema(schema, schemaKey);
   }
 });
 
@@ -66,7 +68,10 @@ function validateFile(filePath) {
       schemaKey = "ai.features.details.schema.json";
     }
 
-    const validate = ajv.compile(schemas[schemaKey]);
+    const validate = ajv.getSchema(schemaKey);
+    if (!validate) {
+      throw new Error(`Schema not registered: ${schemaKey}`);
+    }
     const valid = validate(content);
 
     if (valid) {

@@ -38,6 +38,13 @@ Dieser Release markiert einen vollständigen technologischen und konzeptionellen
 - **README Update**: Integration von "Powered by coreX" und neuen Community-Links.
 - **Contributing**: Neue Richtlinien für Mitwirkende nach dem "Compass, not Chronicle" Prinzip.
 - **Repo-Hygiene**: Radikale Bereinigung des Repository-Roots; Archivierung von Legacy-Konzepten und redundanten Skripten.
+- **Transparenz-Dokumentation**: Das v4-Konzept wird als nachvollziehbare Grundlage im Repository mitgeführt.
+
+#### ✅ Release-Finalisierung & CI-Fixes
+- **Version Sync**: `package.json` und `package-lock.json` wurden auf `4.0.0` angehoben, damit Release, Changelog und CI-Ausgaben denselben Stand zeigen.
+- **Root Compass Migration**: Die getrackte `.ai.json` wurde vom alten modularen Format auf das neue v4-Root-Compass-Schema migriert.
+- **AJV Schema-Registrierung**: Der CLI-Validator registriert lokale Schemas jetzt mit stabilen Keys. Dadurch schlagen mehrere Schema-Dateien ohne eigene `$id` nicht mehr mit doppelter leerer Schema-ID fehl.
+- **CI-Validierung**: `.ai.json.example` und `.ai.json` validieren jetzt beide erfolgreich gegen das v4-Schema.
 
 ---
 
