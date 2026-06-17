@@ -51,13 +51,10 @@ jobs:
         run: |
           echo "Checking documentation..."
           test -f README.md
-          test -f INSTALL.md
-          test -f AI-INTEGRATION.md
           test -f LICENSE
           test -f CONTRIBUTING.md
           test -f CHANGELOG.md
-          test -f TODO.md
-          echo "All documentation files exist"
+          echo "Main documentation files exist"
 
   lint-php:
     runs-on: ubuntu-latest
@@ -133,7 +130,6 @@ jobs:
           echo "Verifying project structure..."
           test -f .ai.json.example
           test -f ai-init.php
-          test -f schema.json
           echo "Required files present"
 
       - name: Test example validation

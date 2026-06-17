@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AIQIA/corex-ai-mindlayer/main/vscode-extension/src/schemas/ai.schema.json",
+  "_meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-06-17"
+  },
+  "project": {
+    "name": "Example Project",
+    "description": "This is an example configuration for coreX AI MindLayer",
+    "version": "1.0.0",
+    "tech_stack": ["Node.js", "TypeScript"]
+  },
+  "red_lines": [
+    "Follow coding standards",
+    "No secrets in version control"
+  ],
+  "workflow": {},
+  "architecture": {},
+  "reference_docs": ["README.md"],
+  "user_preferences": {
+    "language": "de",
+    "communication_style": "technisch",
+    "technical_depth": "detailliert"
+  }
+}

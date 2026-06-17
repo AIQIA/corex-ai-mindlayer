@@ -12,6 +12,7 @@ AI MindLayer is a lightweight project memory layer for AI-assisted development. 
 - 🛡️ **Health Check**: Automatic validation of AIM files, including schema checks, dead reference detection, and secret scanning.
 - 📋 **Context Export**: Easily copy formatted project context for use in AI chat interfaces.
 - ⚓ **Agent Anchors**: Seamlessly integrate AIM references into `AGENTS.md` or `CLAUDE.md`.
+- 🤖 **AI Onboarding**: Direct mission briefing for agents to setup your project memory.
 
 ## Getting Started
 
@@ -27,6 +28,12 @@ AI MindLayer is a lightweight project memory layer for AI-assisted development. 
 - `.ai.features.index.json`: A map of feature areas and their detail files.
 - `.ai.features.*.details.json`: Deep-dive information for specific modules.
 
+## Links & Community
+
+- **Homepage**: [aim.aiqia.de](https://aim.aiqia.de)
+- **Powered by**: [coreX CMS](https://corex.aiqia.de)
+- **Coming soon**: [corex-cms.com](https://corex-cms.com) / [corex-cms.de](https://corex-cms.de)
+
 ## License
 
-MIT - Created by AIQIA / coreX
+MIT - Created by [AIQIA](https://aiqia.de) / coreX

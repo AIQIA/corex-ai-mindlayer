@@ -33,6 +33,12 @@ Dieser Release markiert einen vollständigen technologischen und konzeptionellen
 - **Reduziertes UI**: Entfernung unbenutzter Webviews und redundanter Commands zur Verbesserung der Performance.
 - **Statusbar-Integration**: Schneller Zugriff auf den Validierungs-Status.
 
+#### 📄 Dokumentation & Rechtliches
+- **MIT Lizenz**: Offizielle Umstellung auf MIT (Copyright 2026 AIQIA / coreX).
+- **README Update**: Integration von "Powered by coreX" und neuen Community-Links.
+- **Contributing**: Neue Richtlinien für Mitwirkende nach dem "Compass, not Chronicle" Prinzip.
+- **Repo-Hygiene**: Radikale Bereinigung des Repository-Roots; Archivierung von Legacy-Konzepten und redundanten Skripten.
+
 ---
 
 ## [3.8.5] - 2025-07-20

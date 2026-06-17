@@ -17,6 +17,7 @@
       "properties": {
         "name": { "type": "string" },
         "description": { "type": "string" },
+        "version": { "type": "string" },
         "tech_stack": { "type": "array", "items": { "type": "string" } }
       }
     },
@@ -36,6 +37,18 @@
     "reference_docs": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "user_preferences": {
+      "type": "object",
+      "properties": {
+        "language": { "type": "string" },
+        "communication_style": { "type": "string" },
+        "technical_depth": { "type": "string" },
+        "response_format": { "type": "string" }
+      }
+    },
+    "learning_experiences": {
+      "type": "object"
     }
   }
 }

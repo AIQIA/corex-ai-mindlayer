@@ -1,45 +1,37 @@
 {
-  "$schema": "schema.json",
-  "$modules": [
-    {
-      "name": "meta",
-      "$ref": ".ai.modules/meta.json"
-    },
-    {
-      "name": "architecture",
-      "$ref": ".ai.modules/architecture.json"
-    },
-    {
-      "name": "errors",
-      "$ref": ".ai.modules/errors.json"
-    },
-    {
-      "name": "tasks",
-      "$ref": ".ai.modules/tasks.json"
-    },
-    {
-      "name": "context",
-      "$ref": ".ai.modules/context.json"
-    },
-    {
-      "name": "references",
-      "$ref": ".ai.modules/references.json"
-    },
-    {
-      "name": "user_preferences",
-      "$ref": ".ai.modules/user_preferences.json"
-    },
-    {
-      "name": "research",
-      "$ref": ".ai.modules/research.json"
-    },
-    {
-      "name": "update_config",
-      "$ref": ".ai.modules/update_config.json"
-    },
-    {
-      "name": "machine_learning",
-      "$ref": ".ai.modules/machine_learning.json"
-    }
-  ]
+  "$schema": "https://raw.githubusercontent.com/AIQIA/corex-ai-mindlayer/main/vscode-extension/src/schemas/ai.schema.json",
+  "_meta": {
+    "version": "1.0.0",
+    "last_updated": "2026-06-17"
+  },
+  "project": {
+    "name": "coreX AI MindLayer",
+    "description": "The official configuration for the AIM project itself",
+    "version": "4.0.0",
+    "tech_stack": ["Node.js", "TypeScript", "VS Code Extension API"]
+  },
+  "red_lines": [
+    "Never compromise on context reduction",
+    "Keep the core lightweight and modular",
+    "No auto-writing without user consent"
+  ],
+  "workflow": {
+    "development": "Use F5 in VS Code to test the extension",
+    "distribution": "Use npm run package to create VSIX"
+  },
+  "architecture": {
+    "core": "Logic for validation and scanning",
+    "commands": "User-facing actions",
+    "views": "UI components (Tree View)"
+  },
+  "reference_docs": [
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md"
+  ],
+  "user_preferences": {
+    "language": "de",
+    "communication_style": "technisch",
+    "technical_depth": "detailliert"
+  }
 }

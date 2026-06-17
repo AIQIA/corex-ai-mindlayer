@@ -10,6 +10,7 @@ const validateWorkspace_1 = require("./commands/validateWorkspace");
 const copyContext_1 = require("./commands/copyContext");
 const installAgentAnchors_1 = require("./commands/installAgentAnchors");
 const prepareAiOnboarding_1 = require("./commands/prepareAiOnboarding");
+const addDetailsFile_1 = require("./commands/addDetailsFile");
 const mindLayerTree_1 = require("./views/mindLayerTree");
 /**
  * coreX AI MindLayer (AIM) - Haupt-Einstiegspunkt
@@ -32,6 +33,7 @@ function activate(context) {
         vscode.commands.registerCommand('aiMindLayer.copyContext', () => (0, copyContext_1.copyContext)()),
         vscode.commands.registerCommand('aiMindLayer.installAnchors', () => (0, installAgentAnchors_1.installAgentAnchors)()),
         vscode.commands.registerCommand('aiMindLayer.prepareOnboarding', () => (0, prepareAiOnboarding_1.prepareAiOnboarding)()),
+        vscode.commands.registerCommand('aiMindLayer.addDetails', () => (0, addDetailsFile_1.addDetailsFile)()),
         // Fallback/Legacy Mapping (optional zur Erhaltung der Kompatibilität mit alten Menüs)
         vscode.commands.registerCommand('aiMindLayer.validateSchema', () => (0, validateWorkspace_1.validateWorkspace)(schemaValidator, referenceValidator, secretScanner))
     ];

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 
 export async function initializeProject() {
     const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -22,7 +23,7 @@ export async function initializeProject() {
     }
 
     const template = {
-        "$schema": "./vscode-extension/src/schemas/ai.schema.json",
+        "$schema": "https://raw.githubusercontent.com/AIQIA/corex-ai-mindlayer/main/vscode-extension/src/schemas/ai.schema.json",
         "_meta": {
             "version": "1.0.0",
             "last_updated": new Date().toISOString().split('T')[0]
@@ -30,6 +31,7 @@ export async function initializeProject() {
         "project": {
             "name": path.basename(rootUri.fsPath),
             "description": "Minimal AI MindLayer configuration",
+            "version": "1.0.0",
             "tech_stack": []
         },
         "red_lines": [
@@ -40,7 +42,12 @@ export async function initializeProject() {
         "architecture": {},
         "reference_docs": [
             "README.md"
-        ]
+        ],
+        "user_preferences": {
+            "language": "de",
+            "communication_style": "technisch",
+            "technical_depth": "detailliert"
+        }
     };
 
     await vscode.workspace.fs.writeFile(
@@ -48,7 +55,12 @@ export async function initializeProject() {
         Buffer.from(JSON.stringify(template, null, 2), 'utf8')
     );
 
-    vscode.window.showInformationMessage('✅ AI MindLayer initialized with .ai.json');
-}
+    // Erstelle auch die .ai.json.example Datei im Root des Projekts als Referenz
+    const aiJsonExampleUri = vscode.Uri.joinPath(rootUri, '.ai.json.example');
+    await vscode.workspace.fs.writeFile(
+        aiJsonExampleUri,
+        Buffer.from(JSON.stringify(template, null, 2), 'utf8')
+    );
 
-import * as path from 'path';
+    vscode.window.showInformationMessage('✅ AI MindLayer initialized with .ai.json and .ai.json.example');
+}
