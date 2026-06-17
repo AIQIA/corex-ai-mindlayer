@@ -4,6 +4,37 @@ Alle Änderungen, Verbesserungen und Erweiterungen dieses Repos – dokumentiert
 
 ---
 
+## [4.0.0] - 2026-06-17
+
+### "Compass, not Chronicle" - Major Reset & Revision
+
+Dieser Release markiert einen vollständigen technologischen und konzeptionellen Neustart der Extension. Ziel ist maximale Leichtigkeit, radikale Reduktion des AI-Kontexts und proaktive Steuerung von AI-Agenten.
+
+#### 🏗️ Neue Architektur & Modularisierung
+- **Tabula Rasa**: Komplette Überarbeitung des Source-Codes. Weg von monolithischen Dateien hin zu testbaren Modulen (`src/core`, `src/commands`, `src/views`).
+- **Semantic Project Compass**: Einführung einer semantischen Tree View in der VS Code Activity Bar. Fokus auf Projektidentität, Red Lines, Architektur und Feature-Areas aus dem Index.
+- **Moderner Stack**: Optimierte TypeScript-Konfiguration und AJV-basierte Validierung.
+
+#### 🛡️ Validierung & Sicherheit (Phase 2 & 3)
+- **Deep Validation**: Automatisches Scanning von AIM-Dateien gegen neue, strikte JSON-Schemas.
+- **Reference Check**: Erkennt "Dead References" (verlinkte Dateien, die nicht existieren) sofort.
+- **Secret Scanner**: Integrierte Heuristik zur Warnung vor API-Keys oder Passwörtern in Projekt-Gedächtnis-Dateien.
+- **Live Diagnostics**: Fehler und Warnungen werden direkt im VS Code Editor markiert.
+
+#### 🤖 AI-Centric Setup (Phase 4 & 5)
+- **Multi-Agent Detection**: Intelligente Installation von Anker-Dateien für Claude (`CLAUDE.md`), Copilot, Cursor und allgemeine Agents via QuickPick.
+- **Smart Onboarding**: Neuer Befehl `AIM: Prepare AI Onboarding Briefing`. Kopiert eine proaktive "Mission" für KIs, die diese dazu anweist, das Projekt eigenständig zu scannen und den User zu interviewen.
+- **Agent Guidance**: Verschärfte Instruktionen in den Anker-Templates zwingen KIs zur proaktiven Pflege des MindLayers.
+
+#### 🧩 Quality of Life
+- **Smart Diagnostics**: Verbesserte Fehlerlokalisierung (Range Detection) in AIM-Dateien.
+- **Modulare Erweiterung**: Neuer Befehl `AIM: Add Feature Details File` für schnelles Hinzufügen von Wissens-Modulen.
+- **Neue Snippets**: `ai-root`, `ai-index` und `ai-details` Templates für das neue, modulare Datenmodell.
+- **Reduziertes UI**: Entfernung unbenutzter Webviews und redundanter Commands zur Verbesserung der Performance.
+- **Statusbar-Integration**: Schneller Zugriff auf den Validierungs-Status.
+
+---
+
 ## [3.8.5] - 2025-07-20
 
 ### Verbesserungen

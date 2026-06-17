@@ -1,8 +1,8 @@
 {
   "name": "corex-ai-mindlayer",
   "displayName": "coreX AI MindLayer",
-  "description": "Automated AI project initialization and management with direct Copilot integration",
-  "version": "3.8.4",
+  "description": "Minimal Project Memory Layer for AI-assisted development - Compass, not Chronicle.",
+  "version": "4.0.0",
   "publisher": "aiqia",
   "engines": {
     "vscode": "^1.74.0"
@@ -10,123 +10,99 @@
   "categories": [
     "Other",
     "Snippets",
-    "Formatters",
     "Programming Languages",
     "Machine Learning"
   ],
   "activationEvents": [
-    "onCommand:corex-ai.initializeProject",
-    "onCommand:corex-ai.analyzeProject",
-    "workspaceContains:install.ai.json",
-    "onLanguage:json",
-    "workspaceContains:.ai.json",
-    "workspaceContains:.ai.json.example"
+    "workspaceContains:.ai.json"
   ],
-  "extensionKind": ["workspace"],
-  "extensionDependencies": [],
-  "uninstall": {
-    "command": "aiMindLayer.cleanup"
-  },
+  "extensionKind": [
+    "workspace"
+  ],
   "keywords": [
     "ai",
-    "json",
-    "project-structure",
-    "documentation",
-    "copilot",
-    "assistant"
+    "mindlayer",
+    "context",
+    "project-memory",
+    "assistant",
+    "copilot"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiMindLayer",
+          "title": "AI MindLayer",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "aiMindLayer": [
+        {
+          "id": "aiMindLayerExplorer",
+          "name": "Project Compass"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "aiMindLayer.checkForUpdates",
-        "title": "🔄 Check for Updates",
+        "command": "aiMindLayer.initialize",
+        "title": "AIM: Initialize Project",
         "category": "AI MindLayer"
       },
       {
-        "command": "aiMindLayer.createAiJson",
-        "title": "Create .ai.json",
+        "command": "aiMindLayer.validateWorkspace",
+        "title": "AIM: Validate Workspace",
         "category": "AI MindLayer"
       },
       {
-        "command": "aiMindLayer.validateSchema",
-        "title": "Validate .ai.json",
+        "command": "aiMindLayer.copyContext",
+        "title": "AIM: Copy Context for AI",
         "category": "AI MindLayer"
       },
       {
-        "command": "aiMindLayer.runScanner",
-        "title": "Run Intelligent Scanner",
+        "command": "aiMindLayer.installAnchors",
+        "title": "AIM: Install Agent Anchors",
         "category": "AI MindLayer"
       },
       {
-        "command": "aiMindLayer.architecturePreview",
-        "title": "🏗️ Architecture Preview",
+        "command": "aiMindLayer.prepareOnboarding",
+        "title": "AIM: Prepare AI Onboarding Briefing",
         "category": "AI MindLayer"
       },
       {
-        "command": "aiMindLayer.openTreeExplorer",
-        "title": "🌳 Open Tree Explorer",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.enableIntelliSense",
-        "title": "🧠 Enable AI IntelliSense",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.showMindMap",
-        "title": "🧠 Show Mind Map",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.generateDocs",
-        "title": "🤖 Generate AI Docs",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.compareDiff",
-        "title": "📊 Compare Diff",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.runAutoSync",
-        "title": "🔄 Run Auto-Sync",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.updateFromPackage",
-        "title": "📦 Update from Package Manager",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.scanDockerConfig",
-        "title": "🐳 Scan Docker Configuration",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.editUserPreferences",
-        "title": "👤 Edit User Preferences",
-        "category": "AI MindLayer"
-      },
-      {
-        "command": "aiMindLayer.manageResearch",
-        "title": "🧪 Research & Prototypes",
+        "command": "aiMindLayer.addDetails",
+        "title": "AIM: Add Feature Details File",
         "category": "AI MindLayer"
       }
     ],
     "menus": {
-      "explorer/context": [
+      "commandPalette": [
         {
-          "when": "explorerResourceIsFolder",
-          "command": "aiMindLayer.createAiJson",
-          "group": "aiMindLayer"
-        }
-      ],
-      "editor/context": [
+          "command": "aiMindLayer.initialize",
+          "when": "!exists:.ai.json"
+        },
         {
-          "when": "resourceExtname == .ai.json",
-          "command": "aiMindLayer.validateSchema",
-          "group": "aiMindLayer"
+          "command": "aiMindLayer.validateWorkspace",
+          "when": "exists:.ai.json"
+        },
+        {
+          "command": "aiMindLayer.copyContext",
+          "when": "exists:.ai.json"
+        },
+        {
+          "command": "aiMindLayer.installAnchors",
+          "when": "exists:.ai.json"
+        },
+        {
+          "command": "aiMindLayer.prepareOnboarding",
+          "when": "exists:.ai.json"
+        },
+        {
+          "command": "aiMindLayer.addDetails",
+          "when": "exists:.ai.json"
         }
       ]
     },
@@ -136,16 +112,10 @@
         "aiMindLayer.autoValidate": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically validate .ai.json files on save"
+          "description": "Automatically validate AIM files on save"
         }
       }
-    },
-    "snippets": [
-      {
-        "language": "json",
-        "path": "./snippets/ai-json-snippets.json"
-      }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -160,26 +130,15 @@
   "devDependencies": {
     "@types/vscode": "^1.74.0",
     "@types/node": "^16.18.0",
-    "@types/semver": "^7.5.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "typescript": "^4.9.4",
     "@vscode/test-electron": "^2.2.0",
-    "@vscode/vsce": "^2.15.0",
-    "ajv-cli": "^5.0.0"
+    "@vscode/vsce": "^2.15.0"
   },
   "dependencies": {
-    "ajv": "^8.12.0",
-    "semver": "^7.5.4"
+    "ajv": "^8.12.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AIQIA/corex-ai-mindlayer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/AIQIA/corex-ai-mindlayer/issues"
-  },
-  "homepage": "https://github.com/AIQIA/corex-ai-mindlayer#readme",
   "license": "MIT"
 }

@@ -1,93 +1,32 @@
-# VS Code Extension für coreX AI MindLayer
+# coreX AI MindLayer (AIM)
 
-## 🚀 Features
+AI MindLayer is a lightweight project memory layer for AI-assisted development. It provides a structured way to manage project context, rules, and architecture, ensuring that AI assistants like GitHub Copilot or Claude always have the right information at hand without being overwhelmed by noise.
 
-- **Intelligent .ai.json Editor** mit Auto-Complete und Validierung
-- **Live Architecture Preview** - Visualisierung der Projektstruktur
-- **Schema Validation** - Echtzeit-Validierung gegen JSON Schema
-- **Quick Actions** - Schnelles Hinzufügen von Modulen, Fehlern, Tasks
-- **Smart Snippets** - Vorgefertigte Templates für alle Bereiche
-- **Integration mit AI Scanner** - Direkter Aufruf von ai-init.php
+**Compass, not Chronicle.**
 
-## 📦 Installation
+## Key Features
 
-### Aus Source kompilieren:
+- 🏗️ **Project Compass**: A semantic view of your project's identity, red lines, and architecture.
+- 🟥 **Red Lines**: Define strict boundaries and rules that AI assistants must follow.
+- 🧩 **Modular Context**: Keep the root context small and load feature-specific details only when needed.
+- 🛡️ **Health Check**: Automatic validation of AIM files, including schema checks, dead reference detection, and secret scanning.
+- 📋 **Context Export**: Easily copy formatted project context for use in AI chat interfaces.
+- ⚓ **Agent Anchors**: Seamlessly integrate AIM references into `AGENTS.md` or `CLAUDE.md`.
 
-```bash
-cd vscode-extension
-npm install
-npm run compile
-npm run package
-```
+## Getting Started
 
-### Installation der .vsix Datei:
+1. Install the extension.
+2. Open a project.
+3. Run the command `AIM: Initialize Project` to create your `.ai.json`.
+4. Define your project's `red_lines` and `architecture`.
+5. Use the **Project Compass** in the Activity Bar to explore your AI memory.
 
-```bash
-code --install-extension corex-ai-mindlayer-3.4.1.vsix
-```
+## File Ecosystem
 
-## 🎯 Verwendung
+- `.ai.json`: The root compass of your project.
+- `.ai.features.index.json`: A map of feature areas and their detail files.
+- `.ai.features.*.details.json`: Deep-dive information for specific modules.
 
-1. **Öffne ein Projekt** mit .ai.json Datei
-2. **Sidebar** zeigt automatisch AI MindLayer Explorer
-3. **Command Palette** (Ctrl+Shift+P) → "AI MindLayer"
-4. **Rechtsklick** in .ai.json → Context-Menü mit AI-Aktionen
+## License
 
-### Befehle:
-
-- `AI MindLayer: Create .ai.json` - Neue .ai.json erstellen
-- `AI MindLayer: Add Module` - Architektur-Modul hinzufügen
-- `AI MindLayer: Add Error` - Fehler-Pattern hinzufügen
-- `AI MindLayer: Add Task` - Task hinzufügen
-- `AI MindLayer: Preview Architecture` - Architektur-Übersicht öffnen
-- `AI MindLayer: Run Scanner` - Intelligenten Scanner ausführen
-- `AI MindLayer: Validate Schema` - JSON Schema validieren
-
-### Snippets:
-
-- `ai-json` - Komplette .ai.json Template
-- `ai-module` - Architektur-Modul
-- `ai-error` - Fehler-Pattern
-- `ai-task` - Task-Item
-- `ai-context` - Kontext-Eintrag
-- `ai-reference` - Referenz
-
-## ⚙️ Konfiguration
-
-```json
-{
-  "aiMindLayer.autoValidate": true,
-  "aiMindLayer.showArchitecturePreview": true,
-  "aiMindLayer.enableIntelliSense": true,
-  "aiMindLayer.scannerAutoRun": false
-}
-```
-
-## 🔗 Integration
-
-Die Extension integriert sich nahtlos mit:
-
-- **GitHub Copilot** - Besserer Kontext durch .ai.json
-- **ChatGPT** - Projektverständnis durch strukturierte Daten
-- **Other AI Tools** - Standard-konforme JSON-Struktur
-
-## 📈 Development
-
-```bash
-# Development Mode
-npm run watch
-
-# Testing
-npm run test
-
-# Packaging
-npm run package
-
-# Publishing
-npm run publish
-```
-
----
-
-**🤖 Part of the coreX AI MindLayer ecosystem**  
-https://github.com/AIQIA/corex-ai-mindlayer
+MIT - Created by AIQIA / coreX

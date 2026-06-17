@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "coreX AI MindLayer - Root Compass",
+  "type": "object",
+  "required": ["project", "red_lines"],
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string" },
+        "last_updated": { "type": "string", "format": "date" }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "tech_stack": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "red_lines": {
+      "type": "array",
+      "description": "Critical boundaries and rules for AI assistants",
+      "items": { "type": "string" }
+    },
+    "workflow": {
+      "type": "object",
+      "description": "Standard procedures for development"
+    },
+    "architecture": {
+      "type": "object",
+      "description": "High-level architecture overview"
+    },
+    "reference_docs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

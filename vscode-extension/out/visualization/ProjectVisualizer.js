@@ -1,42 +1,33 @@
-import * as vscode from 'vscode';
-import * as path from 'path';
-
-export class ProjectVisualizer {
-    private static instance: ProjectVisualizer;
-    private panel: vscode.WebviewPanel | undefined;
-    private currentView: 'mindmap' | 'tree' | 'integrated' = 'integrated';
-
-    private constructor() {}
-
-    private getStylePath(): string {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProjectVisualizer = void 0;
+const vscode = require("vscode");
+const path = require("path");
+class ProjectVisualizer {
+    constructor() {
+        this.currentView = 'integrated';
+    }
+    getStylePath() {
         return path.join(__dirname, 'styles', 'visualizer.css');
     }
-
-    public static getInstance(): ProjectVisualizer {
+    static getInstance() {
         if (!ProjectVisualizer.instance) {
             ProjectVisualizer.instance = new ProjectVisualizer();
         }
         return ProjectVisualizer.instance;
     }
-
-    public async show(aiJsonContent: any) {
+    async show(aiJsonContent) {
         if (this.panel) {
             this.panel.reveal();
-        } else {
-            this.panel = vscode.window.createWebviewPanel(
-                'projectVisualizer',
-                'AIM Project Visualizer',
-                vscode.ViewColumn.One,
-                {
-                    enableScripts: true,
-                    retainContextWhenHidden: true
-                }
-            );
-
+        }
+        else {
+            this.panel = vscode.window.createWebviewPanel('projectVisualizer', 'AIM Project Visualizer', vscode.ViewColumn.One, {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            });
             this.panel.onDidDispose(() => {
                 this.panel = undefined;
             });
-
             this.panel.webview.onDidReceiveMessage(async (message) => {
                 switch (message.command) {
                     case 'switchView':
@@ -49,19 +40,16 @@ export class ProjectVisualizer {
                 }
             });
         }
-
         await this.updateView(aiJsonContent);
     }
-
-    private async updateView(aiJsonContent: any) {
-        if (!this.panel) return;
-
+    async updateView(aiJsonContent) {
+        if (!this.panel)
+            return;
         this.panel.webview.html = this.generateVisualizerHtml(aiJsonContent);
     }
-
-    private generateVisualizerHtml(aiData: any): string {
-        if (!this.panel) return '';
-        
+    generateVisualizerHtml(aiData) {
+        if (!this.panel)
+            return '';
         return `
             <!DOCTYPE html>
             <html>
@@ -112,15 +100,12 @@ export class ProjectVisualizer {
             </html>
         `;
     }
-
-    private generateMindMapNodes(aiData: any): string {
-        if (!aiData) return '';
-        
+    generateMindMapNodes(aiData) {
+        if (!aiData)
+            return '';
         let html = '<div class="mindmap-container">';
-        
         // Root node
         html += `<div class="node root">${aiData.name || 'Project'}</div>`;
-        
         // Generate nodes for each major section
         for (const [key, value] of Object.entries(aiData)) {
             if (typeof value === 'object' && value !== null) {
@@ -132,16 +117,13 @@ export class ProjectVisualizer {
                 `;
             }
         }
-        
         html += '</div>';
         return html;
     }
-
-    private generateSubNodes(data: any): string {
-        if (typeof data !== 'object' || data === null) return '';
-        
+    generateSubNodes(data) {
+        if (typeof data !== 'object' || data === null)
+            return '';
         let html = '';
-        
         for (const [key, value] of Object.entries(data)) {
             if (typeof value === 'object' && value !== null) {
                 html += `
@@ -152,23 +134,18 @@ export class ProjectVisualizer {
                 `;
             }
         }
-        
         return html;
     }
-
-    private generateTreeView(aiData: any): string {
-        if (!aiData) return '';
-        
+    generateTreeView(aiData) {
+        if (!aiData)
+            return '';
         return this.generateTreeNode(aiData, 0);
     }
-
-    private generateTreeNode(data: any, level: number): string {
+    generateTreeNode(data, level) {
         if (typeof data !== 'object' || data === null) {
             return `<div class="tree-item" style="margin-left: ${level * 20}px;">${data}</div>`;
         }
-        
         let html = '';
-        
         for (const [key, value] of Object.entries(data)) {
             html += `
                 <div class="tree-item" style="margin-left: ${level * 20}px;">
@@ -177,23 +154,22 @@ export class ProjectVisualizer {
                 </div>
             `;
         }
-        
         return html;
     }
-
-    private async exportCurrentView() {
-        if (!this.panel) return;
-
+    async exportCurrentView() {
+        if (!this.panel)
+            return;
         const exportPath = await vscode.window.showSaveDialog({
             filters: {
                 'HTML': ['html'],
                 'SVG': ['svg']
             }
         });
-
         if (exportPath) {
             // Implementation für Export
             vscode.window.showInformationMessage('View exported successfully!');
         }
     }
 }
+exports.ProjectVisualizer = ProjectVisualizer;
+//# sourceMappingURL=ProjectVisualizer.js.map
